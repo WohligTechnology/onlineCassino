@@ -1,0 +1,85 @@
+{
+    "title": "Create Player",
+    "name": "Player",
+    "jsonPage": "viewPlayer",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["Player"],
+    "fields": [{
+        "name": "Player No",
+        "type": "text",
+        "tableRef": "playerNo",
+        "placeholder": "Enter playerNo",
+        "id": "playerNo",
+        "validation": ["required", "trim", "unique"],
+        "url": ""
+    },  {
+        "name": "Password",
+        "type": "password",
+        "tableRef": "password",
+        "placeholder": "Enter password",
+        "id": "password",
+        "validation": ["", "trim"],
+        "url": ""
+    }, {
+        "name": "Dealer Status",
+        "type": "tags",
+        "tableRef": "dealer",
+        "placeholder": "Enter Dealer Status",
+        "id": "dealer",
+        "validation": ["", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Yes", "No"]
+    }, {
+        "name": "status",
+        "type": "tags",
+        "tableRef": "status",
+        "placeholder": "Enter Status",
+        "id": "status",
+        "validation": ["required", "trim", ""],
+        "url": "",
+        "dropDownField": "",
+        "dropDownType": "single",
+        "onView": true,
+        "dropDown": ["Fold", "Play", "Paid"]
+    }, 
+    {
+    "name": "Cards",
+    "type": "tags",
+    "tableRef": "cards",
+    "placeholder": "Select Cards",
+    "id": "cards",
+    "searchApi": "searchCall",
+    "fieldType": "",
+    "url": "Card/search",
+    "dropDownField": "name",
+    "view": true,
+    "dropDownType": "multiple",
+    "validation": ["required", "", "trim"]
+    }],
+    "action": [{
+        "name": "submit",
+        "action": "submitPlayer",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewPlayer"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewPlayer"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "Player/save"
+    }
+}

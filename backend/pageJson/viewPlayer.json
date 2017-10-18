@@ -1,0 +1,70 @@
+{
+    "title": "Player",
+    "description": "List of Players",
+    "pageType": "view",
+    "sendIdWithCreate": true,
+    "urlFields": ["_id"],
+    "fields": [{
+        "name": "Player No",
+        "isSort": "",
+        "tableRef": "playerNo"
+    }, {
+        "name": "Status",
+        "isSort": "",
+        "tableRef": "status"
+    },{
+        "name": "Dealer Status",
+        "isSort": "",
+        
+        "tableRef": "dealer"
+    }
+   
+    ],
+    "action": [{
+        "name": "edit",
+        "icon": "fa-pencil",
+        "buttonClass": "btn-primary",
+        "type": "page",
+        "action": "editPlayer",
+        "fieldsToSend": {
+            "_id": "_id"
+        }
+    }, {
+        "name": "delete",
+        "icon": "fa-trash",
+        "buttonClass": "btn-danger",
+        "type": "apiCallConfirm",
+        "title": "Delete Player",
+        "content": "Are you sure you want to delete Player?",
+        "api": "Player/delete",
+        "fieldsToSend": {
+            "name": "_id",
+            "value": "_id"
+        }
+    }],
+    "button": [{
+        "name": "Excel Export",
+        "icon": "print",
+        "class": "btn-danger",
+        "type": "redirect",
+        "action": "Player/generateExcel",
+        "linkType": "admin"
+    }, {
+        "name": "Upload Excel",
+        "icon": "delete",
+        "class": "btn-warning",
+        "type": "redirect",
+        "action": "excel-upload/Player",
+        "linkType": "internal"
+    }, {
+        "name": "Create",
+        "icon": "plus",
+        "class": "btn-success",
+        "type": "page",
+        "action": "createPlayer"
+    }],
+    "apiCall": {
+        "url": "Player/search",
+        "params": "_id"
+    }
+}

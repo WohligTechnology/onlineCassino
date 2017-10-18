@@ -1,0 +1,32 @@
+<div class="container">
+    <a class="btn btn-default" ng-click="buttonClick()">Demo Button</a>
+    <flex-slider flex-slide="s in mySlides" prev-text="" next-text="">
+        <li>
+            <img ng-src="{{s}}" class="img-full">
+        </li>
+    </flex-slider>
+    <swiper autoplay="5000" effect="slide" slides-per-view="1" loop="true">
+        <slides>
+            <slide ng-repeat="s in mySlides">
+                <img ng-src="{{s}}" class="img-full" noloading="true">
+            </slide>
+        </slides>
+        <prev></prev>
+        <next></next>
+        <pagination></pagination>
+    </swiper>
+    <div class="row">
+        <div class="col-md-2" ng-repeat="s in mySlides">
+            <a ng-href="{{s}}" data-fancybox="group" rel="gallary" fancybox>
+                <img ng-src="{{s}}" class="img-full">
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a class="various" data-fancybox="group" rel="gallary" href="http://www.youtube.com/embed/L9szn1QQfas?autoplay=1" fancybox><img ng-src="http://img.youtube.com/vi/L9szn1QQfas/maxresdefault.jpg" class="img-full"></a>
+        </div>
+        <div class="col-md-2">
+            <a class="various" data-fancybox="group" rel="gallary" href="https://vimeo.com/191947042" class="img-full"></a>
+        </div>
+    </div>
+
+</div>

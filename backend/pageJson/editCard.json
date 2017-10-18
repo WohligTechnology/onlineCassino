@@ -1,0 +1,53 @@
+{
+    "title": "Edit Card",
+    "name": "Card",
+    "jsonPage": "viewCard",
+    "desciption": "",
+    "pageType": "edit",
+    "urlFields": ["_id"],
+    "fields": [{
+        "name": "RFID No",
+        "type": "text",
+        "tableRef": "rfidNo",
+        "placeholder": "Enter RFID No",
+        "id": "rfidNo",
+        "validation": ["required", "trim", "unique"],
+        "url": ""
+    }, {
+        "name": "name",
+        "type": "text",
+        "tableRef": "name",
+        "placeholder": "Enter Card",
+        "id": "name",
+        "validation": ["required", "trim" ],
+        "url": ""
+    } ],
+    "action": [{
+        "name": "submit",
+        "action": "submitCard",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCard"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewCard"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "Card/save",
+        "params": "_id"
+    },
+    "preApi": {
+        "url": "Card/getOne",
+        "params": "_id"
+    }
+
+}

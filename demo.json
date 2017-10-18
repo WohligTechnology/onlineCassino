@@ -1,0 +1,436 @@
+{
+  "functions": [
+    {
+      "name": "getTushar",
+      "param": null,
+      "line": 3,
+      "character": 26,
+      "last": 5,
+      "lastcharacter": 6,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 0,
+        "statements": 0
+      }
+    },
+    {
+      "name": "loginFacebook",
+      "param": [
+        "req",
+        "res"
+      ],
+      "line": 6,
+      "character": 30,
+      "last": 11,
+      "lastcharacter": 6,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 2,
+        "statements": 1
+      }
+    },
+    {
+      "name": "loginGoogle",
+      "param": [
+        "req",
+        "res"
+      ],
+      "line": 13,
+      "character": 28,
+      "last": 24,
+      "lastcharacter": 6,
+      "metrics": {
+        "complexity": 2,
+        "parameters": 2,
+        "statements": 3
+      }
+    },
+    {
+      "name": "profile",
+      "param": [
+        "req",
+        "res"
+      ],
+      "line": 25,
+      "character": 24,
+      "last": 31,
+      "lastcharacter": 6,
+      "metrics": {
+        "complexity": 2,
+        "parameters": 2,
+        "statements": 3
+      }
+    },
+    {
+      "name": "pdf",
+      "param": [
+        "req",
+        "res"
+      ],
+      "line": 32,
+      "character": 20,
+      "last": 51,
+      "lastcharacter": 6,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 2,
+        "statements": 7
+      }
+    },
+    {
+      "name": "(empty)",
+      "param": null,
+      "line": 43,
+      "character": 44,
+      "last": 47,
+      "lastcharacter": 10,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 0,
+        "statements": 1
+      }
+    },
+    {
+      "name": "(empty)",
+      "param": [
+        "err",
+        "stream"
+      ],
+      "line": 48,
+      "character": 45,
+      "last": 50,
+      "lastcharacter": 10,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 2,
+        "statements": 1
+      }
+    },
+    {
+      "name": "backupDatabase",
+      "param": [
+        "req",
+        "res"
+      ],
+      "line": 52,
+      "character": 31,
+      "last": 95,
+      "lastcharacter": 6,
+      "metrics": {
+        "complexity": 3,
+        "parameters": 2,
+        "statements": 17
+      }
+    },
+    {
+      "name": "(empty)",
+      "param": [
+        "n"
+      ],
+      "line": 57,
+      "character": 35,
+      "last": 60,
+      "lastcharacter": 14,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 1,
+        "statements": 2
+      }
+    },
+    {
+      "name": "(empty)",
+      "param": [
+        "err",
+        "stdout",
+        "stderr"
+      ],
+      "line": 59,
+      "character": 69,
+      "last": 59,
+      "lastcharacter": 92,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 3,
+        "statements": 0
+      }
+    },
+    {
+      "name": "(empty)",
+      "param": [
+        "Model",
+        "key"
+      ],
+      "line": 61,
+      "character": 57,
+      "last": 67,
+      "lastcharacter": 14,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 2,
+        "statements": 2
+      }
+    },
+    {
+      "name": "(empty)",
+      "param": [
+        "obj",
+        "callback"
+      ],
+      "line": 84,
+      "character": 46,
+      "last": 89,
+      "lastcharacter": 14,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 2,
+        "statements": 1
+      }
+    },
+    {
+      "name": "(empty)",
+      "param": [
+        "data1",
+        "data2",
+        "data3"
+      ],
+      "line": 85,
+      "character": 146,
+      "last": 88,
+      "lastcharacter": 18,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 3,
+        "statements": 2
+      }
+    },
+    {
+      "name": "(empty)",
+      "param": null,
+      "line": 89,
+      "character": 26,
+      "last": 91,
+      "lastcharacter": 14,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 0,
+        "statements": 0
+      }
+    },
+    {
+      "name": "getAllMedia",
+      "param": [
+        "req",
+        "res"
+      ],
+      "line": 96,
+      "character": 28,
+      "last": 98,
+      "lastcharacter": 6,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 2,
+        "statements": 1
+      }
+    },
+    {
+      "name": "sendmail",
+      "param": [
+        "req",
+        "res"
+      ],
+      "line": 99,
+      "character": 25,
+      "last": 101,
+      "lastcharacter": 6,
+      "metrics": {
+        "complexity": 1,
+        "parameters": 2,
+        "statements": 1
+      }
+    }
+  ],
+  "options": {
+    "undef": false,
+    "maxdepth": 1,
+    "indent": 4,
+    "maxerr": 50
+  },
+  "errors": [
+    {
+      "id": "(error)",
+      "raw": "Blocks are nested too deeply. ({a})",
+      "code": "W073",
+      "evidence": "            if (!isBackup) {",
+      "line": 77,
+      "character": 28,
+      "scope": "(main)",
+      "a": 2,
+      "reason": "Blocks are nested too deeply. (2)"
+    }
+  ],
+  "implieds": [
+    {
+      "name": "module",
+      "line": [
+        1,
+        104,
+        104
+      ]
+    },
+    {
+      "name": "_",
+      "line": [
+        1,
+        57,
+        61,
+        104
+      ]
+    },
+    {
+      "name": "require",
+      "line": [
+        1
+      ]
+    },
+    {
+      "name": "passport",
+      "line": [
+        7,
+        20
+      ]
+    },
+    {
+      "name": "User",
+      "line": [
+        27
+      ]
+    },
+    {
+      "name": "fs",
+      "line": [
+        34,
+        76,
+        78,
+        83
+      ]
+    },
+    {
+      "name": "mongoose",
+      "line": [
+        38,
+        61
+      ]
+    },
+    {
+      "name": "gfs",
+      "line": [
+        40
+      ]
+    },
+    {
+      "name": "pdf",
+      "line": [
+        48
+      ]
+    },
+    {
+      "name": "moment",
+      "line": [
+        58,
+        80
+      ]
+    },
+    {
+      "name": "exec",
+      "line": [
+        59,
+        85
+      ]
+    },
+    {
+      "name": "async",
+      "line": [
+        84
+      ]
+    },
+    {
+      "name": "database",
+      "line": [
+        85
+      ]
+    },
+    {
+      "name": "Media",
+      "line": [
+        97
+      ]
+    },
+    {
+      "name": "Config",
+      "line": [
+        100
+      ]
+    }
+  ],
+  "globals": [
+    "controller"
+  ],
+  "unused": [
+    {
+      "name": "options",
+      "line": 35,
+      "character": 13
+    }
+  ],
+  "member": {
+    "exports": 3,
+    "cloneDeep": 1,
+    "getTushar": 1,
+    "authenticate": 2,
+    "scope": 2,
+    "failureRedirect": 2,
+    "socialLogin": 2,
+    "loginFacebook": 1,
+    "query": 2,
+    "returnUrl": 3,
+    "session": 1,
+    "loginGoogle": 1,
+    "body": 4,
+    "accessToken": 1,
+    "profile": 2,
+    "callback": 5,
+    "readFileSync": 1,
+    "format": 3,
+    "Types": 1,
+    "ObjectId": 1,
+    "createWriteStream": 1,
+    "filename": 1,
+    "on": 1,
+    "name": 7,
+    "create": 1,
+    "toStream": 1,
+    "pipe": 1,
+    "pdf": 1,
+    "connection": 2,
+    "setTimeout": 2,
+    "host": 1,
+    "search": 1,
+    "times": 1,
+    "subtract": 1,
+    "map": 1,
+    "models": 1,
+    "collection": 1,
+    "collectionName": 1,
+    "key": 4,
+    "json": 1,
+    "push": 2,
+    "existsSync": 1,
+    "mkdirSync": 2,
+    "eachSeries": 1,
+    "backupDatabase": 1,
+    "getAllMedia": 2,
+    "sendEmail": 1,
+    "sendmail": 1,
+    "assign": 1
+  }
+}
