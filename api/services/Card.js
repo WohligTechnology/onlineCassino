@@ -31,14 +31,22 @@ var model = {
         cards.result = [];
 
         
-       
+        var i = 0;
         for( var s = 0; s < names.length; s++ ) {
             for( var n = 0; n < suits.length; n++ ) {
-                cards.result.push( names[s] + suits[n]);
+                var obj = {name: names[s] + suits[n], rfidNo: ++i};
+                Card.saveData(obj, function (err, data2) {
+                    if (err) {
+                        callback(err, data2);
+                    } else {
+                        data3 = data2.toObject();
+                        console.log(data3);
+                    }
+                });
             }
         }
-       console.log(cards);
-        callback(null,cards);
+       
+        callback(null,"Added Successfully");
     }
 };
 module.exports = _.assign(module.exports, exports, model);

@@ -106,7 +106,14 @@ getPlayers: function (callback){
     Player.find( { } ).deepPopulate("cards").exec(function (err, userData){
         var playerData ={};
         var finalHands = [] ;
-        var deckCards = ['5h', '6h', '7h', '8h', '4h'];
+        var deckCards = [];
+        DeckCard.find({}).exec(function(err, deckCardsData){
+              _.each(deckCardsData, function(value, key) {
+                   _.each(value.cards, function(value1, key1){
+                    deckCards.push(value1.name);  
+                });    
+            });
+        });
       //  console.log(userData);
        // var hand1 = Hand.solve(['Ad', 'As', 'Ac', 'Ah', '2d', '3c', 'Kd']);
         //console.log("hand1");
@@ -118,6 +125,7 @@ getPlayers: function (callback){
          _.forEach(value.cards, function(value, key){
             finalCards.push(value.name);     
          });
+
          _.forEach(deckCards, function(value, key){
             finalCards.push(value);     
          });

@@ -21,7 +21,13 @@ myApp.factory('NavigationService', function ($http) {
         classis: "active",
         sref: "#!/page/viewCard//",
         icon: "credit-card"
-    }];
+    },{
+        name: "Deck Cards",
+        classis: "active",
+        sref: "#!/page/viewDeckCard//",
+        icon: "credit-card"
+    }
+];
 
     return {
         getnav: function () {

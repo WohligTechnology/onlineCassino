@@ -1,0 +1,44 @@
+{
+    "title": "Create DeckCard",
+    "name": "DeckCard",
+    "jsonPage": "viewDeckCard",
+    "desciption": "",
+    "pageType": "create",
+    "urlFields": ["DeckCard"],
+    "fields": [{
+        "name": "Cards",
+        "type": "tags",
+        "tableRef": "cards",
+        "placeholder": "Select Cards",
+        "id": "cards",
+        "searchApi": "searchCall",
+        "fieldType": "",
+        "url": "Card/search",
+        "dropDownField": "name",
+        "view": true,
+        "dropDownType": "multiple",
+        "validation": ["required", "", "trim"]
+        }],
+    "action": [{
+        "name": "submit",
+        "action": "submitDeckCard",
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewDeckCard"
+            }
+        }
+    }, {
+        "name": "cancel",
+        "sideMenuRedirect": true,
+        "stateName": {
+            "page": "page",
+            "json": {
+                "id": "viewDeckCard"
+            }
+        }
+    }],
+    "apiCall": {
+        "url": "DeckCard/save"
+    }
+}

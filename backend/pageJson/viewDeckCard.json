@@ -1,30 +1,22 @@
 {
-    "title": "Player",
-    "description": "List of Players",
+    "title": "Deck Cards",
+    "description": "List of Cards",
     "pageType": "view",
     "sendIdWithCreate": true,
     "urlFields": ["_id"],
     "fields": [{
-        "name": "Player No",
+        "name": "Deck Cards",
         "isSort": "",
-        "tableRef": "playerNo"
-    }, {
-        "name": "Status",
-        "isSort": "",
-        "tableRef": "status"
-    },{
-        "name": "Dealer Status",
-        "isSort": "",
-        "tableRef": "dealer"
-    }
-   
-    ],
+        "validation": [],
+        "tableRef": "cards",
+        "type":"deckCard"
+    }],
     "action": [{
         "name": "edit",
         "icon": "fa-pencil",
         "buttonClass": "btn-primary",
         "type": "page",
-        "action": "editPlayer",
+        "action": "editDeckCard",
         "fieldsToSend": {
             "_id": "_id"
         }
@@ -33,9 +25,9 @@
         "icon": "fa-trash",
         "buttonClass": "btn-danger",
         "type": "apiCallConfirm",
-        "title": "Delete Player",
-        "content": "Are you sure you want to delete Player?",
-        "api": "Player/delete",
+        "title": "Delete Card",
+        "content": "Are you sure you want to delete Card?",
+        "api": "DeckCard/delete",
         "fieldsToSend": {
             "name": "_id",
             "value": "_id"
@@ -44,26 +36,26 @@
     "button": [{
         "name": "Excel Export",
         "icon": "print",
-        "linkType": "admin",
         "class": "btn-danger",
         "type": "redirect",
-        "action": "Player/generateExcel"
+        "action": "DeckCard/generateExcel",
+        "linkType": "admin"
     }, {
         "name": "Upload Excel",
         "icon": "delete",
         "class": "btn-warning",
         "type": "redirect",
-        "action": "excel-upload/Player",
+        "action": "excel-upload/DeckCard",
         "linkType": "internal"
     }, {
         "name": "Create",
         "icon": "plus",
         "class": "btn-success",
         "type": "page",
-        "action": "createPlayer"
+        "action": "createDeckCard"
     }],
     "apiCall": {
-        "url": "Player/search",
+        "url": "DeckCard/search",
         "params": "_id"
     }
 }

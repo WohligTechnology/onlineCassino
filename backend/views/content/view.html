@@ -44,6 +44,10 @@
                                         <td ng-repeat="field in json.json.fields">
                                             <view-field type="field" value="item"></view-field>
                                         </td>
+                                        <!-- <td ng-repeat="field in json.json.fields" ng-if="field.deckcards == 'deckcards'">
+                                            
+                                                <view-field type="field" value="item.name"></view-field>
+                                            </td> -->
                                         <td ng-repeat="but in json.json.action">
                                             <a class="btn" ng-class="but.buttonClass" ng-click="json.eventAction(but,item) ">
                                                 <i class="fa" ng-class="but.icon"></i>{{but.name}}
