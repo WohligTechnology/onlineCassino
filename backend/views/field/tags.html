@@ -15,10 +15,13 @@
     </ui-select>
     <ui-select name="{{type.tableRef}}" ng-model="formData[type.tableRef]" theme="bootstrap" ng-required="type.required" ng-if="type.dropDownType == 'single'">
         <ui-select-match placeholder="{{type.placeholder}}">
+                
             <span ng-if="type.dropDownField==''">{{$select.selected}}</span>
             <span ng-if="type.dropDownField!=''">{{$select.selected[type.dropDownField]}}</span>
         </ui-select-match>
+        
         <ui-select-choices repeat="tag in tags[type.tableRef] | filter:$select.search" refresh-delay="0" refresh="refreshTags($select.search)">
+                      
             <span ng-if="type.dropDownField==''">{{tag}}</span>
             <span ng-if="type.dropDownField!=''">{{tag[type.dropDownField]}}</span>
         </ui-select-choices>

@@ -16,19 +16,23 @@ var schema = new Schema({
         unique: true,
        // excel: true,
     },
-    password: {
-        type: String,
-        default: ""
+    isTurn: {
+        type: Boolean,
+        default:false
     },
-    status: {
-        type: String,
-        default: 'Fold',
-        enum: ['Fold', 'Play', 'Paid']
+    isActive:{
+        type: Boolean,
+        default:false
+        
     },
-    dealer:{
-        type: String,
-        default: 'no',
-        enum: ['Yes', 'No']
+    isFold: {
+        type: Boolean,
+        default:false
+        
+    },
+    isDealer:{
+        type: Boolean,
+        default:false
     },
 
     cards: [{
