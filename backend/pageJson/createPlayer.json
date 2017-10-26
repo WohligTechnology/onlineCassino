@@ -11,7 +11,7 @@
         "tableRef": "playerNo",
         "placeholder": "Enter playerNo",
         "id": "playerNo",
-        "validation": ["required", "trim", "unique"],
+        "validation": ["", "trim", "unique"],
         "url": ""
     },  {
         "name": "Is Dealer?",
@@ -45,7 +45,7 @@
         "tableRef": "isFold",
         "placeholder": "Enter Fold Status",
         "id": "status",
-        "validation": ["required", "trim", ""],
+        "validation": ["", "trim", ""],
         "url": "",
         "dropDownField": "",
         "dropDownType": "single",
@@ -59,7 +59,7 @@
         "tableRef": "isActive",
         "placeholder": "Enter Active Status",
         "id": "status",
-        "validation": ["required", "trim", ""],
+        "validation": ["", "trim", ""],
         "url": "",
         "dropDownField": "",
         "dropDownType": "single",
@@ -79,7 +79,7 @@
     "dropDownField": "name",
     "view": true,
     "dropDownType": "multiple",
-    "validation": ["required", "", "trim"]
+    "validation": ["", "", "trim"]
     }],
     "action": [{
         "name": "submit",

@@ -20,7 +20,7 @@ module.exports = {
     // models: {
     //   connection: 'someMongodbServer'
     // }
-    port: 8085,
-    realHost: "http://localhost:8085",
+    port: 8081,
+    realHost: "http://localhost:8081",
     emails: ["chintan@wohlig.com", "jagruti@wohlig.com", "tushar@wohlig.com", "chirag@wohlig.com", "harsh@wohlig.com"]
 };

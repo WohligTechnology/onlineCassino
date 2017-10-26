@@ -34,12 +34,16 @@ var schema = new Schema({
         type: Boolean,
         default:false
     },
+    cards:[String],
+    // cards: [{
+    //     type:Schema.Types.ObjectId,
+    //     ref:'Card'
+    // }],
 
-    cards: [{
-        type:Schema.Types.ObjectId,
-        ref:'Card'
-    }]
-    
+    cardsServe:{
+        type: Number,
+        default: 0   
+    }
           
 });
 schema.plugin(deepPopulate, {
@@ -106,16 +110,64 @@ var model = {
           });*/
 });
 },
-getPlayers: function (callback){
-    Player.find( { } ).deepPopulate("cards").exec(function (err, userData){
+getAll: function(data, callback){
+    var cards = {}
+    Player.find({}).select('playerNo cards -_id').exec(
+        function(err, plData){
+            console.log(plData);
+            cards.playerCards = plData ;
+            var aggregate = [ { $match : { isOpen : true } },
+                              { $group : { _id : "cardValue", comCards: { $push: "$cardValue" } } },
+                              {$project: {_id:0, comCards:1}}
+                            ];
+            CommunityCards.aggregate(
+               aggregate, function(err, cumData){
+                   console.log(cumData);
+                if(!_.isEmpty(cumData)){
+                cards.communityCards = cumData[0].comCards;
+                }
+                
+                callback(err, cards);
+               }
+            );      
+       } 
+    );    
+},
+
+getTabDetail: function(data, callback){
+    var cards = {};
+     Player.find({playerNo:data.tabId}).select('cards -_id' ).exec(
+        function(err, playerCards){
+            //console.log(playerCards[0].cards);
+             cards.playerCards = playerCards[0].cards ;
+             var aggregate = [ { $match : { isOpen : true } },
+                               { $group : { _id : "cardValue", comCards: { $push: "$cardValue" } } },
+                               {$project: {_id:0, comCards:1}}
+                             ];
+             CommunityCards.aggregate(
+                aggregate,
+                function(err, cumData){
+                    //console.log(cumData);
+                    if(!_.isEmpty(cumData)){
+                    cards.communityCards = cumData[0].comCards;
+                    }
+                    callback(err, cards);
+                   }
+             )      
+        }
+     );
+     
+},
+showWinner: function (callback){
+    Player.find( {isActive:true, isFold: false } ).exec(function (err, userData){
         var playerData ={};
         var finalHands = [] ;
         var deckCards = [];
-        DeckCard.find({}).exec(function(err, deckCardsData){
+        CommunityCards.find({}).exec(function(err, deckCardsData){
               _.each(deckCardsData, function(value, key) {
-                   _.each(value.cards, function(value1, key1){
-                    deckCards.push(value1.name);  
-                });    
+                 //  _.each(value.cardValue, function(value1, key1){
+                    deckCards.push(value.cardValue);  
+               // });    
             });
         });
       //  console.log(userData);
@@ -127,7 +179,7 @@ getPlayers: function (callback){
          var finalCards = [];
          var hand = {};
          _.forEach(value.cards, function(value, key){
-            finalCards.push(value.name);     
+            finalCards.push(value);     
          });
 
          _.forEach(deckCards, function(value, key){
@@ -149,7 +201,7 @@ getPlayers: function (callback){
       });
      // callback(null, playerData);
 
-       //var hand2 = Hand.solve(['ad', '2d', 'Jc', 'Th', '2d', 'Qs', 'Qd']);
+       //var hand2 = Hand.solve(['ad', '2d',qty 'Jc', 'Th', '2d', 'Qs', 'Qd']);
      //callback(err, hand2);
     // //     console.log("hand2");
     // //     console.log(hand2.name);
@@ -187,7 +239,156 @@ getPlayers: function (callback){
     // //     });*/
 
     });
-}, 
+},
+revealCards: function(data, callback){
+   switch (data.revealNo){
+       case 0: 
+        CommunityCards.update({cardNo:{ $lt: 4}},{$set:{isOpen:true}},{multi:true},function(err, data){
+       console.log(data);     
+        callback(err,data);
+ });
+       break;
+       case 1:
+       CommunityCards.update({cardNo:4},{$set:{isOpen:true}},{multi:true},function(err, data){
+        callback(err,data);
+ });
+       break;
+       case 2:
+       CommunityCards.update({cardNo:5},{$set:{isOpen:true}},{multi:true},function(err, data){
+        callback(err,data);
+ });   
+      
+   }
+},
+newGame: function(data, callback){
+    var Model = this;
+    async.waterfall([
+      function(fwCallback){ 
+    Model.update({},{$set:{isFold:false, isDealer:false, cards:[], isTurn:false,cardsServe:0}},{multi:true},function(err, cards){
+        fwCallback(err, cards);           
+    });
+}, function(arg1, fwCallback){
+    CommunityCards.update({},{$set:{cardValue: "", isOpen: false}},{multi:true}, function(err, cumCards){
+        fwCallback(err, cumCards);  
+ });
+}
+    ],function(err, cumCards){
+          callback(err, cumCards);
+    });
+    readLastValue = "";
+},
+makeDealer: function(data, callback){
+    var Model = this;
+    Model.findOneAndUpdate({isDealer : true},{$set:{isDealer:false}},{new:true},function(err, CurrentTab){
+       
+     });
+    Model.findOneAndUpdate({playerNo : data.tabId},{$set:{isDealer:true}},{new:true},function(err, CurrentTab){
+       callback(err, CurrentTab);
+    });
+},
+removeDealer: function(data, callback){
+    var Model = this;
+    Model.findOneAndUpdate({playerNo : data.tabId},{$set:{isDealer:false}},{new:true},function(err, CurrentTab){
+       callback(err, CurrentTab);
+    });
+},
+removeTab: function(data, callback){
+    var Model = this;
+    Model.findOneAndUpdate({playerNo : data.tabId},{$set:{isActive:false}},{new:true},function(err, currentTab){
+     
+       console.log(currentTab);
+       callback(err, currentTab);
+    });
+},
+fold:function(data, callback){
+    var Model = this;
+    
+   
+            Model.findOneAndUpdate({playerNo : data.tabId},{$set:{isFold:true}},{new:true},function(err, CurrentTab){
+                Model.changeTurn(data, callback);         
+    });
+},
+addTab:function(data, callback){
+    var Model = this;
+    Model.findOneAndUpdate({playerNo : data.tabId},{$set:{isActive:true}},{new:true},function(err, CurrentTab){
+     
+       console.log(CurrentTab);
+       callback(err,CurrentTab);
+     
+    });
+},
+assignCard: function(card,wfCallback){
+    var Model = this;
+    console.log("inside assignCard");
+    Model.findOneAndUpdate({isTurn : true, cardsServe : { $lt: 2 } },{$push:{cards:card},$inc: {cardsServe: 1} },{new:true},function(err, CurrentTab){
+       if(!_.isEmpty(CurrentTab)){
+        readLastValue = card;
+        wfCallback(err, CurrentTab);
+       }else{
+            //$nin    
+            CommunityCards.findOneAndUpdate(  {$or:[{cardValue:{$in:["",undefined,null] }},{cardValue:{$exists:false}}]},{cardValue: card},{new:true, sort:{cardValue:1}},function(err, CurrentTab){ 
+                readLastValue = card;  
+              console.log(CurrentTab); 
+              wfCallback(err, CurrentTab); 
+       });
+      }  //console.log(CurrentTab);
+     });
+},
+serve: function(data, callback){
+    var Model = this;
+    if(readLastValue != data.card){
+    Model.find({isTurn:true}).exec(function(err, player){
+        if(_.isEmpty(player)){
+            async.waterfall([function(wfCallback){
+            Model.find({isDealer:true}).exec(function(err, dealer){   
+            Model.changeTurn({tabId:dealer[0].playerNo}, wfCallback);
+        });
+    }, function(arg1,wfCallback){
+         Model.assignCard(data.card, wfCallback); 
+    }
+         ], function(err, result){
+             callback(err, result);
+         });
+    }else{
+        async.waterfall([function(wfCallback){
+            Model.changeTurn({tabId:player[0].playerNo}, wfCallback);
+    }, function(arg1,wfCallback){
+        Model.assignCard(data.card,wfCallback); 
+    }
+    ], function(err, result){
+        callback(err, result);
+    });
+}
+    });   
+} 
+},
+
+changeTurn: function(data, callback){
+var Model = this;
+Model.findOneAndUpdate({playerNo : data.tabId},{$set:{isTurn:false}},{new:true},function(err, CurrentTab){
+   console.log(CurrentTab);
+});
+Model.find({playerNo :{ $gt: data.tabId},isActive:true,isFold:false}).sort({playerNo:1}).limit(1).exec(function(err, nextTab){
+     if(_.isEmpty(nextTab)){
+        Model.find({isActive:true,isFold:false}).sort({playerNo:1}).limit(1).exec(function(err, firstTab){
+            console.log(firstTab[0].playerNo);
+            if(!_.isEmpty(firstTab)){
+            Model.findOneAndUpdate({playerNo : firstTab[0].playerNo},{$set:{isTurn:true}},{new:true},function(err, CurrentTab){
+                console.log(CurrentTab);
+                callback(err, CurrentTab);
+             });               
+            }    
+        });
+     }else{
+        Model.findOneAndUpdate({playerNo : nextTab[0].playerNo},{$set:{isTurn:true}},{new:true},function(err, CurrentTab){
+            console.log(CurrentTab);
+            callback(err, CurrentTab);
+         });                  
+     }
+   //console.log(result);
+ //  result.isTurn
+});     
+}
     
 
 

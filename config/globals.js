@@ -71,7 +71,7 @@ global["validators"] = require('mongoose-validators');
 global["monguurl"] = require('monguurl');
 require('mongoose-middleware').initialize(mongoose);
 global["Schema"] = mongoose.Schema;
-
+global["readLastValue"] = '';
 global["http"] = require('http');
 
 
