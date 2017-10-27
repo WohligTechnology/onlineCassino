@@ -112,7 +112,7 @@ var model = {
 },
 getAll: function(data, callback){
     var cards = {}
-    Player.find({}).select('playerNo cards -_id').exec(
+    Player.find({}).exec(
         function(err, plData){
             console.log(plData);
             cards.playerCards = plData ;
@@ -241,24 +241,31 @@ showWinner: function (callback){
     });
 },
 revealCards: function(data, callback){
-   switch (data.revealNo){
+
+    CommunityCards.find({isOpen: true}).exec(function(err, cardsData){
+             console.log(cardsData.length);
+             var revealNo = cardsData.length;
+             
+   switch (revealNo){
        case 0: 
         CommunityCards.update({cardNo:{ $lt: 4}},{$set:{isOpen:true}},{multi:true},function(err, data){
        console.log(data);     
         callback(err,data);
  });
        break;
-       case 1:
+       case 3:
        CommunityCards.update({cardNo:4},{$set:{isOpen:true}},{multi:true},function(err, data){
         callback(err,data);
  });
        break;
-       case 2:
+       case 4:
        CommunityCards.update({cardNo:5},{$set:{isOpen:true}},{multi:true},function(err, data){
         callback(err,data);
  });   
-      
+       default:
+       callback(null, "No more cards to reveal");
    }
+            });
 },
 newGame: function(data, callback){
     var Model = this;
@@ -328,8 +335,14 @@ assignCard: function(card,wfCallback){
             //$nin    
             CommunityCards.findOneAndUpdate(  {$or:[{cardValue:{$in:["",undefined,null] }},{cardValue:{$exists:false}}]},{cardValue: card},{new:true, sort:{cardValue:1}},function(err, CurrentTab){ 
                 readLastValue = card;  
-              console.log(CurrentTab); 
-              wfCallback(err, CurrentTab); 
+              //console.log(CurrentTab); 
+              if(CurrentTab instanceof Array){
+                wfCallback(err, CurrentTab);
+              }else{
+                wfCallback(err, "Extra Card");
+              }
+              
+              //callback(null, "Repeated Card"); 
        });
       }  //console.log(CurrentTab);
      });
@@ -360,9 +373,15 @@ serve: function(data, callback){
     });
 }
     });   
+}else{
+    callback(null, "Repeated Card");
 } 
 },
-
+moveTurn: function(data, callback){
+    Model.find({isTurn:true}).exec(function(err, player){
+        
+    });
+},
 changeTurn: function(data, callback){
 var Model = this;
 Model.findOneAndUpdate({playerNo : data.tabId},{$set:{isTurn:false}},{new:true},function(err, CurrentTab){
