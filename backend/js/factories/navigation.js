@@ -11,7 +11,7 @@ myApp.factory('NavigationService', function ($http) {
         classis: "active",
         sref: "#!/page/viewUser//",
         icon: "phone"
-    },{
+    }/*,{
         name: "Players",
         classis: "active",
         sref: "#!/page/viewPlayer//",
@@ -26,7 +26,7 @@ myApp.factory('NavigationService', function ($http) {
         classis: "active",
         sref: "#!/page/viewDeckCard//",
         icon: "credit-card"
-    }
+    }*/
 ];
 
     return {
