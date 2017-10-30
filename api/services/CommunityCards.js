@@ -22,17 +22,14 @@ var schema = new Schema({
     
 });
 schema.plugin(deepPopulate, {
-    populate: {
-        'cardValue': {
-            select: ''
-        }
-    }
+    
+    
 });
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('CommunityCards', schema);
 
-var exports = _.cloneDeep(require("sails-wohlig-service")(schema, 'cardValue', 'cardValue'));
+var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
     createCards: function(callback){
         var Model = this;

@@ -51,6 +51,9 @@ var controller = {
    },
    getAll: function(req, res){
     Player.getAll(req.body, res.callback);   
+   },
+   moveTurn:function(req, res){
+    Player.moveTurn(req.body, res.callback);   
    }
    //getTabDetail
 

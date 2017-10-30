@@ -9,13 +9,21 @@
         "isSort": "",
         "tableRef": "playerNo"
     }, {
-        "name": "Status",
+        "name": "Is Dealer?",
         "isSort": "",
-        "tableRef": "status"
+        "tableRef": "isDealer"
     },{
-        "name": "Dealer Status",
+        "name": "Is Fold?",
         "isSort": "",
-        "tableRef": "dealer"
+        "tableRef": "isFold"
+    },{
+        "name": "Is Active?",
+        "isSort": "",
+        "tableRef": "isActive"
+    },{
+        "name": "Is Turn?",
+        "isSort": "",
+        "tableRef": "isTurn"
     }
    
     ],
