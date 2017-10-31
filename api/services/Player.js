@@ -451,6 +451,7 @@ var model = {
             Model.changeTurn(tabData, callback);
         });
     },
+
     addTab: function (data, callback) {
         var Model = this;
         Model.findOneAndUpdate({
@@ -511,7 +512,8 @@ var model = {
                 }, function (err, CurrentTab) {
                     readLastValue = card;
                     //console.log(CurrentTab); 
-                    if (CurrentTab instanceof Array) {
+                   // console.log(CurrentTab);
+                    if (!_.isEmpty(CurrentTab)) {
                         wfCallback(err, CurrentTab);
                     } else {
                         wfCallback(err, "Extra Card");
