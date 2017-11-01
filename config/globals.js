@@ -72,6 +72,7 @@ global["monguurl"] = require('monguurl');
 require('mongoose-middleware').initialize(mongoose);
 global["Schema"] = mongoose.Schema;
 global["readLastValue"] = '';
+global["cardServed"] = false;
 global["http"] = require('http');
 
 

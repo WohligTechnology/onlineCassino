@@ -376,6 +376,7 @@ var model = {
             callback(err, cumCards);
         });
         readLastValue = "";
+        cardServed = false;
     },
     makeDealer: function (data, callback) {
         var Model = this;
@@ -489,6 +490,7 @@ var model = {
         }, function (err, CurrentTab) {
             if (!_.isEmpty(CurrentTab)) {
                 readLastValue = card;
+                console.log("card " + Card + "assigned to player" + CurrentTab.playerNo);
                 wfCallback(err, CurrentTab);
             } else {
                 //$nin    
@@ -514,8 +516,16 @@ var model = {
                     //console.log(CurrentTab); 
                    // console.log(CurrentTab);
                     if (!_.isEmpty(CurrentTab)) {
+                        console.log("card " + Card + "assigned to communitycard " + CurrentTab.cardNo);
+                        if(CurrentTab.cardNo == 5){
+                            cardServed = true;
+                            Model.changeTurnWithDealer(wfCallback);
+                        }else{
                         wfCallback(err, CurrentTab);
+                        }
                     } else {
+                        
+                        console.log("Extra Card");
                         wfCallback(err, "Extra Card");
                     }
 
@@ -524,6 +534,7 @@ var model = {
             } //console.log(CurrentTab);
         });
     },
+
     serve: function (data, callback) {
         var Model = this;
         console.log("Card detected " + data.card);
@@ -531,15 +542,23 @@ var model = {
             Model.find({
                 isTurn: true
             }).exec(function (err, player) {
+                if(!cardServed){
                 if (_.isEmpty(player)) {
+                    
                     async.waterfall([function (wfCallback) {
                         Model.find({
                             isDealer: true
                         }).exec(function (err, dealer) {
+                            if(!_.isEmpty(dealer)){
                             Model.changeTurn({
                                 tabId: dealer[0].playerNo
                             }, wfCallback);
+                        }else{
+                            console.log("Please Select the Dealer");
+                            callback(null, "Please Select the Dealer");
+                        }
                         });
+                    
                     }, function (arg1, wfCallback) {
                         Model.assignCard(data.card, wfCallback);
                     }], function (err, result) {
@@ -556,10 +575,35 @@ var model = {
                         callback(err, result);
                     });
                 }
+            }else{
+                console.log("Extra Crad");
+                callback(null, "Extra Crad" );
+            }
             });
+        
         } else {
+            console.log("Repeated Card");
             callback(null, "Repeated Card");
         }
+    },
+    changeTurnWithDealer : function(callback){
+          var Model = this;
+            async.waterfall([function (wfCallback) {
+                Model.find({
+                    isDealer: true
+                }).exec(function (err, dealer) {
+                    if(!_.isEmpty(dealer)){
+                    Model.changeTurn({
+                        tabId: dealer[0].playerNo
+                    }, wfCallback);
+                }else{
+                    wfCallback(null, "Please set the Dealer.");
+                }
+                });
+            
+            }], function (err, result) {
+                callback(err, result);
+            });
     },
     moveTurn: function (data, callback) {
         var Model = this;
@@ -567,17 +611,7 @@ var model = {
             isTurn: true
         }).exec(function (err, player) {
             if (_.isEmpty(player)) {
-                async.waterfall([function (wfCallback) {
-                    Model.find({
-                        isDealer: true
-                    }).exec(function (err, dealer) {
-                        Model.changeTurn({
-                            tabId: dealer[0].playerNo
-                        }, wfCallback);
-                    });
-                }], function (err, result) {
-                    callback(err, result);
-                });
+                Model.changeTurnWithDealer(callback);
             } else {
                 console.log('not empty');
                 async.waterfall([function (wfCallback) {
@@ -601,7 +635,7 @@ var model = {
         }, {
             new: true
         }, function (err, CurrentTab) {
-            console.log(CurrentTab);
+            //console.log(CurrentTab);
         });
         Model.find({
             playerNo: {
@@ -630,7 +664,7 @@ var model = {
                         }, {
                             new: true
                         }, function (err, CurrentTab) {
-                            console.log(CurrentTab);
+                           // console.log(CurrentTab);
                             callback(err, CurrentTab);
                         });
                     }
