@@ -119,42 +119,15 @@ var model = {
     },
 
     getAll: function (data, callback) {
-        var cards = {}
-        Player.find({}).exec(
-            function (err, plData) {
-                console.log(plData);
-                cards.playerCards = plData;
-                var aggregate = [
-                    {
-                        $group: {
-                            _id: "cardNo",
-                            //"cardValue":"$cardValue",
-                            comCards: {
-                                $push: {
-                                    $cond: { if:{ $eq:["$isOpen", true]}, then: "$cardValue", else: "" }},
-                            }
-                        }
-                    },
-                    {
-                        $project: {
-                            _id: 0,
-                            comCards: 1
-                        }
-                    }
-                ];
-                CommunityCards.aggregate(
-                    aggregate,
-                    function (err, cumData) {
-                        console.log(cumData);
-                        if (!_.isEmpty(cumData)) {
-                            cards.communityCards = cumData[0].comCards;
-                        }
-
-                        callback(err, cards);
-                    }
-                );
+        var cards = {};
+        async.parallel({
+            playerCards: function (callback) {
+                Player.find().exec(callback);
+            },
+            communityCards: function (callback) {
+                CommunityCards.find().exec(callback);
             }
-        );
+        }, callback);
     },
     getTabDetail: function (data, callback) {
         var cards = {};
@@ -436,7 +409,7 @@ var model = {
     fold: function (data, callback) {
         var Model = this;
 
-        
+
         Model.findOneAndUpdate({
             isTurn: true
         }, {
@@ -448,7 +421,7 @@ var model = {
         }, function (err, CurrentTab) {
             var tabData = {};
             console.log(CurrentTab);
-            tabData.tabId  =  CurrentTab.playerNo;
+            tabData.tabId = CurrentTab.playerNo;
             Model.changeTurn(tabData, callback);
         });
     },
@@ -514,17 +487,17 @@ var model = {
                 }, function (err, CurrentTab) {
                     readLastValue = card;
                     //console.log(CurrentTab); 
-                   // console.log(CurrentTab);
+                    // console.log(CurrentTab);
                     if (!_.isEmpty(CurrentTab)) {
                         console.log("card " + Card + "assigned to communitycard " + CurrentTab.cardNo);
-                        if(CurrentTab.cardNo == 5){
+                        if (CurrentTab.cardNo == 5) {
                             cardServed = true;
                             Model.changeTurnWithDealer(wfCallback);
-                        }else{
-                        wfCallback(err, CurrentTab);
+                        } else {
+                            wfCallback(err, CurrentTab);
                         }
                     } else {
-                        
+
                         console.log("Extra Card");
                         wfCallback(err, "Extra Card");
                     }
@@ -542,68 +515,68 @@ var model = {
             Model.find({
                 isTurn: true
             }).exec(function (err, player) {
-                if(!cardServed){
-                if (_.isEmpty(player)) {
-                    
-                    async.waterfall([function (wfCallback) {
-                        Model.find({
-                            isDealer: true
-                        }).exec(function (err, dealer) {
-                            if(!_.isEmpty(dealer)){
-                            Model.changeTurn({
-                                tabId: dealer[0].playerNo
-                            }, wfCallback);
-                        }else{
-                            console.log("Please Select the Dealer");
-                            callback(null, "Please Select the Dealer");
-                        }
+                if (!cardServed) {
+                    if (_.isEmpty(player)) {
+
+                        async.waterfall([function (wfCallback) {
+                            Model.find({
+                                isDealer: true
+                            }).exec(function (err, dealer) {
+                                if (!_.isEmpty(dealer)) {
+                                    Model.changeTurn({
+                                        tabId: dealer[0].playerNo
+                                    }, wfCallback);
+                                } else {
+                                    console.log("Please Select the Dealer");
+                                    callback(null, "Please Select the Dealer");
+                                }
+                            });
+
+                        }, function (arg1, wfCallback) {
+                            Model.assignCard(data.card, wfCallback);
+                        }], function (err, result) {
+                            callback(err, result);
                         });
-                    
-                    }, function (arg1, wfCallback) {
-                        Model.assignCard(data.card, wfCallback);
-                    }], function (err, result) {
-                        callback(err, result);
-                    });
+                    } else {
+                        async.waterfall([function (wfCallback) {
+                            Model.changeTurn({
+                                tabId: player[0].playerNo
+                            }, wfCallback);
+                        }, function (arg1, wfCallback) {
+                            Model.assignCard(data.card, wfCallback);
+                        }], function (err, result) {
+                            callback(err, result);
+                        });
+                    }
                 } else {
-                    async.waterfall([function (wfCallback) {
-                        Model.changeTurn({
-                            tabId: player[0].playerNo
-                        }, wfCallback);
-                    }, function (arg1, wfCallback) {
-                        Model.assignCard(data.card, wfCallback);
-                    }], function (err, result) {
-                        callback(err, result);
-                    });
+                    console.log("Extra Crad");
+                    callback(null, "Extra Crad");
                 }
-            }else{
-                console.log("Extra Crad");
-                callback(null, "Extra Crad" );
-            }
             });
-        
+
         } else {
             console.log("Repeated Card");
             callback(null, "Repeated Card");
         }
     },
-    changeTurnWithDealer : function(callback){
-          var Model = this;
-            async.waterfall([function (wfCallback) {
-                Model.find({
-                    isDealer: true
-                }).exec(function (err, dealer) {
-                    if(!_.isEmpty(dealer)){
+    changeTurnWithDealer: function (callback) {
+        var Model = this;
+        async.waterfall([function (wfCallback) {
+            Model.find({
+                isDealer: true
+            }).exec(function (err, dealer) {
+                if (!_.isEmpty(dealer)) {
                     Model.changeTurn({
                         tabId: dealer[0].playerNo
                     }, wfCallback);
-                }else{
+                } else {
                     wfCallback(null, "Please set the Dealer.");
                 }
-                });
-            
-            }], function (err, result) {
-                callback(err, result);
             });
+
+        }], function (err, result) {
+            callback(err, result);
+        });
     },
     moveTurn: function (data, callback) {
         var Model = this;
@@ -664,7 +637,7 @@ var model = {
                         }, {
                             new: true
                         }, function (err, CurrentTab) {
-                           // console.log(CurrentTab);
+                            // console.log(CurrentTab);
                             callback(err, CurrentTab);
                         });
                     }
