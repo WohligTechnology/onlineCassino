@@ -62,7 +62,8 @@
     "sails-disk": "^0.10.10",
     "sails-wohlig-controller": "^0.0.4",
     "sails-wohlig-service": "^0.0.11",
-    "sendgrid": "^5.2.3"
+    "sendgrid": "^5.2.3",
+    "pokersolver": "^2.1.2"
   },
   "scripts": {
     "debug": "node debug app.js",
@@ -81,7 +82,6 @@
     "grunt-ejs-compile": "^0.0.1",
     "grunt-ejs-locals": "^0.1.1",
     "grunt-http": "^2.2.0",
-    "grunt-postcss": "^0.8.0",
-    "pokersolver": "^2.1.2"
+    "grunt-postcss": "^0.8.0"
   }
 }

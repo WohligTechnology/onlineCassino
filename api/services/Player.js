@@ -172,92 +172,56 @@ var model = {
 
     },
     showWinner: function (callback) {
-        Player.find({
-            isActive: true,
-            isFold: false
-        }).exec(function (err, userData) {
-            var playerData = {};
-            var finalHands = [];
-            var deckCards = [];
-            CommunityCards.find({}).exec(function (err, deckCardsData) {
-                _.each(deckCardsData, function (value, key) {
-                    //  _.each(value.cardValue, function(value1, key1){
-                    deckCards.push(value.cardValue);
-                    // });    
+
+        async.parallel({
+            players: function (callback) {
+                Player.find({
+                    isActive: true,
+                    isFold: false
+                }).lean().exec(callback);
+            },
+            communityCards: function (callback) {
+                CommunityCards.find().lean().exec(callback);
+            }
+        }, function (err, data) {
+            if (err) {
+                callback(err);
+            } else {
+                _.each(data.players, function (player) {
+                    player.allCards = _.cloneDeep(player.cards);
+                    _.each(data.communityCards, function (commu) {
+                        player.allCards.push(commu.cardValue);
+                    });
+                    player.hand = Hand.solve(player.allCards);
                 });
-            });
-            //  console.log(userData);
-            // var hand1 = Hand.solve(['Ad', 'As', 'Ac', 'Ah', '2d', '3c', 'Kd']);
-            //console.log("hand1");
-            // console.log(hand1.name);
-            //  callback(err, hand1);
-            _.forEach(userData, function (value, key) {
-                var finalCards = [];
-                var hand = {};
-                _.forEach(value.cards, function (value, key) {
-                    finalCards.push(value);
-                });
-
-                _.forEach(deckCards, function (value, key) {
-                    finalCards.push(value);
-                });
-                console.log(finalCards);
-                //var  cards =    value.cards;
-                //console.log(value.cards);
-                //finalCards.push(value.cards);
-                // finalCards.push(deckCards);
-                console.log(hand);
-                hand = Hand.solve(finalCards);
-                finalHands.push(hand);
-
-                playerData[value.playerNo] = hand;
-                // console.log("....."); 
-                //console.log(value);
-
-            });
-            // callback(null, playerData);
-
-            //var hand2 = Hand.solve(['ad', '2d',qty 'Jc', 'Th', '2d', 'Qs', 'Qd']);
-            //callback(err, hand2);
-            // //     console.log("hand2");
-            // //     console.log(hand2.name);
-            var winner = Hand.winners(finalHands);
-            var PlayerNos = [];
-            _.forEach(winner, function (WinnerData, key) {
-                _.forEach(playerData, function (value, key) {
-                    if (JSON.stringify(WinnerData) === JSON.stringify(value)) {
-                        // callback(null, key);          
-                        console.log(key);
-                        console.log(value);
-                        console.log("Matched");
-                        PlayerNos.push({
-                            "player": key,
-                            "type": value.name
-                        });
-                        // break;  
-                        //winner
-
-                        //callback(null, {"player": key, "type":value.name});          
-
+                console.log(_.map(data.players, "allCards"));
+                var winners = Hand.winners(_.map(data.players, "hand"));
+                _.each(data.players, function (player) {
+                    var index = _.findIndex(winners, function (winner) {
+                        return player.hand == winner;
+                    });
+                    if (index >= 0) {
+                        player.winner = true;
+                        player.winName = player.hand.name;
+                        player.descr = player.hand.descr;
+                        player.hand = undefined;
                     }
                 });
-            });
-            callback(null, PlayerNos);
-            //callback(null,winner[0]);
-            //   console.log(winner[0]);
-            //   if(JSON.stringify(winner[0]) === JSON.stringify(hand2) ){
-            //     callback(null,"hand2");
-            //   }else if(JSON.stringify(winner[0]) === JSON.stringify(hand1)){
-            //     callback(null,"hand1");
-            //   }else{
-            //     callback(null,winner);
-            //   }
-            // //     //console.log(winner);
-            // //    /* Player.find().exec(function (err, playerData){
-            // //            console.log(playerData);
-            // //     });*/
 
+                var finalWin = _.filter(data.players, function (player) {
+                    return player.winner;
+                });
+                console.log(finalWin);
+                callback(null, {
+                    winners: finalWin,
+                    communityCards: data.communityCards
+                });
+
+
+            }
         });
+
+
     },
     revealCards: function (data, callback) {
 

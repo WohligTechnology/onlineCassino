@@ -23,11 +23,11 @@
 process.chdir(__dirname);
 global.mongoose = require('mongoose');
 global["Grid"] = require('gridfs-stream');
-global["database"] = "database";
+global["database"] = "poker";
 
 mongoose.Promise = global.Promise;
 
-global.mongourl = "mongodb://localhost:27017/"+ database;
+global.mongourl = "mongodb://localhost:27017/" + database;
 mongoose.connect(mongourl, {
     useMongoClient: true
 }, function (err, db) {
