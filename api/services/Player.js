@@ -289,22 +289,31 @@ var model = {
         Player.find({
             isActive: true
         }).exec(function (err, players) {
-            var playerIndex = _.indexOf(players, function (player) {
-                return player.playerNo == parseInt(data.tabId);
-            });
-            if (playerIndex >= 0) {
-                async.parallel({
-                    addDealer: function (callback) {
-                        players[playerIndex].isDealer = true;
-                        players[playerIndex].save(callback);
-                    },
-                    addTurn: function () {
-                        var turnIndex = (playerIndex + 1) % players.length;
-                        players[turnIndex].isTurn = true;
-                        players[turnIndex].save(callback);
-                    }
-                }, callback);
+            if (err) {
+                callback(err);
+            } else {
+                console.log("Demo123");
+                var playerIndex = _.findIndex(players, function (player) {
+                    console.log(player.playerNo);
+                    return player.playerNo == parseInt(data.tabId);
+                });
+                if (playerIndex >= 0) {
+                    async.parallel({
+                        addDealer: function (callback) {
+                            players[playerIndex].isDealer = true;
+                            players[playerIndex].save(callback);
+                        },
+                        addTurn: function () {
+                            var turnIndex = (playerIndex + 1) % players.length;
+                            players[turnIndex].isTurn = true;
+                            players[turnIndex].save(callback);
+                        }
+                    }, callback);
+                } else {
+                    callback("No Such Player");
+                }
             }
+
         });
     },
     removeDealer: function (data, callback) {
