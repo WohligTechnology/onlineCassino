@@ -347,28 +347,39 @@ var model = {
         });
     },
     fold: function (data, callback) {
-        var Model = this;
+        Player.find({
+            isActive: true,
+            isFold: false
+        }).exec(function (err, players) {
+            if (err) {
+                callback(err);
+            } else {
+                var turnIndex = _.findIndex(players, function (player) {
+                    return player.isTurn;
+                });
+                if (turnIndex >= 0) {
+                    async.parallel({
+                        removeTurn: function (callback) {
+                            var player = players[turnIndex];
+                            player.isTurn = false;
+                            player.isFold = true;
+                            player.save(callback);
+                        },
+                        addTurn: function (callback) {
+                            var newTurnIndex = (turnIndex + 1) % players.length;
+                            var player = players[newTurnIndex];
+                            player.isTurn = true;
+                            player.save(callback);
+                        }
+                    }, function (err, data) {
+                        callback(err, data);
+                        Player.blastSocket();
+                    });
+                } else {
+                    callback("No Element Remaining");
+                }
 
-
-        Model.findOneAndUpdate({
-            isTurn: true
-        }, {
-            $set: {
-                isFold: true
             }
-        }, {
-            new: true
-        }, function (err, CurrentTab) {
-            var tabData = {};
-            tabData.tabId = CurrentTab.playerNo;
-            async.waterfall([function (wfCallback) {
-                Model.changeTurn(tabData, wfCallback);
-            }], function (err, result) {
-                Player.blastSocket();
-                callback(err, result);
-            });
-
-
         });
     },
 
@@ -537,25 +548,7 @@ var model = {
         }
 
     },
-    changeTurnWithDealer: function (callback) {
-        var Model = this;
-        async.waterfall([function (wfCallback) {
-            Model.find({
-                isDealer: true
-            }).exec(function (err, dealer) {
-                if (!_.isEmpty(dealer)) {
-                    Model.changeTurn({
-                        tabId: dealer[0].playerNo
-                    }, wfCallback);
-                } else {
-                    wfCallback(null, "Please set the Dealer.");
-                }
-            });
 
-        }], function (err, result) {
-            callback(err, result);
-        });
-    },
     moveTurn: function (data, callback) {
         Player.find({
             isActive: true,
@@ -567,22 +560,27 @@ var model = {
                 var turnIndex = _.findIndex(players, function (player) {
                     return player.isTurn;
                 });
-                async.parallel({
-                    removeTurn: function (callback) {
-                        var player = players[turnIndex];
-                        player.isTurn = false;
-                        player.save(callback);
-                    },
-                    addTurn: function (callback) {
-                        var newTurnIndex = (turnIndex + 1) % players.length;
-                        var player = players[newTurnIndex];
-                        player.isTurn = true;
-                        player.save(callback);
-                    }
-                }, function (err, data) {
-                    callback(err, data);
-                    Player.blastSocket();
-                });
+                if (turnIndex >= 0) {
+                    async.parallel({
+                        removeTurn: function (callback) {
+                            var player = players[turnIndex];
+                            player.isTurn = false;
+                            player.save(callback);
+                        },
+                        addTurn: function (callback) {
+                            var newTurnIndex = (turnIndex + 1) % players.length;
+                            var player = players[newTurnIndex];
+                            player.isTurn = true;
+                            player.save(callback);
+                        }
+                    }, function (err, data) {
+                        callback(err, data);
+                        Player.blastSocket();
+                    });
+                } else {
+                    callback("No Element Remaining");
+                }
+
             }
         });
     },
