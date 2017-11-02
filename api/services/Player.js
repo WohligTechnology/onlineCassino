@@ -24,11 +24,6 @@ var schema = new Schema({
         default: false
     },
     cards: [String],
-    // cards: [{
-    //     type:Schema.Types.ObjectId,
-    //     ref:'Card'
-    // }],
-
     cardsServe: {
         type: Number,
         default: 0
