@@ -308,7 +308,10 @@ var model = {
                             players[turnIndex].isTurn = true;
                             players[turnIndex].save(callback);
                         }
-                    }, callback);
+                    }, function (err, data) {
+                        callback(err, data);
+                        Player.blastSocket();
+                    });
                 } else {
                     callback("No Such Player");
                 }
@@ -569,6 +572,7 @@ var model = {
                     }, wfCallback);
                 }], function (err, result) {
                     callback(err, result);
+                    Player.blastSocket();
                 });
             }
         });
