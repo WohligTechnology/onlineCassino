@@ -95,51 +95,22 @@ var model = {
         var cards = {};
         async.parallel({
             playerCards: function (callback) {
-                Player.find().exec(callback);
+                Player.find({},{playerNo:1, isTurn:1, isActive:1, isDealer:1, isFold:1, cards:1, _id:0}).exec(callback);
             },
             communityCards: function (callback) {
-                CommunityCards.find().exec(callback);
+                CommunityCards.find({},{cardNo:1, cardValue:1, isOpen:1, _id:0}).exec(callback);
             }
         }, callback);
     },
     getTabDetail: function (data, callback) {
-        var cards = {};
-        Player.find({
-            playerNo: data.tabId
-        }).select('cards -_id').exec(
-            function (err, playerCards) {
-                cards.playerCards = playerCards[0].cards;
-                var aggregate = [{
-                        $match: {
-                            isOpen: true
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "cardValue",
-                            comCards: {
-                                $push: "$cardValue"
-                            }
-                        }
-                    },
-                    {
-                        $project: {
-                            _id: 0,
-                            comCards: 1
-                        }
-                    }
-                ];
-                CommunityCards.aggregate(
-                    aggregate,
-                    function (err, cumData) {
-                        if (!_.isEmpty(cumData)) {
-                            cards.communityCards = cumData[0].comCards;
-                        }
-                        callback(err, cards);
-                    }
-                )
+        async.parallel({
+            playerCards: function (callback) {
+                Player.find({playerNo: data.tabId},{playerNo:1, isTurn:1, isActive:1, isDealer:1, isFold:1, cards:1, _id:0}).exec(callback);
+            },
+            communityCards: function (callback) {
+                CommunityCards.find({},{cardNo:1, cardValue:1, isOpen:1, _id:0}).exec(callback);
             }
-        );
+        }, callback);
 
     },
     showWinner: function (callback) {
@@ -181,6 +152,7 @@ var model = {
                 var finalWin = _.filter(data.players, function (player) {
                     return player.winner;
                 });
+                Player.blastSocket();
                 callback(null, {
                     winners: finalWin,
                     communityCards: data.communityCards
@@ -211,6 +183,7 @@ var model = {
                     }, {
                         multi: true
                     }, function (err, data) {
+                        Player.blastSocket();
                         callback(err, data);
                     });
                     break;
@@ -224,6 +197,7 @@ var model = {
                     }, {
                         multi: true
                     }, function (err, data) {
+                        Player.blastSocket();
                         callback(err, data);
                     });
                     break;
@@ -237,6 +211,7 @@ var model = {
                     }, {
                         multi: true
                     }, function (err, data) {
+                        Player.blastSocket();
                         callback(err, data);
                     });
                     break;
@@ -276,6 +251,7 @@ var model = {
                 });
             }
         ], function (err, cumCards) {
+            Player.blastSocket();
             callback(err, cumCards);
         });
         readLastValue = "";
@@ -303,7 +279,7 @@ var model = {
         }, {
             new: true
         }, function (err, CurrentTab) {
-            callback(err, CurrentTab);
+            Player.changeTurn({tabId:data.tabId},callback);
         });
     },
     removeDealer: function (data, callback) {
@@ -331,12 +307,13 @@ var model = {
         }, {
             new: true
         }, function (err, currentTab) {
+            Player.blastSocket();
             callback(err, currentTab);
         });
     },
     fold: function (data, callback) {
         var Model = this;
-
+        
 
         Model.findOneAndUpdate({
             isTurn: true
@@ -349,7 +326,14 @@ var model = {
         }, function (err, CurrentTab) {
             var tabData = {};
             tabData.tabId = CurrentTab.playerNo;
-            Model.changeTurn(tabData, callback);
+            async.waterfall([function (wfCallback) {
+                Model.changeTurn(tabData, wfCallback);        
+            }], function (err, result) {
+                Player.blastSocket();
+                callback(err, result);
+            });
+            
+          
         });
     },
 
@@ -364,6 +348,7 @@ var model = {
         }, {
             new: true
         }, function (err, CurrentTab) {
+            Player.blastSocket();
             callback(err, CurrentTab);
         });
     },
@@ -591,6 +576,7 @@ var model = {
                         }, {
                             new: true
                         }, function (err, CurrentTab) {
+                          
                             callback(err, CurrentTab);
                         });
                     }
