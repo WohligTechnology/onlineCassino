@@ -426,51 +426,94 @@ var model = {
     },
 
     serve: function (data, callback) {
-        var Model = this;
-        if (readLastValue != data.card) {
-            Model.find({
-                isTurn: true
-            }).exec(function (err, player) {
-                if (!cardServed) {
-                    if (_.isEmpty(player)) {
-
-                        async.waterfall([function (wfCallback) {
-                            Model.find({
-                                isDealer: true
-                            }).exec(function (err, dealer) {
-                                if (!_.isEmpty(dealer)) {
-                                    Model.changeTurn({
-                                        tabId: dealer[0].playerNo
-                                    }, wfCallback);
-                                } else {
-                                    callback(null, "Please Select the Dealer");
-                                }
-                            });
-
-                        }, function (arg1, wfCallback) {
-                            Model.assignCard(data.card, wfCallback);
-                        }], function (err, result) {
-                            callback(err, result);
-                        });
-                    } else {
-                        async.waterfall([function (wfCallback) {
-                            Model.changeTurn({
-                                tabId: player[0].playerNo
-                            }, wfCallback);
-                        }, function (arg1, wfCallback) {
-                            Model.assignCard(data.card, wfCallback);
-                        }], function (err, result) {
-                            callback(err, result);
-                        });
+        if (data.card && data.card.length == 2) {
+            async.parallel({
+                players: function (callback) {
+                    Player.find({
+                        isActive: true
+                    }).exec(callback);
+                },
+                communityCards: function (callback) {
+                    CommunityCards.find().exec(callback);
+                }
+            }, function (err, response) {
+                // Initialize all variables
+                var allCards = [];
+                var playerCards = [];
+                var playerCount = response.players.length;
+                var communityCards = [];
+                var communityCardCount = 0;
+                var dealerNo = -1;
+                var maxCommunityCard = 5;
+                var maxCardsPerPlayer = 2;
+                _.each(response.players, function (player, index) {
+                    playerCards = _.concat(playerCards, player.cards);
+                    if (player.isDealer) {
+                        dealerNo = index;
                     }
+                });
+
+                _.each(response.communityCards, function (commuCard) {
+                    if (commuCard.cardValue && commuCard.cardValue !== "") {
+                        communityCards = _.concat(communityCards, commuCard.cardValue);
+                    }
+                });
+                communityCardCount = communityCards.length;
+                allCards = _.concat(communityCards, playerCards);
+
+
+                // check whether no of players are greater than 1
+                if (playerCount <= 1) {
+                    callback("Less Players - No of Players selected are too less");
+                    return 0;
+                }
+
+                // check whether dealer is provided or not
+                if (dealerNo < 0) {
+                    callback("Dealer is not selected");
+                    return 0;
+                }
+
+                // Check whether Card is in any Current Cards List
+                var cardIndex = _.indexOf(allCards, data.card);
+                if (cardIndex >= 0) {
+                    callback("Duplicate Entry - Card Already Used");
+                    return 0;
+                }
+                if (playerCards.length < (playerCount * maxCardsPerPlayer)) {
+                    // Add card to Players
+                    var remainder = playerCards.length % playerCount;
+                    var toServe = (dealerNo + remainder + 1) % playerCount;
+                    var toServePlayer = response.players[toServe];
+                    toServePlayer.cards.push(data.card);
+                    toServePlayer.save(function (err, data) {
+                        if (err) {
+                            callback(err);
+                        } else {
+                            callback(err, "Card Provided to Player " + (toServe + 1));
+                        }
+                    });
+                } else if (communityCardCount < maxCommunityCard) {
+                    // Add card to Community Cards
+                    var toServeCommuCard = response.communityCards[communityCardCount];
+                    toServeCommuCard.cardValue = data.card;
+                    toServeCommuCard.save(function (err, data) {
+                        if (err) {
+                            callback(err);
+                        } else {
+                            callback(err, "Card Provided to Community Card No " + (communityCardCount + 1));
+                        }
+                    });
                 } else {
-                    callback(null, "Extra Crad");
+                    callback("All Cards are Served");
+                    return 0;
                 }
             });
-
         } else {
-            callback(null, "Repeated Card");
+            callback("Incorrect Card - Please enter a valid Card");
+            return 0;
         }
+
     },
     changeTurnWithDealer: function (callback) {
         var Model = this;
