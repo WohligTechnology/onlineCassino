@@ -95,20 +95,48 @@ var model = {
         var cards = {};
         async.parallel({
             playerCards: function (callback) {
-                Player.find({},{playerNo:1, isTurn:1, isActive:1, isDealer:1, isFold:1, cards:1, _id:0}).exec(callback);
+                Player.find({}, {
+                    playerNo: 1,
+                    isTurn: 1,
+                    isActive: 1,
+                    isDealer: 1,
+                    isFold: 1,
+                    cards: 1,
+                    _id: 0
+                }).exec(callback);
             },
             communityCards: function (callback) {
-                CommunityCards.find({},{cardNo:1, cardValue:1, isOpen:1, _id:0}).exec(callback);
+                CommunityCards.find({}, {
+                    cardNo: 1,
+                    cardValue: 1,
+                    isOpen: 1,
+                    _id: 0
+                }).exec(callback);
             }
         }, callback);
     },
     getTabDetail: function (data, callback) {
         async.parallel({
             playerCards: function (callback) {
-                Player.find({playerNo: data.tabId},{playerNo:1, isTurn:1, isActive:1, isDealer:1, isFold:1, cards:1, _id:0}).exec(callback);
+                Player.find({
+                    playerNo: data.tabId
+                }, {
+                    playerNo: 1,
+                    isTurn: 1,
+                    isActive: 1,
+                    isDealer: 1,
+                    isFold: 1,
+                    cards: 1,
+                    _id: 0
+                }).exec(callback);
             },
             communityCards: function (callback) {
-                CommunityCards.find({},{cardNo:1, cardValue:1, isOpen:1, _id:0}).exec(callback);
+                CommunityCards.find({}, {
+                    cardNo: 1,
+                    cardValue: 1,
+                    isOpen: 1,
+                    _id: 0
+                }).exec(callback);
             }
         }, callback);
 
@@ -258,28 +286,25 @@ var model = {
         cardServed = false;
     },
     makeDealer: function (data, callback) {
-        var Model = this;
-        Model.findOneAndUpdate({
-            isDealer: true
-        }, {
-            $set: {
-                isDealer: false
+        Player.find({
+            isActive: true
+        }).exec(function (err, players) {
+            var playerIndex = _.indexOf(players, function (player) {
+                return player.playerNo == parseInt(data.tabId);
+            });
+            if (playerIndex >= 0) {
+                async.parallel({
+                    addDealer: function (callback) {
+                        players[playerIndex].isDealer = true;
+                        players[playerIndex].save(callback);
+                    },
+                    addTurn: function () {
+                        var turnIndex = (playerIndex + 1) % players.length;
+                        players[turnIndex].isTurn = true;
+                        players[turnIndex].save(callback);
+                    }
+                }, callback);
             }
-        }, {
-            new: true
-        }, function (err, CurrentTab) {
-
-        });
-        Model.findOneAndUpdate({
-            playerNo: data.tabId
-        }, {
-            $set: {
-                isDealer: true
-            }
-        }, {
-            new: true
-        }, function (err, CurrentTab) {
-            Player.changeTurn({tabId:data.tabId},callback);
         });
     },
     removeDealer: function (data, callback) {
@@ -313,7 +338,7 @@ var model = {
     },
     fold: function (data, callback) {
         var Model = this;
-        
+
 
         Model.findOneAndUpdate({
             isTurn: true
@@ -327,13 +352,13 @@ var model = {
             var tabData = {};
             tabData.tabId = CurrentTab.playerNo;
             async.waterfall([function (wfCallback) {
-                Model.changeTurn(tabData, wfCallback);        
+                Model.changeTurn(tabData, wfCallback);
             }], function (err, result) {
                 Player.blastSocket();
                 callback(err, result);
             });
-            
-          
+
+
         });
     },
 
@@ -576,7 +601,7 @@ var model = {
                         }, {
                             new: true
                         }, function (err, CurrentTab) {
-                          
+
                             callback(err, CurrentTab);
                         });
                     }
