@@ -34,9 +34,6 @@ var controller = {
     addTab: function (req, res) {
         Player.addTab(req.body, res.callback);
     },
-    changeTurn: function (req, res) {
-        Player.changeTurn(req.body, res.callback);
-    },
     serve: function (req, res) {
         Player.serve(req.body, res.callback);
     },

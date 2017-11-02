@@ -180,7 +180,7 @@ var model = {
                 var finalWin = _.filter(data.players, function (player) {
                     return player.winner;
                 });
-                Player.blastSocket();
+                Player.blastSocketWinner();
                 callback(null, {
                     winners: finalWin,
                     communityCards: data.communityCards
@@ -557,81 +557,36 @@ var model = {
         });
     },
     moveTurn: function (data, callback) {
-        var Model = this;
-        Model.find({
-            isTurn: true
-        }).exec(function (err, player) {
-            if (_.isEmpty(player)) {
-                Model.changeTurnWithDealer(callback);
+        Player.find({
+            isActive: true,
+            isFold: false
+        }).exec(function (err, players) {
+            if (err) {
+                callback(err);
             } else {
-                async.waterfall([function (wfCallback) {
-                    Model.changeTurn({
-                        tabId: player[0].playerNo
-                    }, wfCallback);
-                }], function (err, result) {
-                    callback(err, result);
+                var turnIndex = _.findIndex(players, function (player) {
+                    return player.isTurn;
+                });
+                async.parallel({
+                    removeTurn: function (callback) {
+                        var player = players[turnIndex];
+                        player.isTurn = false;
+                        player.save(callback);
+                    },
+                    addTurn: function (callback) {
+                        var newTurnIndex = (turnIndex + 1) % players.length;
+                        var player = players[newTurnIndex];
+                        player.isTurn = true;
+                        player.save(callback);
+                    }
+                }, function (err, data) {
+                    callback(err, data);
                     Player.blastSocket();
                 });
             }
         });
     },
-    changeTurn: function (data, callback) {
-        var Model = this;
-        Model.findOneAndUpdate({
-            playerNo: data.tabId
-        }, {
-            $set: {
-                isTurn: false
-            }
-        }, {
-            new: true
-        }, function (err, CurrentTab) {});
-        Model.find({
-            playerNo: {
-                $gt: data.tabId
-            },
-            isActive: true,
-            isFold: false
-        }).sort({
-            playerNo: 1
-        }).limit(1).exec(function (err, nextTab) {
-            if (_.isEmpty(nextTab)) {
-                Model.find({
-                    isActive: true,
-                    isFold: false
-                }).sort({
-                    playerNo: 1
-                }).limit(1).exec(function (err, firstTab) {
-                    if (!_.isEmpty(firstTab)) {
-                        Model.findOneAndUpdate({
-                            playerNo: firstTab[0].playerNo
-                        }, {
-                            $set: {
-                                isTurn: true
-                            }
-                        }, {
-                            new: true
-                        }, function (err, CurrentTab) {
 
-                            callback(err, CurrentTab);
-                        });
-                    }
-                });
-            } else {
-                Model.findOneAndUpdate({
-                    playerNo: nextTab[0].playerNo
-                }, {
-                    $set: {
-                        isTurn: true
-                    }
-                }, {
-                    new: true
-                }, function (err, CurrentTab) {
-                    callback(err, CurrentTab);
-                });
-            }
-        });
-    },
     blastSocket: function () {
         Player.getAll({}, function (err, data) {
             if (err) {
@@ -640,6 +595,9 @@ var model = {
                 sails.sockets.blast("Update", data);
             }
         });
+    },
+    blastSocketWinner: function () {
+        sails.sockets.blast("Winner", {});
     }
 
 
