@@ -74,19 +74,13 @@ var model = {
     updatePlayer: function (data, callback) {
 
         var playerData = _.clone(data, true);
-        //console.log(playerData);
         delete playerData.playerNo;
-        console.log(playerData);
-        console.log(data);
-        // var error = playerData.validateSync();   
-        // console.log(error);
         Player.update({
             "playerNo": data.playerNo
         }, playerData, {
             new: true,
             runValidators: true
         }, function (err, doc) {
-            console.log(doc);
             if (err) {
                 callback(err);
             } else {
@@ -98,7 +92,6 @@ var model = {
         Player.findOne({
             "playerNo": data.playerNo
         }).exec(function (err, userData) {
-            console.log(userData);
             if (!_.isEmpty(userData)) {
                 userData.remove(function (err, data) {
                     callback(err, "Deleted successfully");
@@ -110,11 +103,7 @@ var model = {
     },
     findWinner: function (data, callback) {
         Player.find().exec(function (err, userData) {
-            console.log(userData);
             callback(err, userData);
-            /* _.forEach(, function(value, key) {
-                 console.log(key);
-               });*/
         });
     },
 
@@ -135,7 +124,6 @@ var model = {
             playerNo: data.tabId
         }).select('cards -_id').exec(
             function (err, playerCards) {
-                //console.log(playerCards[0].cards);
                 cards.playerCards = playerCards[0].cards;
                 var aggregate = [{
                         $match: {
@@ -160,7 +148,6 @@ var model = {
                 CommunityCards.aggregate(
                     aggregate,
                     function (err, cumData) {
-                        //console.log(cumData);
                         if (!_.isEmpty(cumData)) {
                             cards.communityCards = cumData[0].comCards;
                         }
@@ -194,7 +181,6 @@ var model = {
                     });
                     player.hand = Hand.solve(player.allCards);
                 });
-                console.log(_.map(data.players, "allCards"));
                 var winners = Hand.winners(_.map(data.players, "hand"));
                 _.each(data.players, function (player) {
                     var index = _.findIndex(winners, function (winner) {
@@ -211,7 +197,6 @@ var model = {
                 var finalWin = _.filter(data.players, function (player) {
                     return player.winner;
                 });
-                console.log(finalWin);
                 callback(null, {
                     winners: finalWin,
                     communityCards: data.communityCards
@@ -228,9 +213,7 @@ var model = {
         CommunityCards.find({
             isOpen: true
         }).exec(function (err, cardsData) {
-            console.log(cardsData.length);
             var revealNo = cardsData.length;
-
             switch (revealNo) {
                 case 0:
                     CommunityCards.update({
@@ -244,7 +227,6 @@ var model = {
                     }, {
                         multi: true
                     }, function (err, data) {
-                        console.log(data);
                         callback(err, data);
                     });
                     break;
@@ -365,8 +347,6 @@ var model = {
         }, {
             new: true
         }, function (err, currentTab) {
-
-            console.log(currentTab);
             callback(err, currentTab);
         });
     },
@@ -384,7 +364,6 @@ var model = {
             new: true
         }, function (err, CurrentTab) {
             var tabData = {};
-            console.log(CurrentTab);
             tabData.tabId = CurrentTab.playerNo;
             Model.changeTurn(tabData, callback);
         });
@@ -401,15 +380,11 @@ var model = {
         }, {
             new: true
         }, function (err, CurrentTab) {
-
-            console.log(CurrentTab);
             callback(err, CurrentTab);
-
         });
     },
     assignCard: function (card, wfCallback) {
         var Model = this;
-        //console.log("inside assignCard");
         Model.findOneAndUpdate({
             isTurn: true,
             cardsServe: {
@@ -427,7 +402,6 @@ var model = {
         }, function (err, CurrentTab) {
             if (!_.isEmpty(CurrentTab)) {
                 readLastValue = card;
-                console.log("card " + Card + "assigned to player" + CurrentTab.playerNo);
                 wfCallback(err, CurrentTab);
             } else {
                 //$nin    
@@ -450,10 +424,7 @@ var model = {
                     }
                 }, function (err, CurrentTab) {
                     readLastValue = card;
-                    //console.log(CurrentTab); 
-                    // console.log(CurrentTab);
                     if (!_.isEmpty(CurrentTab)) {
-                        console.log("card " + Card + "assigned to communitycard " + CurrentTab.cardNo);
                         if (CurrentTab.cardNo == 5) {
                             cardServed = true;
                             Model.changeTurnWithDealer(wfCallback);
@@ -461,20 +432,17 @@ var model = {
                             wfCallback(err, CurrentTab);
                         }
                     } else {
-
-                        console.log("Extra Card");
                         wfCallback(err, "Extra Card");
                     }
 
                     //callback(null, "Repeated Card"); 
                 });
-            } //console.log(CurrentTab);
+            }
         });
     },
 
     serve: function (data, callback) {
         var Model = this;
-        console.log("Card detected " + data.card);
         if (readLastValue != data.card) {
             Model.find({
                 isTurn: true
@@ -491,7 +459,6 @@ var model = {
                                         tabId: dealer[0].playerNo
                                     }, wfCallback);
                                 } else {
-                                    console.log("Please Select the Dealer");
                                     callback(null, "Please Select the Dealer");
                                 }
                             });
@@ -513,13 +480,11 @@ var model = {
                         });
                     }
                 } else {
-                    console.log("Extra Crad");
                     callback(null, "Extra Crad");
                 }
             });
 
         } else {
-            console.log("Repeated Card");
             callback(null, "Repeated Card");
         }
     },
@@ -550,7 +515,6 @@ var model = {
             if (_.isEmpty(player)) {
                 Model.changeTurnWithDealer(callback);
             } else {
-                console.log('not empty');
                 async.waterfall([function (wfCallback) {
                     Model.changeTurn({
                         tabId: player[0].playerNo
@@ -571,9 +535,7 @@ var model = {
             }
         }, {
             new: true
-        }, function (err, CurrentTab) {
-            //console.log(CurrentTab);
-        });
+        }, function (err, CurrentTab) {});
         Model.find({
             playerNo: {
                 $gt: data.tabId
@@ -590,7 +552,6 @@ var model = {
                 }).sort({
                     playerNo: 1
                 }).limit(1).exec(function (err, firstTab) {
-                    console.log(firstTab[0].playerNo);
                     if (!_.isEmpty(firstTab)) {
                         Model.findOneAndUpdate({
                             playerNo: firstTab[0].playerNo
@@ -601,7 +562,6 @@ var model = {
                         }, {
                             new: true
                         }, function (err, CurrentTab) {
-                            // console.log(CurrentTab);
                             callback(err, CurrentTab);
                         });
                     }
@@ -616,12 +576,9 @@ var model = {
                 }, {
                     new: true
                 }, function (err, CurrentTab) {
-                    console.log(CurrentTab);
                     callback(err, CurrentTab);
                 });
             }
-            //console.log(result);
-            //  result.isTurn
         });
     }
 
