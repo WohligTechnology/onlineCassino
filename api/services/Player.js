@@ -292,9 +292,7 @@ var model = {
             if (err) {
                 callback(err);
             } else {
-                console.log("Demo123");
                 var playerIndex = _.findIndex(players, function (player) {
-                    console.log(player.playerNo);
                     return player.playerNo == parseInt(data.tabId);
                 });
                 if (playerIndex >= 0) {
