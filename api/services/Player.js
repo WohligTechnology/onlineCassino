@@ -157,6 +157,24 @@ var model = {
             if (err) {
                 callback(err);
             } else {
+                //Check All Player Cards are Placed
+                var playerCardsNotPresent = _.findIndex(data.players, function (player) {
+                    return player.cards.length === 0;
+                });
+                if (playerCardsNotPresent >= 0) {
+                    callback("Cards not Distributed");
+                    return 0;
+                }
+
+                //Check All Community Cards are Distributed
+                var communityCardsNoDistributed = _.findIndex(data.communityCards, function (commu) {
+                    return commu.cardValue === "";
+                });
+                if (communityCardsNoDistributed >= 0) {
+                    callback("Community Cards not Distributed");
+                    return 0;
+                }
+
                 _.each(data.players, function (player) {
                     player.allCards = _.cloneDeep(player.cards);
                     _.each(data.communityCards, function (commu) {
