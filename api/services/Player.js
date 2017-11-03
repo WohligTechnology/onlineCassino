@@ -163,6 +163,8 @@ var model = {
                         player.allCards.push(commu.cardValue);
                     });
                     player.hand = Hand.solve(player.allCards);
+                    player.winName = player.hand.name;
+                    player.descr = player.hand.descr;
                 });
                 var winners = Hand.winners(_.map(data.players, "hand"));
                 _.each(data.players, function (player) {
@@ -173,16 +175,16 @@ var model = {
                         player.winner = true;
                         player.winName = player.hand.name;
                         player.descr = player.hand.descr;
-                        player.hand = undefined;
                     }
+                    player.hand = undefined;
                 });
 
-                var finalWin = _.filter(data.players, function (player) {
-                    return player.winner;
-                });
+                // var finalWin = _.filter(data.players, function (player) {
+                //     return player.winner;
+                // });
                 Player.blastSocketWinner();
                 callback(null, {
-                    winners: finalWin,
+                    winners: data.players,
                     communityCards: data.communityCards
                 });
 
