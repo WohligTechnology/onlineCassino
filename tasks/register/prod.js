@@ -12,5 +12,5 @@
  *
  */
 module.exports = function (grunt) {
-    grunt.registerTask('prod', []);
+    grunt.registerTask('prod', ["copy:assets"]);
 };
