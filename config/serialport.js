@@ -80,8 +80,5 @@ SerialPort.list(function (err, allSerial) {
         } else {
             red("Card Reader Not Connected");
         }
-
     }
-
-
 });
