@@ -101,8 +101,8 @@ global["TwitterStrategy"] = require('passport-twitter').Strategy;
 global["GoogleStrategy"] = require('passport-google-auth').Strategy;
 
 // Files to Import
-global["jsFiles"] = require("../frontend/files.js");
-global["jsFilesBackend"] = require("../backend/files.js");
+// global["jsFiles"] = require("../frontend/files.js");
+// global["jsFilesBackend"] = require("../backend/files.js");
 
 //colored console
 global["blue"] = function (data) {

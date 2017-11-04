@@ -1,6 +1,6 @@
 apps:
   - script: "app.js"
-    name: "NodeFramework - 80"
+    name: "Poker - 8081"
     watch: false
     args: "--prod"
     exec_mode: "cluster"

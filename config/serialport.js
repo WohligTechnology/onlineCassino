@@ -54,7 +54,21 @@ SerialPort.list(function (err, allSerial) {
 
             // The open event is always emitted
             port.on('open', function () {
-                console.log("Guessing Cards");
+                console.log();
+                console.log();
+                console.log();
+                console.log();
+                console.log();
+                green("Card Reader Connected");
+                console.log();
+                console.log();
+                console.log();
+                console.log();
+                console.log();
+            });
+            port.on('close', function () {
+                red("Card Reader Disconnected");
+                beep(3);
             });
 
             port.on('data', function (data) {

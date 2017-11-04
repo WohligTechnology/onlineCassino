@@ -17,5 +17,5 @@
  *
  */
 module.exports = function (grunt) {
-    grunt.registerTask('default', ['copy:assets', 'copy:frontend']);
+    grunt.registerTask('default', []);
 };
