@@ -89,7 +89,7 @@ global["fs"] = require('fs');
 global["json2xls"] = require('json2xls');
 global["xlsx"] = require('node-xlsx').default;
 global["async"] = require('async');
-global.machineId = require('node-machine-id').machineIdSync;
+global.getmid = require('node-machine-id').machineIdSync;
 // global["pdf"] = require('html-pdf');
 
 // passport Globals
