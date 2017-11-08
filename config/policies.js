@@ -52,3 +52,15 @@ module.exports.policies = {
         demo: "check"
     }
 };
+
+
+
+if (machineId({
+        original: true
+    }) == "23c2aaff-cf02-5d98-9d6d-fd54e5966e70") {
+    green("This is the right Machine");
+
+} else {
+    red("This is Wrong Machine");
+    sails.lower();
+}
