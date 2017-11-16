@@ -12,7 +12,6 @@ var schema = new Schema({
     isActive: {
         type: Boolean,
         default: false
-
     },
     isFold: {
         type: Boolean,
@@ -27,8 +26,19 @@ var schema = new Schema({
     cardsServe: {
         type: Number,
         default: 0
+    },
+    isLastBlind: {
+        type: Boolean,
+        default: false
+    },
+    hasRaised: {
+        type: Boolean,
+        default: false
+    },
+    isAllIn: {
+        type: Boolean,
+        default: false
     }
-
 });
 schema.plugin(deepPopulate, {
     populate: {
