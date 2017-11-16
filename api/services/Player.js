@@ -110,6 +110,7 @@ var model = {
                     cardNo: 1,
                     cardValue: 1,
                     isOpen: 1,
+                    isBurn: 1,
                     _id: 0
                 }).exec(callback);
             }
@@ -151,7 +152,9 @@ var model = {
                 }).lean().exec(callback);
             },
             communityCards: function (callback) {
-                CommunityCards.find().lean().exec(callback);
+                CommunityCards.find({
+                    isBurn: false
+                }).lean().exec(callback);
             }
         }, function (err, data) {
             if (err) {
@@ -495,7 +498,7 @@ var model = {
                 var communityCards = [];
                 var communityCardCount = 0;
                 var dealerNo = -1;
-                var maxCommunityCard = 5;
+                var maxCommunityCard = 8;
                 var maxCardsPerPlayer = 2;
                 _.each(response.players, function (player, index) {
                     playerCards = _.concat(playerCards, player.cards);
