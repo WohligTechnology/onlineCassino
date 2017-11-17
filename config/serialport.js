@@ -78,7 +78,18 @@ SerialPort.list(function (err, allSerial) {
                     var newCard = _.chain(stringArr).head().split(" ").join("").trim().value();
                     string = "";
                     var cardSelected = _.find(sails.config.cards, function (n) {
-                        return n.value == newCard;
+                        var retVal = false;
+                        if (_.isArray(n.value)) {
+                            var findVal = _.find(n.value, function (m) {
+                                return m == newCard;
+                            });
+                            if (findVal) {
+                                retVal = true;
+                            }
+                        } else {
+                            retVal = (n.value == newCard);
+                        }
+                        return retVal;
                     });
                     if (cardSelected) {
                         if (cardSelected.name.length == 2) {
