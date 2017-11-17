@@ -10,7 +10,7 @@ module.exports = function (grunt) {
         },
         restore: {
             options: {
-                db: 'poker2',
+                db: 'poker',
                 host: 'localhost',
                 drop: true,
                 path: './dump/poker'
