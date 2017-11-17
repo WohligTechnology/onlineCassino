@@ -1,0 +1,120 @@
+{ 
+    "_id" : ObjectId("59f04b05f67f272540222a76"), 
+    "createdAt" : ISODate("2017-10-25T08:27:49.769+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.353+0000"), 
+    "playerNo" : NumberInt(1), 
+    "cards" : [
+
+    ], 
+    "isDealer" : false, 
+    "isFold" : false, 
+    "isActive" : true, 
+    "isTurn" : false, 
+    "__v" : NumberInt(269), 
+    "cardsServe" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("59f04b27f67f272540222a7a"), 
+    "createdAt" : ISODate("2017-10-25T08:28:23.981+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.353+0000"), 
+    "playerNo" : NumberInt(2), 
+    "cards" : [
+
+    ], 
+    "isDealer" : false, 
+    "isFold" : false, 
+    "isActive" : true, 
+    "isTurn" : false, 
+    "__v" : NumberInt(277), 
+    "cardsServe" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("59f04b35f67f272540222a7e"), 
+    "createdAt" : ISODate("2017-10-25T08:28:37.258+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.353+0000"), 
+    "playerNo" : NumberInt(3), 
+    "cards" : [
+
+    ], 
+    "isDealer" : false, 
+    "isFold" : false, 
+    "isActive" : false, 
+    "isTurn" : false, 
+    "__v" : NumberInt(146), 
+    "cardsServe" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("59f04b48f67f272540222a82"), 
+    "createdAt" : ISODate("2017-10-25T08:28:56.686+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.353+0000"), 
+    "playerNo" : NumberInt(4), 
+    "cards" : [
+
+    ], 
+    "isDealer" : false, 
+    "isFold" : false, 
+    "isActive" : false, 
+    "isTurn" : false, 
+    "__v" : NumberInt(129), 
+    "cardsServe" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("59f04b5ff67f272540222a86"), 
+    "createdAt" : ISODate("2017-10-25T08:29:19.474+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.353+0000"), 
+    "playerNo" : NumberInt(5), 
+    "cards" : [
+
+    ], 
+    "isDealer" : false, 
+    "isFold" : false, 
+    "isActive" : false, 
+    "isTurn" : false, 
+    "__v" : NumberInt(91), 
+    "cardsServe" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("59f04b6bf67f272540222a8a"), 
+    "createdAt" : ISODate("2017-10-25T08:29:31.696+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.353+0000"), 
+    "playerNo" : NumberInt(6), 
+    "cards" : [
+
+    ], 
+    "isDealer" : false, 
+    "isFold" : false, 
+    "isActive" : false, 
+    "isTurn" : false, 
+    "__v" : NumberInt(63), 
+    "cardsServe" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("59f04b77f67f272540222a8e"), 
+    "createdAt" : ISODate("2017-10-25T08:29:43.112+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.353+0000"), 
+    "playerNo" : NumberInt(7), 
+    "cards" : [
+
+    ], 
+    "isDealer" : false, 
+    "isFold" : false, 
+    "isActive" : false, 
+    "isTurn" : false, 
+    "__v" : NumberInt(63), 
+    "cardsServe" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("59f04b86f67f272540222a92"), 
+    "createdAt" : ISODate("2017-10-25T08:29:58.341+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.353+0000"), 
+    "playerNo" : NumberInt(8), 
+    "cards" : [
+
+    ], 
+    "isDealer" : false, 
+    "isFold" : false, 
+    "isActive" : false, 
+    "isTurn" : false, 
+    "__v" : NumberInt(41), 
+    "cardsServe" : NumberInt(0)
+}

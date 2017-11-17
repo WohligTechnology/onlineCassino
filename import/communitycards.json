@@ -1,0 +1,80 @@
+{ 
+    "_id" : ObjectId("59f17f3e0dcd291f4c15c3ed"), 
+    "createdAt" : ISODate("2017-10-26T06:22:54.427+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.355+0000"), 
+    "cardNo" : NumberInt(1), 
+    "cardValue" : "", 
+    "isOpen" : false, 
+    "__v" : NumberInt(0), 
+    "isBurn" : true
+}
+{ 
+    "_id" : ObjectId("59f17f3e0dcd291f4c15c3ee"), 
+    "createdAt" : ISODate("2017-10-26T06:22:54.432+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.355+0000"), 
+    "cardNo" : NumberInt(2), 
+    "cardValue" : "", 
+    "isOpen" : false, 
+    "__v" : NumberInt(0), 
+    "isBurn" : false
+}
+{ 
+    "_id" : ObjectId("59f17f3e0dcd291f4c15c3ef"), 
+    "createdAt" : ISODate("2017-10-26T06:22:54.432+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.355+0000"), 
+    "cardNo" : NumberInt(3), 
+    "cardValue" : "", 
+    "isOpen" : false, 
+    "__v" : NumberInt(0), 
+    "isBurn" : false
+}
+{ 
+    "_id" : ObjectId("59f17f3e0dcd291f4c15c3f0"), 
+    "createdAt" : ISODate("2017-10-26T06:22:54.433+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.355+0000"), 
+    "cardNo" : NumberInt(4), 
+    "cardValue" : "", 
+    "isOpen" : false, 
+    "__v" : NumberInt(0), 
+    "isBurn" : false
+}
+{ 
+    "_id" : ObjectId("59f17f3e0dcd291f4c15c3f1"), 
+    "createdAt" : ISODate("2017-10-26T06:22:54.433+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.355+0000"), 
+    "cardNo" : NumberInt(5), 
+    "cardValue" : "", 
+    "isOpen" : false, 
+    "__v" : NumberInt(0), 
+    "isBurn" : true
+}
+{ 
+    "_id" : ObjectId("5a0d49774d262722f4514b97"), 
+    "createdAt" : ISODate("2017-10-26T06:22:54.433+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.355+0000"), 
+    "cardNo" : NumberInt(6), 
+    "cardValue" : "", 
+    "isOpen" : false, 
+    "__v" : NumberInt(0), 
+    "isBurn" : false
+}
+{ 
+    "_id" : ObjectId("5a0d497e4d262722f4514b98"), 
+    "createdAt" : ISODate("2017-10-26T06:22:54.433+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.355+0000"), 
+    "cardNo" : NumberInt(7), 
+    "cardValue" : "", 
+    "isOpen" : false, 
+    "__v" : NumberInt(0), 
+    "isBurn" : true
+}
+{ 
+    "_id" : ObjectId("5a0d49864d262722f4514b99"), 
+    "createdAt" : ISODate("2017-10-26T06:22:54.433+0000"), 
+    "updatedAt" : ISODate("2017-11-16T13:04:50.355+0000"), 
+    "cardNo" : NumberInt(8), 
+    "cardValue" : "", 
+    "isOpen" : false, 
+    "__v" : NumberInt(0), 
+    "isBurn" : false
+}
