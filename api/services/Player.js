@@ -415,7 +415,6 @@ var model = {
             }
         });
     },
-
     addTab: function (data, callback) {
         var Model = this;
         Model.findOneAndUpdate({
@@ -488,7 +487,6 @@ var model = {
             }
         });
     },
-
     serve: function (data, callback) {
         if (data.card && data.card.length == 2) {
             async.parallel({
@@ -581,7 +579,6 @@ var model = {
         }
 
     },
-
     moveTurn: function (data, callback) {
         Player.find({
             isActive: true,
@@ -617,7 +614,6 @@ var model = {
             }
         });
     },
-
     blastSocket: function () {
         Player.getAll({}, function (err, data) {
             if (err) {
@@ -629,9 +625,61 @@ var model = {
     },
     blastSocketWinner: function () {
         sails.sockets.blast("Winner", {});
+    },
+    allIn: function (data, callback) {
+        async.waterfall([
+            Player.currentTurn,
+            function (player, callback) {
+                player.isAllIn = true;
+                player.save(function (err, data) {
+                    callback(err);
+                });
+            },
+            Player.changeTurn
+        ], callback);
+    },
+    currentTurn: function (callback) {
+        Player.findOne({
+            isTurn: true
+        }).exec(callback);
+    },
+    changeTurn: function () {
+        async.waterfall([
+            Player.currentTurn,
+            function (player, callback) {
+                Player.find({
+                    isActive: true
+                }).exec(function (err, players) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        var turnIndex = _.findIndex(players, function (n) {
+                            return n._id == player._id;
+                        });
+                        if (turnIndex >= 0) {
+                            async.parallel({
+                                removeTurn: function (callback) {
+                                    var player = players[turnIndex];
+                                    player.isTurn = false;
+                                    player.save(callback);
+                                },
+                                addTurn: function (callback) {
+                                    var newTurnIndex = (turnIndex + 1) % players.length;
+                                    var player = players[newTurnIndex];
+                                    player.isTurn = true;
+                                    player.save(callback);
+                                }
+                            }, function (err, data) {
+                                callback(err, data);
+                                Player.blastSocket();
+                            });
+                        } else {
+                            callback("No Element Remaining");
+                        }
+                    }
+                });
+            }
+        ], callback);
     }
-
-
-
 };
 module.exports = _.assign(module.exports, exports, model);
