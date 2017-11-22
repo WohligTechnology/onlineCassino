@@ -49,13 +49,13 @@ var controller = {
     getAll: function (req, res) {
         Player.getAll(req.body, res.callback);
     },
-    moveTurn: function (req, res) {
-        Player.moveTurn(req.body, res.callback);
-    },
     allIn: function (req, res) {
         Player.allIn(req.body, res.callback);
     },
-    changeturn: function (req, res) {
+    raise: function (req, res) {
+        Player.raise(req.body, res.callback);
+    },
+    moveTurn: function (req, res) {
         Player.changeTurn(res.callback);
     }
     //getTabDetail
