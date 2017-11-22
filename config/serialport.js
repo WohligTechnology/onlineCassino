@@ -44,7 +44,7 @@ SerialPort.list(function (err, allSerial) {
         red("Error Finding Serial Port");
     } else {
         var cardReaderSerial = _.find(allSerial, function (n) {
-            return n.serialNumber == "856343138393519132C1";
+            return n.serialNumber == "55639303634351419172";
         });
         if (cardReaderSerial) {
             var port = new SerialPort(cardReaderSerial.comName, {
