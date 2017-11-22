@@ -624,7 +624,19 @@ var model = {
         ], callback);
     },
     raise: function (data, callback) {
+
         async.waterfall([
+            function () { // Remove All raise
+                Model.update({}, {
+                    $set: {
+                        hasRaised: false,
+                    }
+                }, {
+                    multi: true
+                }, function (err, cards) {
+                    callback(err);
+                });
+            },
             Player.currentTurn,
             function (player, callback) {
                 player.hasRaised = true;
