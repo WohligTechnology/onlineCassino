@@ -2,31 +2,39 @@ module.exports.serialport = {
 
 };
 
+global.isCallApi = true;
 
 function callApi(cardName) {
 
-    var options = {
-        method: 'POST',
-        url: env.realHost + '/api/Player/serve',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: {
-            card: cardName
-        },
-        json: true
-    };
-    request(options, function (error, response, body) {
-        if (error) {
-            console.log(error);
-        } else {
-            if (body.value) {
-                green(body.data);
+    if (isCallApi) {
+        global.isCallApi = false;
+        var options = {
+            method: 'POST',
+            url: env.realHost + '/api/Player/serve',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: {
+                card: cardName
+            },
+            json: true
+        };
+        request(options, function (error, response, body) {
+            global.isCallApi = true;
+            if (error) {
+                console.log(error);
             } else {
-                red(body.error);
+                if (body.value) {
+                    green(body.data);
+                } else {
+                    red(body.error);
+                }
             }
-        }
-    });
+        });
+    } else {
+        blue("API in progress");
+    }
+
 
 }
 
