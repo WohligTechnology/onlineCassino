@@ -626,8 +626,8 @@ var model = {
     raise: function (data, callback) {
 
         async.waterfall([
-            function () { // Remove All raise
-                Model.update({}, {
+            function (callback) { // Remove All raise
+                Player.update({}, {
                     $set: {
                         hasRaised: false,
                     }
