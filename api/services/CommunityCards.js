@@ -41,9 +41,7 @@ var model = {
                     if (value == 1) {
                         callback(err, data2);
                     }
-                } else {
-
-                }
+                } else {}
             });
         });
 
