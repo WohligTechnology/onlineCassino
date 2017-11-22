@@ -10,19 +10,14 @@ var schema = new Schema({
     },
     cardValue: {
         type: String,
-        default: "",
-
+        default: ""
     },
     isBurn: {
         type: Boolean,
         default: false
     }
-
 });
-schema.plugin(deepPopulate, {
-
-
-});
+schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('CommunityCards', schema);
@@ -32,7 +27,9 @@ var model = {
     createCards: function (callback) {
         var Model = this;
         var cardsNo = [1, 2, 3, 4, 5];
+
         //      async.waterfall([ function(wfCallback){
+
         _.each(cardsNo, function (value, key) {
             Model.saveData({
                 cardNo: value
@@ -46,7 +43,9 @@ var model = {
         });
 
         //}, ]);
-        callback(null, "cards Created");
+
+        callback(null, "Cards Created");
+
     }
 };
 module.exports = _.assign(module.exports, exports, model);
