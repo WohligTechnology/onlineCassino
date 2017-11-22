@@ -520,7 +520,7 @@ var model = {
                         if (err) {
                             callback(err);
                         } else {
-                            callback(err, "Card Provided to Player " + (toServe + 1));
+                            callback(err, "Card Provided to Player " + response.players[toServe].playerNo);
                             Player.blastSocket({
                                 player: true,
                                 playerNo: response.players[toServe].playerNo
