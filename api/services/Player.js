@@ -319,6 +319,7 @@ var model = {
         cardServed = false;
     },
     makeDealer: function (data, callback) {
+        var Model = Player;
         Player.find({
             isActive: true
         }).exec(function (err, players) {
@@ -334,20 +335,19 @@ var model = {
                             players[playerIndex].isDealer = true;
                             players[playerIndex].save(callback);
                         },
-                        addTurn: function () {
+                        addTurn: function (callback) {
                             var turnIndex = (playerIndex + 1) % players.length;
                             players[turnIndex].isTurn = true;
                             players[turnIndex].save(callback);
                         }
                     }, function (err, data) {
+                        Model.blastSocket();
                         callback(err, data);
-                        Player.blastSocket();
                     });
                 } else {
                     callback("No Such Player");
                 }
             }
-
         });
     },
     removeDealer: function (data, callback) {
@@ -615,6 +615,7 @@ var model = {
         });
     },
     blastSocket: function () {
+        console.log("Socket Called");
         Player.getAll({}, function (err, data) {
             if (err) {
                 console.log(err);
