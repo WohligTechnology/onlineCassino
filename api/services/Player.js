@@ -284,11 +284,42 @@ var model = {
     newGame: function (data, callback) {
         var Model = this;
         async.waterfall([
+            function (callback) { // Next Dealer
+                Model.find({
+                    isActive: true
+                }).exec(function (err, players) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        var turnIndex = _.findIndex(players, function (n) {
+                            return n.isDealer;
+                        });
+                        if (turnIndex >= 0) {
+                            async.parallel({
+                                removeDealer: function (callback) {
+                                    var player = players[turnIndex];
+                                    player.isDealer = false;
+                                    player.save(callback);
+                                },
+                                addDealer: function (callback) {
+                                    var newTurnIndex = (turnIndex + 1) % players.length;
+                                    var player = players[newTurnIndex];
+                                    player.isDealer = true;
+                                    player.save(callback);
+                                }
+                            }, function (err, data) {
+                                callback();
+                            });
+                        } else {
+                            callback("No Element Remaining");
+                        }
+                    }
+                });
+            },
             function (fwCallback) {
                 Model.update({}, {
                     $set: {
                         isFold: false,
-                        // isDealer: false,
                         cards: [],
                         isTurn: false,
                         cardsServe: 0,
