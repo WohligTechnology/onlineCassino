@@ -288,7 +288,7 @@ var model = {
                 Model.update({}, {
                     $set: {
                         isFold: false,
-                        isDealer: false,
+                        // isDealer: false,
                         cards: [],
                         isTurn: false,
                         cardsServe: 0,
@@ -523,7 +523,7 @@ var model = {
                             callback(err, "Card Provided to Player " + response.players[toServe].playerNo);
                             Player.blastSocket({
                                 player: true,
-                                playerNo: response.players[toServe].playerNo
+                                value: response.players[toServe].playerNo
                             });
                         }
                     });
@@ -537,8 +537,8 @@ var model = {
                         } else {
                             callback(err, "Card Provided to Community Card No " + (communityCardCount + 1));
                             Player.blastSocket({
-                                communityCard: true,
-                                cardNo: communityCardCount
+                                player: false,
+                                value: communityCardCount
                             });
                         }
                     });
