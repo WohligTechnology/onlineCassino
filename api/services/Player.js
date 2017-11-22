@@ -623,7 +623,7 @@ var model = {
             }
         ], callback);
     },
-    raise: function () {
+    raise: function (data, callback) {
         async.waterfall([
             Player.currentTurn,
             function (player, callback) {
@@ -635,7 +635,7 @@ var model = {
             Player.changeTurn
         ], callback);
     },
-    fold: function () {
+    fold: function (data, callback) {
         async.waterfall([
             Player.currentTurn,
             function (player, callback) {
