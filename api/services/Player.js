@@ -561,6 +561,8 @@ var model = {
             } else {
                 if (data) {
                     allData.extra = data;
+                } else {
+                    allData.extra = {};
                 }
                 sails.sockets.blast("Update", allData);
             }
