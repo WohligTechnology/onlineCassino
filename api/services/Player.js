@@ -521,7 +521,10 @@ var model = {
                             callback(err);
                         } else {
                             callback(err, "Card Provided to Player " + (toServe + 1));
-                            Player.blastSocket();
+                            Player.blastSocket({
+                                player: true,
+                                playerNo: response.players[toServe].playerNo
+                            });
                         }
                     });
                 } else if (communityCardCount < maxCommunityCard) {
@@ -533,7 +536,10 @@ var model = {
                             callback(err);
                         } else {
                             callback(err, "Card Provided to Community Card No " + (communityCardCount + 1));
-                            Player.blastSocket();
+                            Player.blastSocket({
+                                communityCard: true,
+                                cardNo: communityCardCount
+                            });
                         }
                     });
                 } else {
@@ -548,12 +554,15 @@ var model = {
 
     },
 
-    blastSocket: function () {
-        Player.getAll({}, function (err, data) {
+    blastSocket: function (data) {
+        Player.getAll({}, function (err, allData) {
             if (err) {
                 console.log(err);
             } else {
-                sails.sockets.blast("Update", data);
+                if (data) {
+                    allData.extra = data;
+                }
+                sails.sockets.blast("Update", allData);
             }
         });
     },
