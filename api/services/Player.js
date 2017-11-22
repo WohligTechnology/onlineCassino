@@ -630,6 +630,7 @@ var model = {
         async.waterfall([
             Player.currentTurn,
             function (player, callback) {
+                console.log(player);
                 player.isAllIn = true;
                 player.save(function (err, data) {
                     callback(err);
@@ -641,9 +642,12 @@ var model = {
     currentTurn: function (callback) {
         Player.findOne({
             isTurn: true
-        }).exec(callback);
+        }).exec(function (err, data) {
+            console.log(err, data);
+            callback(err, data);
+        });
     },
-    changeTurn: function () {
+    changeTurn: function (callback) {
         async.waterfall([
             Player.currentTurn,
             function (player, callback) {
@@ -654,7 +658,7 @@ var model = {
                         callback(err);
                     } else {
                         var turnIndex = _.findIndex(players, function (n) {
-                            return n._id == player._id;
+                            return (n._id + "") == (player._id + "");
                         });
                         if (turnIndex >= 0) {
                             async.parallel({

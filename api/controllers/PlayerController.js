@@ -51,7 +51,10 @@ var controller = {
     },
     moveTurn: function (req, res) {
         Player.moveTurn(req.body, res.callback);
-    }
+    },
+    allIn: function (req, res) {
+        Player.allIn(req.body, res.callback);
+    },
     //getTabDetail
 
 };
