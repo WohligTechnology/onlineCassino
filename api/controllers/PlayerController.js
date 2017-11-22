@@ -55,6 +55,9 @@ var controller = {
     allIn: function (req, res) {
         Player.allIn(req.body, res.callback);
     },
+    changeturn: function (req, res) {
+        Player.changeTurn(res.callback);
+    }
     //getTabDetail
 
 };

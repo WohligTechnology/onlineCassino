@@ -291,7 +291,10 @@ var model = {
                         isDealer: false,
                         cards: [],
                         isTurn: false,
-                        cardsServe: 0
+                        cardsServe: 0,
+                        isLastBlind: false,
+                        hasRaised: false,
+                        isAllIn: false
                     }
                 }, {
                     multi: true
@@ -615,7 +618,6 @@ var model = {
         });
     },
     blastSocket: function () {
-        console.log("Socket Called");
         Player.getAll({}, function (err, data) {
             if (err) {
                 console.log(err);
@@ -631,7 +633,6 @@ var model = {
         async.waterfall([
             Player.currentTurn,
             function (player, callback) {
-                console.log(player);
                 player.isAllIn = true;
                 player.save(function (err, data) {
                     callback(err);
@@ -644,7 +645,6 @@ var model = {
         Player.findOne({
             isTurn: true
         }).exec(function (err, data) {
-            console.log(err, data);
             callback(err, data);
         });
     },
@@ -653,7 +653,13 @@ var model = {
             Player.currentTurn,
             function (player, callback) {
                 Player.find({
-                    isActive: true
+                    $or: [{
+                        isActive: true,
+                        isFold: false,
+                        isAllIn: false
+                    }, {
+                        isTurn: true
+                    }]
                 }).exec(function (err, players) {
                     if (err) {
                         callback(err);
