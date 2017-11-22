@@ -17,9 +17,11 @@ var schema = new Schema({
         default: false
     }
 });
+
 schema.plugin(deepPopulate, {});
 schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
+
 module.exports = mongoose.model('CommunityCards', schema);
 
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
