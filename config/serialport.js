@@ -34,8 +34,6 @@ function callApi(cardName) {
     } else {
         blue("API in progress");
     }
-
-
 }
 
 
