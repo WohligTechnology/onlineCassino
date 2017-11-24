@@ -51,7 +51,6 @@ schema.plugin(uniqueValidator);
 schema.plugin(timestamps);
 module.exports = mongoose.model('Player', schema);
 var exports = _.cloneDeep(require("sails-wohlig-service")(schema, "cards", "cards"));
-var Hand = require('pokersolver').Hand;
 
 var model = {
     addPlayer: function (data, callback) {
@@ -189,7 +188,6 @@ var model = {
 
     },
     showWinner: function (callback) {
-
         async.parallel({
             players: function (callback) {
                 Player.find({
@@ -207,59 +205,20 @@ var model = {
                 callback(err);
             } else {
                 //Check All Player Cards are Placed
-                var playerCardsNotPresent = _.findIndex(data.players, function (player) {
-                    return player.cards.length === 0;
-                });
-                if (playerCardsNotPresent >= 0) {
-                    callback("Cards not Distributed");
-                    return 0;
-                }
-
-                //Check All Community Cards are Distributed
-                var communityCardsNoDistributed = _.findIndex(data.communityCards, function (commu) {
-                    return commu.cardValue === "";
-                });
-                if (communityCardsNoDistributed >= 0) {
-                    callback("Community Cards not Distributed");
-                    return 0;
-                }
-
-                _.each(data.players, function (player) {
-                    player.allCards = _.cloneDeep(player.cards);
-                    _.each(data.communityCards, function (commu) {
-                        player.allCards.push(commu.cardValue);
-                    });
-                    player.hand = Hand.solve(player.allCards);
-                    player.winName = player.hand.name;
-                    player.descr = player.hand.descr;
-                });
-                var winners = Hand.winners(_.map(data.players, "hand"));
-                _.each(data.players, function (player) {
-                    var index = _.findIndex(winners, function (winner) {
-                        return player.hand == winner;
-                    });
-                    if (index >= 0) {
-                        player.winner = true;
-                        player.winName = player.hand.name;
-                        player.descr = player.hand.descr;
+                CommunityCards.findWinner(data.players, data.communityCards, function (err, finalVal) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        Player.blastSocketWinner();
+                        callback(null, {
+                            winners: data.players,
+                            communityCards: data.communityCards
+                        });
                     }
-                    player.hand = undefined;
                 });
-
-                // var finalWin = _.filter(data.players, function (player) {
-                //     return player.winner;
-                // });
-                Player.blastSocketWinner();
-                callback(null, {
-                    winners: data.players,
-                    communityCards: data.communityCards
-                });
-
 
             }
         });
-
-
     },
     revealCards: function (data, callback) {
 

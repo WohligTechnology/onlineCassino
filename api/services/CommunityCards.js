@@ -29,9 +29,6 @@ var model = {
     createCards: function (callback) {
         var Model = this;
         var cardsNo = [1, 2, 3, 4, 5];
-
-        //      async.waterfall([ function(wfCallback){
-
         _.each(cardsNo, function (value, key) {
             Model.saveData({
                 cardNo: value
@@ -43,11 +40,70 @@ var model = {
                 } else {}
             });
         });
-
-        //}, ]);
-
         callback(null, "Cards Created");
+    },
+    findWinner: function (players, communityCards, callback) {
+        var playerCardsNotPresent = _.findIndex(players, function (player) {
+            return player.cards.length === 0;
+        });
+        if (playerCardsNotPresent >= 0) {
+            callback("Cards not Distributed");
+            return 0;
+        }
 
+        //Check All Community Cards are Distributed
+        var communityCardsNoDistributed = _.findIndex(communityCards, function (commu) {
+            return commu.cardValue === "";
+        });
+        if (communityCardsNoDistributed >= 0) {
+            callback("Community Cards not Distributed");
+            return 0;
+        }
+
+        _.each(players, function (player) {
+            player.allCards = _.cloneDeep(player.cards);
+            _.each(communityCards, function (commu) {
+                player.allCards.push(commu.cardValue);
+            });
+            player.hand = Hand.solve(player.allCards);
+            player.winName = player.hand.name;
+            player.descr = player.hand.descr;
+        });
+
+        var rank = 1;
+        var isAllComplete = false;
+        while (!isAllComplete) {
+            var remainingPlayers = _.filter(players, function (n) {
+                n.hand = Hand.solve(n.allCards);
+                return !(n.winRank);
+            });
+            if (remainingPlayers.length === 0) {
+                isAllComplete = true;
+            } else {
+                var winners = Hand.winners(_.map(remainingPlayers, "hand"));
+                _.each(players, function (player) {
+                    var index = _.findIndex(winners, function (winner) {
+                        return player.hand == winner;
+                    });
+                    if (index >= 0) {
+                        if (rank == 1) {
+                            player.winner = true;
+                        }
+
+                        player.winRank = rank;
+                    }
+                    player.hand = undefined;
+                });
+                rank++;
+            }
+
+        }
+        _.each(players, function (player) {
+            player.hand = undefined;
+        });
+
+
+        callback();
     }
 };
 module.exports = _.assign(module.exports, exports, model);
