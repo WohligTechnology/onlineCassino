@@ -632,6 +632,18 @@ var model = {
     },
     allIn: function (data, callback) {
         async.waterfall([
+            function (callback) { // Remove All raise
+                Player.update({}, {
+                    $set: {
+                        hasRaised: false,
+                        isLastBlind: false
+                    }
+                }, {
+                    multi: true
+                }, function (err, cards) {
+                    callback(err);
+                });
+            },
             Player.currentTurn,
             function (player, callback) {
                 player.isAllIn = true;
@@ -691,7 +703,7 @@ var model = {
                             }, function (err, data) {
                                 callback(err, data);
 
-                                Player.whetherToEndTurn(players, data.removeTurn[0], data.addTurn[0], function (err) {
+                                Player.whetherToEndTurn(data.removeTurn[0], data.addTurn[0], function (err) {
                                     Player.blastSocket();
                                 });
                             });
@@ -768,59 +780,93 @@ var model = {
             Player.changeTurn
         ], callback);
     },
-    whetherToEndTurn: function (allPlayer, fromPlayer, toPlayer, callback) {
-        var removeAllTurn = false;
-        var isWinner = false;
-        // case 1 
-        // When fromPlayer.isLastBlind checks
-        if (fromPlayer.isLastBlind) {
-            removeAllTurn = true;
-        }
-
-        // case 2
-        // When toPlayer.hasRaised
-        if (toPlayer.hasRaised) {
-            removeAllTurn = true;
-        }
-
-        // case 3
-        // When fromPlayer.isDealer && noOne has Raised
-        var lastRaise = _.findIndex(allPlayer, function (n) {
-            return n.hasRaised;
-        });
-        var lastBlind = _.findIndex(allPlayer, function (n) {
-            return n.isLastBlind;
-        });
-        // Main Error in Dealer Related Search WHEN Dealer Folds
-        if (lastRaise < 0 && lastBlind < 0 && fromPlayer.isDealer) {
-            removeAllTurn = true;
-        }
-
-        if (removeAllTurn) {
-            //Show Winner to be checked
-            Player.update({}, {
-                $set: {
-                    hasRaised: false,
-                    isLastBlind: false,
-                    isTurn: false
-                }
+    whetherToEndTurn: function (fromPlayer, toPlayer, callback) {
+        Player.find({
+            $or: [{
+                isActive: true,
+                isFold: false,
+                isAllIn: false
             }, {
-                multi: true
-            }, function (err) {
+                hasRaised: true
+            }, {
+                isDealer: true
+            }]
+        }).sort({
+            playerNo: 1
+        }).exec(function (err, allPlayers) {
+            if (err) {
                 callback(err);
-            });
-        } else {
-            var otherVal = {
-                turn: true
-            };
-            if (toPlayer.isLastBlind) {
-                otherVal.showCheck = true;
+            } else if (_.isEmpty(allPlayers)) {
+                callback("No Players found in Whether to end turn");
+            } else {
+                var fromPlayerPartition = _.partition(allPlayers, function (n) {
+                    return n.playerNo >= fromPlayer.playerNo;
+                });
+                var fromPlayerFirst = _.concat(fromPlayerPartition[0], fromPlayerPartition[1]);
+                var toIndex = _.findIndex(fromPlayerFirst, function (n) {
+                    return n.playerNo == toPlayer.playerNo;
+                });
+                var fromPlayerToPlayer = _.slice(fromPlayerFirst, 0, toIndex + 1);
+
+                var removeAllTurn = false;
+                var isWinner = false;
+                // case 1 
+                // When fromPlayer.isLastBlind checks
+                if (fromPlayer.isLastBlind) {
+                    removeAllTurn = true;
+                }
+
+                // case 2
+                // When toPlayer.hasRaised
+                var isRaisedBetween = _.findIndex(fromPlayerToPlayer, function (n, index) {
+                    return (n.hasRaised && index !== 0);
+                });
+                // Find Players between 
+                if (isRaisedBetween > 0) {
+                    removeAllTurn = true;
+                }
+
+                // case 3
+                // When fromPlayer.isDealer && noOne has Raised
+                var lastRaise = _.findIndex(allPlayer, function (n) {
+                    return n.hasRaised;
+                });
+                var lastBlind = _.findIndex(allPlayer, function (n) {
+                    return n.isLastBlind;
+                });
+                var isDealerBetween = _.findIndex(fromPlayerToPlayer, function (n, index) {
+                    return (n.isDealer && index !== fromPlayerToPlayer.length);
+                });
+                // Find Players between 
+                if (isRaisedBetween > 0) {
+                    removeAllTurn = true;
+                }
+                // Main Error in Dealer Related Search WHEN Dealer Folds
+                if (lastRaise < 0 && lastBlind < 0 && isDealerBetween >= 0) {
+                    removeAllTurn = true;
+                }
+
+
+                if (removeAllTurn) {
+                    //Show Winner to be checked
+                    Player.update({}, {
+                        $set: {
+                            hasRaised: false,
+                            isLastBlind: false,
+                            isTurn: false
+                        }
+                    }, {
+                        multi: true
+                    }, function (err) {
+                        callback(err);
+                    });
+                } else {
+                    callback(null);
+                }
             }
-            if (lastRaise < 0 && lastBlind < 0) {
-                otherVal.showCheck = true;
-            }
-            callback(null, otherVal);
-        }
+        });
+
+
     },
     findLastBlindNext: function (callback) {
         async.waterfall([
