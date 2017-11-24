@@ -127,7 +127,16 @@ var model = {
                     _id: 0
                 }).exec(callback);
             }
-        }, callback);
+        }, function (err, data) {
+            if (err) {
+                callback(err);
+            } else {
+                data.hasTurn = _.find(data.playerCards, function (player) {
+                    return player.isTurn;
+                }) && true;
+                callback(err, data);
+            }
+        });
     },
     getTabDetail: function (data, callback) {
         async.parallel({
