@@ -822,6 +822,7 @@ var model = {
         var lastBlind = _.findIndex(allPlayer, function (n) {
             return n.isLastBlind;
         });
+        // Main Error in Dealer Related Search WHEN Dealer Folds
         if (lastRaise < 0 && lastBlind < 0 && fromPlayer.isDealer) {
             removeAllTurn = true;
         }
