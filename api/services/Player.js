@@ -364,7 +364,7 @@ var model = {
                     multi: true
                 }, callback);
             },
-            function (data, callback) {
+            function (val, callback) {
                 Player.find({
                     isActive: true
                 }).exec(function (err, players) {
