@@ -112,6 +112,8 @@ var model = {
                     isDealer: 1,
                     isFold: 1,
                     cards: 1,
+                    isAllIn: 1,
+                    hasRaised: 1,
                     _id: 0
                 }).exec(callback);
             },
