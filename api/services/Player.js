@@ -581,14 +581,25 @@ var model = {
                         if (err) {
                             callback(err);
                         } else {
+
                             callback(err, "Card Provided to Community Card No " + (communityCardCount + 1));
-                            Player.blastSocket({
-                                player: false,
-                                value: communityCardCount
-                            });
+
+                            if (communityCardCount == 3 || communityCardCount == 5 || communityCardCount == 7) {
+                                Player.makeTurn(communityCardCount, function (err, data) {
+                                    Player.blastSocket({
+                                        player: false,
+                                        value: communityCardCount
+                                    });
+                                });
+
+                            } else {
+                                Player.blastSocket({
+                                    player: false,
+                                    value: communityCardCount
+                                });
+                            }
                         }
                     });
-
                 } else {
                     callback("All Cards are Served");
                     return 0;
@@ -633,9 +644,7 @@ var model = {
     currentTurn: function (callback) {
         Player.findOne({
             isTurn: true
-        }).exec(function (err, data) {
-            callback(err, data);
-        });
+        }).exec(callback);
     },
     changeTurn: function (callback) {
         async.waterfall([
@@ -681,8 +690,51 @@ var model = {
             }
         ], callback);
     },
+    makeTurn: function (cardNo, callback) {
+        var findInitialObj = {};
+        if (cardNo == 3) {
+            findInitialObj.isLastBlind = true;
+        } else {
+            findInitialObj.isDealer = true;
+        }
+        async.waterfall([
+            function (callback) {
+                Player.findOne(findInitialObj).exec(callback);
+            },
+            function (player, callback) {
+                Player.find({
+                    $or: [{
+                        isActive: true,
+                        isFold: false,
+                        isAllIn: false
+                    }, {
+                        isTurn: true
+                    }]
+                }).exec(function (err, players) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        var turnIndex = _.findIndex(players, function (n) {
+                            return (n._id + "") == (player._id + "");
+                        });
+                        if (turnIndex >= 0) {
+                            async.parallel({
+                                addTurn: function (callback) {
+                                    var newTurnIndex = (turnIndex + 1) % players.length;
+                                    var player = players[newTurnIndex];
+                                    player.isTurn = true;
+                                    player.save(callback);
+                                }
+                            }, callback);
+                        } else {
+                            callback("No Element Remaining");
+                        }
+                    }
+                });
+            }
+        ], callback);
+    },
     raise: function (data, callback) {
-
         async.waterfall([
             function (callback) { // Remove All raise
                 Player.update({}, {
