@@ -650,7 +650,7 @@ var model = {
     changeTurn: function (callback) {
         async.waterfall([
             Player.currentTurn,
-            function (player, callback) {
+            function (playerFromTop, callback) {
                 Player.find({
                     $or: [{
                         isActive: true,
@@ -664,7 +664,7 @@ var model = {
                         callback(err);
                     } else {
                         var turnIndex = _.findIndex(players, function (n) {
-                            return (n._id + "") == (player._id + "");
+                            return (n._id + "") == (playerFromTop._id + "");
                         });
                         if (turnIndex >= 0) {
                             async.parallel({
@@ -681,7 +681,9 @@ var model = {
                                 }
                             }, function (err, data) {
                                 callback(err, data);
-                                Player.blastSocket();
+                                Player.whetherToEndTurn(players, data.removeTurn[0], data.addTurn[0], function (err) {
+                                    Player.blastSocket();
+                                });
                             });
                         } else {
                             callback("No Element Remaining");
@@ -702,7 +704,8 @@ var model = {
             function (callback) {
                 Player.update({}, {
                     $set: {
-                        isTurn: false,
+                        hasRaised: false,
+                        isTurn: false
                     }
                 }, {
                     multi: true
@@ -744,6 +747,7 @@ var model = {
                 Player.update({}, {
                     $set: {
                         hasRaised: false,
+                        isLastBlind: false
                     }
                 }, {
                     multi: true
@@ -772,6 +776,51 @@ var model = {
             },
             Player.changeTurn
         ], callback);
+    },
+    whetherToEndTurn: function (allPlayer, fromPlayer, toPlayer, callback) {
+        console.log(allPlayer);
+        var removeAllTurn = false;
+        var isWinner = false;
+        // case 1 
+        // When fromPlayer.isLastBlind checks
+        if (fromPlayer.isLastBlind) {
+            removeAllTurn = true;
+        }
+
+        // case 2
+        // When toPlayer.hasRaised
+        if (toPlayer.hasRaised) {
+            removeAllTurn = true;
+        }
+
+        // case 3
+        // When fromPlayer.isDealer && noOne has Raised
+        var lastRaise = _.findIndex(allPlayer, function (n) {
+            return n.hasRaised;
+        });
+        var lastBlind = _.findIndex(allPlayer, function (n) {
+            return n.isLastBlind;
+        });
+        if (lastRaise < 0 && lastBlind < 0 && fromPlayer.isDealer) {
+            removeAllTurn = true;
+        }
+
+        if (removeAllTurn) {
+            //Show Winner to be checked
+            Player.update({}, {
+                $set: {
+                    hasRaised: false,
+                    isLastBlind: false,
+                    isTurn: false
+                }
+            }, {
+                multi: true
+            }, function (err, cards) {
+                callback(err);
+            });
+        } else {
+            callback();
+        }
     }
 };
 module.exports = _.assign(module.exports, exports, model);
