@@ -417,7 +417,11 @@ var model = {
                                     players[playerIndex].save(callback);
                                 },
                                 addBlind: function (callback) {
-                                    var turnIndex = (playerIndex + 2) % players.length;
+                                    var skipBlind = 2;
+                                    if (data.isStraddle) {
+                                        skipBlind = 3;
+                                    }
+                                    var turnIndex = (playerIndex + skipBlind) % players.length;
                                     players[turnIndex].isLastBlind = true;
                                     players[turnIndex].save(callback);
                                 }
