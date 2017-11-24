@@ -131,9 +131,33 @@ var model = {
             if (err) {
                 callback(err);
             } else {
-                data.hasTurn = _.find(data.playerCards, function (player) {
+                var turnPlayer = _.find(data.playerCards, function (player) {
                     return player.isTurn;
-                }) && true;
+                });
+                var raiseIndex = _.findIndex(data.playerCards, function (player) {
+                    return player.hasRaised;
+                });
+                var lastBlindIndex = _.findIndex(data.playerCards, function (player) {
+                    return player.isLastBlind;
+                });
+                var blankCardIndex = _.findIndex(data.communityCards, function (card) {
+                    return card.cardValue === "";
+                });
+
+                if (turnPlayer) {
+                    data.hasTurn = true;
+                    if (raiseIndex < 0 && lastBlindIndex < 0) {
+                        data.isCheck = true;
+                    }
+                    if (turnPlayer.isLastBlind && turnPlayer.isTurn) {
+                        data.isCheck = true;
+                    }
+                } else {
+                    data.hasTurn = false;
+                    if (blankCardIndex < 0) {
+                        data.showWinner = true;
+                    }
+                }
                 callback(err, data);
             }
         });
