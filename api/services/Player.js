@@ -589,7 +589,9 @@ var model = {
                                 Player.makeTurn(communityCardCount, function (err, data) {
                                     Player.blastSocket({
                                         player: false,
-                                        value: communityCardCount
+                                        value: communityCardCount,
+                                        showCheck: (communityCardCount == 5 || communityCardCount == 7),
+                                        turn: true
                                     });
                                 });
 
@@ -681,8 +683,8 @@ var model = {
                                 }
                             }, function (err, data) {
                                 callback(err, data);
-                                Player.whetherToEndTurn(players, data.removeTurn[0], data.addTurn[0], function (err) {
-                                    Player.blastSocket();
+                                Player.whetherToEndTurn(players, data.removeTurn[0], data.addTurn[0], function (err, otherVal) {
+                                    Player.blastSocket(otherVal);
                                 });
                             });
                         } else {
@@ -815,11 +817,20 @@ var model = {
                 }
             }, {
                 multi: true
-            }, function (err, cards) {
+            }, function (err) {
                 callback(err);
             });
         } else {
-            callback();
+            var otherVal = {
+                turn: true
+            };
+            if (toPlayer.isLastBlind) {
+                otherVal.showCheck = true;
+            }
+            if (lastRaise < 0 && lastBlind < 0) {
+                otherVal.showCheck = true;
+            }
+            callback(null, otherVal);
         }
     }
 };
