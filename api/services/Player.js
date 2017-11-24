@@ -768,7 +768,23 @@ var model = {
                 if (cardNo == 3) {
                     Player.findLastBlindNext(callback);
                 } else {
-                    Player.findDealerNext(callback);
+                    async.waterfall(
+                        [
+                            function (callback) {
+                                Player.update({}, {
+                                    $set: {
+                                        hasRaised: false,
+                                        isLastBlind: false,
+                                        isTurn: false
+                                    }
+                                }, {
+                                    multi: true
+                                }, function (err) {
+                                    callback(err);
+                                });
+                            },
+                            Player.findDealerNext
+                        ], callback);
                 }
             },
             function (player, callback) { // Enable turn from the same
@@ -849,6 +865,7 @@ var model = {
                 // case 1 
                 // When fromPlayer.isLastBlind checks
                 if (fromPlayer.isLastBlind) {
+                    red(1);
                     removeAllTurn = true;
                 }
 
@@ -859,6 +876,7 @@ var model = {
                 });
                 // Find Players between 
                 if (isRaisedBetween > 0) {
+                    red(2);
                     removeAllTurn = true;
                 }
 
@@ -876,6 +894,7 @@ var model = {
                 });
                 // Find Players between 
                 if (isRaisedBetween > 0) {
+                    red(3);
                     removeAllTurn = true;
                 }
                 // Main Error in Dealer Related Search WHEN Dealer Folds
