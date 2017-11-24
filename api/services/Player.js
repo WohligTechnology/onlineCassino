@@ -382,9 +382,9 @@ var model = {
                                     players[playerIndex].isDealer = true;
                                     players[playerIndex].save(callback);
                                 },
-                                addTurn: function (callback) {
-                                    var turnIndex = (playerIndex + 1) % players.length;
-                                    players[turnIndex].isTurn = true;
+                                addBlind: function (callback) {
+                                    var turnIndex = (playerIndex + 2) % players.length;
+                                    players[turnIndex].isLastBlind = true;
                                     players[turnIndex].save(callback);
                                 }
                             }, function (err, data) {
@@ -588,6 +588,7 @@ var model = {
                             });
                         }
                     });
+
                 } else {
                     callback("All Cards are Served");
                     return 0;
