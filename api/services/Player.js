@@ -690,10 +690,10 @@ var model = {
                                 }
                             }, function (err, data) {
                                 callback(err, data);
-                                Player.blastSocket();
-                                // Player.whetherToEndTurn(players, data.removeTurn[0], data.addTurn[0], function (err, otherVal) {
 
-                                // });
+                                Player.whetherToEndTurn(players, data.removeTurn[0], data.addTurn[0], function (err) {
+                                    Player.blastSocket();
+                                });
                             });
                         } else {
                             callback("No Element Remaining");
