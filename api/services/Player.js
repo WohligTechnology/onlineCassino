@@ -114,6 +114,7 @@ var model = {
                     cards: 1,
                     isAllIn: 1,
                     hasRaised: 1,
+                    isLastBlind: 1,
                     _id: 0
                 }).exec(callback);
             },
@@ -701,31 +702,23 @@ var model = {
             function (callback) {
                 Player.findOne(findInitialObj).exec(callback);
             },
-            function (player, callback) {
+            function (playerFromTop, callback) {
                 Player.find({
-                    $or: [{
-                        isActive: true,
-                        isFold: false,
-                        isAllIn: false
-                    }, {
-                        isTurn: true
-                    }]
+                    isActive: true,
+                    isFold: false,
+                    isAllIn: false
                 }).exec(function (err, players) {
                     if (err) {
                         callback(err);
                     } else {
                         var turnIndex = _.findIndex(players, function (n) {
-                            return (n._id + "") == (player._id + "");
+                            return (n._id + "") == (playerFromTop._id + "");
                         });
                         if (turnIndex >= 0) {
-                            async.parallel({
-                                addTurn: function (callback) {
-                                    var newTurnIndex = (turnIndex + 1) % players.length;
-                                    var player = players[newTurnIndex];
-                                    player.isTurn = true;
-                                    player.save(callback);
-                                }
-                            }, callback);
+                            var newTurnIndex = (turnIndex + 1) % players.length;
+                            var player = players[newTurnIndex];
+                            player.isTurn = true;
+                            player.save(callback);
                         } else {
                             callback("No Element Remaining");
                         }
