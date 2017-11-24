@@ -354,35 +354,48 @@ var model = {
     },
     makeDealer: function (data, callback) {
         var Model = Player;
-        Player.find({
-            isActive: true
-        }).exec(function (err, players) {
-            if (err) {
-                callback(err);
-            } else {
-                var playerIndex = _.findIndex(players, function (player) {
-                    return player.playerNo == parseInt(data.tabId);
-                });
-                if (playerIndex >= 0) {
-                    async.parallel({
-                        addDealer: function (callback) {
-                            players[playerIndex].isDealer = true;
-                            players[playerIndex].save(callback);
-                        },
-                        addTurn: function (callback) {
-                            var turnIndex = (playerIndex + 1) % players.length;
-                            players[turnIndex].isTurn = true;
-                            players[turnIndex].save(callback);
+        async.waterfall([
+            function (callback) {
+                Player.update({}, {
+                    $set: {
+                        isDealer: false
+                    }
+                }, {
+                    multi: true
+                }, callback);
+            },
+            function (data, callback) {
+                Player.find({
+                    isActive: true
+                }).exec(function (err, players) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        var playerIndex = _.findIndex(players, function (player) {
+                            return player.playerNo == parseInt(data.tabId);
+                        });
+                        if (playerIndex >= 0) {
+                            async.parallel({
+                                addDealer: function (callback) {
+                                    players[playerIndex].isDealer = true;
+                                    players[playerIndex].save(callback);
+                                },
+                                addTurn: function (callback) {
+                                    var turnIndex = (playerIndex + 1) % players.length;
+                                    players[turnIndex].isTurn = true;
+                                    players[turnIndex].save(callback);
+                                }
+                            }, function (err, data) {
+                                Model.blastSocket();
+                                callback(err, data);
+                            });
+                        } else {
+                            callback("No Such Player");
                         }
-                    }, function (err, data) {
-                        Model.blastSocket();
-                        callback(err, data);
-                    });
-                } else {
-                    callback("No Such Player");
-                }
+                    }
+                });
             }
-        });
+        ], callback);
     },
     removeDealer: function (data, callback) {
         var Model = this;
