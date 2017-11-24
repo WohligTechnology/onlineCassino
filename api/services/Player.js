@@ -799,10 +799,13 @@ var model = {
             } else if (_.isEmpty(allPlayers)) {
                 callback("No Players found in Whether to end turn");
             } else {
+
                 var fromPlayerPartition = _.partition(allPlayers, function (n) {
                     return n.playerNo >= fromPlayer.playerNo;
                 });
+
                 var fromPlayerFirst = _.concat(fromPlayerPartition[0], fromPlayerPartition[1]);
+
                 var toIndex = _.findIndex(fromPlayerFirst, function (n) {
                     return n.playerNo == toPlayer.playerNo;
                 });
@@ -834,8 +837,9 @@ var model = {
                 var lastBlind = _.findIndex(allPlayers, function (n) {
                     return n.isLastBlind;
                 });
+
                 var isDealerBetween = _.findIndex(fromPlayerToPlayer, function (n, index) {
-                    return (n.isDealer && index !== fromPlayerToPlayer.length);
+                    return (n.isDealer && (index != (fromPlayerToPlayer.length - 1)));
                 });
                 // Find Players between 
                 if (isRaisedBetween > 0) {
@@ -898,17 +902,14 @@ var model = {
             }).sort({
                 playerNo: 1
             }).exec(function (err, players) {
-                console.log(err, players);
                 if (err) {
                     callback(err);
                 } else if (_.isEmpty(players)) {
                     callback("No Next In Play");
                 } else {
-                    red("Other");
                     var finalPlayer = _.find(players, function (n) {
                         return (n.playerNo > player.playerNo);
                     });
-                    console.log(finalPlayer);
                     if (finalPlayer) {
                         callback(err, finalPlayer);
                     } else {
