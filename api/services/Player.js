@@ -589,9 +589,7 @@ var model = {
                                 Player.makeTurn(communityCardCount, function (err, data) {
                                     Player.blastSocket({
                                         player: false,
-                                        value: communityCardCount,
-                                        showCheck: (communityCardCount == 5 || communityCardCount == 7),
-                                        turn: true
+                                        value: communityCardCount
                                     });
                                 });
 
@@ -692,9 +690,10 @@ var model = {
                                 }
                             }, function (err, data) {
                                 callback(err, data);
-                                Player.whetherToEndTurn(players, data.removeTurn[0], data.addTurn[0], function (err, otherVal) {
-                                    Player.blastSocket(otherVal);
-                                });
+                                Player.blastSocket();
+                                // Player.whetherToEndTurn(players, data.removeTurn[0], data.addTurn[0], function (err, otherVal) {
+
+                                // });
                             });
                         } else {
                             callback("No Element Remaining");
@@ -707,11 +706,6 @@ var model = {
     },
     makeTurn: function (cardNo, callback) {
         var findInitialObj = {};
-        if (cardNo == 3) {
-            findInitialObj.isLastBlind = true;
-        } else {
-            findInitialObj.isDealer = true;
-        }
         async.waterfall([
             function (callback) {
                 Player.update({}, {
@@ -726,40 +720,15 @@ var model = {
                 });
             },
             function (callback) { // There is an MAIN Error where there is no dealer or No isLastBlind
-                Player.findOne(findInitialObj).exec(function (err, data) {
-                    if (err) {
-                        callback(err);
-                    } else if (_.isEmpty(data)) {
-                        callback("No One Found");
-                    } else {
-                        callback(data);
-                    }
-                });
+                if (cardNo == 3) {
+                    Player.findLastBlindNext(callback);
+                } else {
+                    Player.findDealerNext(callback);
+                }
             },
-            function (playerFromTop, callback) {
-
-                Player.find({
-                    isActive: true,
-                    isFold: false,
-                    isAllIn: false
-                }).exec(function (err, players) {
-                    if (err) {
-                        callback(err);
-                    } else {
-                        var turnIndex = _.findIndex(players, function (n) {
-                            return (n._id + "") == (playerFromTop._id + "");
-                        });
-                        if (turnIndex >= 0) {
-                            var newTurnIndex = (turnIndex + 1) % players.length;
-                            var player = players[newTurnIndex];
-                            player.isTurn = true;
-                            player.save(callback);
-                        } else {
-                            callback("No Element Remaining");
-                        }
-                    }
-                });
-
+            function (player, callback) { // Enable turn from the same
+                player.isTurn = true;
+                player.save(callback);
             }
         ], callback);
     },
@@ -852,6 +821,60 @@ var model = {
             }
             callback(null, otherVal);
         }
+    },
+    findLastBlindNext: function (callback) {
+        async.waterfall([
+            function (callback) {
+                Player.findOne({
+                    isLastBlind: true
+                }).exec(callback);
+            },
+            Player.nextInPlay
+        ], callback);
+
+    },
+    findDealerNext: function (callback) {
+        async.waterfall([
+            function (callback) {
+                Player.findOne({
+                    isDealer: true
+                }).exec(callback);
+            },
+            Player.nextInPlay
+        ], callback);
+    },
+    nextInPlay: function (player, callback) {
+        if (player) {
+            Player.find({
+                isActive: true,
+                isFold: false,
+                isAllIn: false
+            }).sort({
+                playerNo: 1
+            }).exec(function (err, players) {
+                console.log(err, players);
+                if (err) {
+                    callback(err);
+                } else if (_.isEmpty(players)) {
+                    callback("No Next In Play");
+                } else {
+                    red("Other");
+                    var finalPlayer = _.find(players, function (n) {
+                        return (n.playerNo > player.playerNo);
+                    });
+                    console.log(finalPlayer);
+                    if (finalPlayer) {
+                        callback(err, finalPlayer);
+                    } else {
+                        callback(err, players[0]);
+                    }
+                }
+            });
+        } else {
+            callback("No Player selected for Next");
+        }
+
     }
+
 };
 module.exports = _.assign(module.exports, exports, model);
