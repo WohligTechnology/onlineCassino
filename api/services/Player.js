@@ -637,6 +637,7 @@ var model = {
             Player.currentTurn,
             function (player, callback) {
                 player.isAllIn = true;
+                player.hasRaised = true;
                 player.save(function (err, data) {
                     callback(err);
                 });
@@ -647,7 +648,15 @@ var model = {
     currentTurn: function (callback) {
         Player.findOne({
             isTurn: true
-        }).exec(callback);
+        }).exec(function (err, data) {
+            if (err) {
+                callback(err);
+            } else if (_.isEmpty(data)) {
+                callback("No Player Has Turn");
+            } else {
+                callback(null, data);
+            }
+        });
     },
     changeTurn: function (callback) {
         async.waterfall([
@@ -692,6 +701,7 @@ var model = {
                         }
                     }
                 });
+
             }
         ], callback);
     },
@@ -715,10 +725,19 @@ var model = {
                     callback(err);
                 });
             },
-            function (callback) {
-                Player.findOne(findInitialObj).exec(callback);
+            function (callback) { // There is an MAIN Error where there is no dealer or No isLastBlind
+                Player.findOne(findInitialObj).exec(function (err, data) {
+                    if (err) {
+                        callback(err);
+                    } else if (_.isEmpty(data)) {
+                        callback("No One Found");
+                    } else {
+                        callback(data);
+                    }
+                });
             },
             function (playerFromTop, callback) {
+
                 Player.find({
                     isActive: true,
                     isFold: false,
@@ -740,6 +759,7 @@ var model = {
                         }
                     }
                 });
+
             }
         ], callback);
     },
