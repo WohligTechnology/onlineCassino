@@ -700,6 +700,17 @@ var model = {
         }
         async.waterfall([
             function (callback) {
+                Player.update({}, {
+                    $set: {
+                        isTurn: false,
+                    }
+                }, {
+                    multi: true
+                }, function (err, cards) {
+                    callback(err);
+                });
+            },
+            function (callback) {
                 Player.findOne(findInitialObj).exec(callback);
             },
             function (playerFromTop, callback) {
