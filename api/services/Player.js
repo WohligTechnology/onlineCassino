@@ -828,10 +828,10 @@ var model = {
 
                 // case 3
                 // When fromPlayer.isDealer && noOne has Raised
-                var lastRaise = _.findIndex(allPlayer, function (n) {
+                var lastRaise = _.findIndex(allPlayers, function (n) {
                     return n.hasRaised;
                 });
-                var lastBlind = _.findIndex(allPlayer, function (n) {
+                var lastBlind = _.findIndex(allPlayers, function (n) {
                     return n.isLastBlind;
                 });
                 var isDealerBetween = _.findIndex(fromPlayerToPlayer, function (n, index) {
