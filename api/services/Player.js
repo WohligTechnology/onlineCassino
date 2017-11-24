@@ -780,7 +780,6 @@ var model = {
         ], callback);
     },
     whetherToEndTurn: function (allPlayer, fromPlayer, toPlayer, callback) {
-        console.log(allPlayer);
         var removeAllTurn = false;
         var isWinner = false;
         // case 1 
