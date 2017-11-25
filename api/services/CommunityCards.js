@@ -103,16 +103,17 @@ var model = {
         });
         callback();
     },
-    removeCard: function (data, callback) {
+    removeCards: function (data, callback) {
         CommunityCards.find().sort({
             cardNo: 1
-        }).exec(function (err, data) {
+        }).exec(function (err, allCards) {
             if (err) {
                 callback(err);
             } else {
-                var cards = _.filter(data, function (n, index) {
-                    return (data.cardIndex <= index);
+                var cards = _.filter(allCards, function (n, index) {
+                    return (index >= data.cardIndex);
                 });
+                console.log(cards);
                 async.concat(cards, function (card, callback) {
                     card.cardValue = "";
                     card.save(callback);
