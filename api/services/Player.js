@@ -936,6 +936,9 @@ var model = {
             callback("No Player selected for Next");
         }
 
+    },
+    undo: function (callback) {
+
     }
 
 };
