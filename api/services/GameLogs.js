@@ -33,7 +33,11 @@ var model = {
                 GameLogs.findOne({}).sort({
                     _id: -1
                 }).exec(function (err, data) {
-                    data.remove(callback);
+                    if (!_.isEmpty(data)) {
+                        data.remove(callback);
+                    } else {
+                        callback("No Undo Data Found");
+                    }
                 });
             },
             function (data, callback) { // Open Last Now
@@ -72,13 +76,13 @@ var model = {
                                         } else {
                                             delete card._id;
                                             delete card.__v;
-                                            commuCardObj = _.assign(playerObj, player);
+                                            commuCardObj = _.assign(commuCardObj, card);
                                             commuCardObj.save(callback);
                                         }
                                     });
                                 }, callback);
                             }
-                        });
+                        }, callback);
 
                     }
                 });
