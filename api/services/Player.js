@@ -627,7 +627,20 @@ var model = {
         });
     },
     blastSocketWinner: function (data) {
-        sails.sockets.blast("Winner", data);
+        var newWinner = _.filter(data.winners, function (n) {
+            return n.winner;
+        });
+        var finalWinner = _.map(newWinner, function (n) {
+            var obj = {
+                cards: n.cards,
+                descr: n.descr,
+                playerNo: n.playerNo
+            };
+            return obj;
+        });
+        sails.sockets.blast("ShowWinner", {
+            data: finalWinner
+        });
     },
     allIn: function (data, callback) {
         async.waterfall([
