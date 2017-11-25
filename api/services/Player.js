@@ -281,6 +281,11 @@ var model = {
     newGame: function (data, callback) {
         var Model = this;
         async.waterfall([
+            function (callback) {
+                GameLogs.flush(function (err, data) {
+                    callback(err);
+                });
+            },
             function (callback) { // Next Dealer
                 Model.find({
                     isActive: true
@@ -609,9 +614,12 @@ var model = {
         }
 
     },
-    blastSocket: function (data) {
+    blastSocket: function (data, fromUndo) {
         Player.getAll({}, function (err, allData) {
-            GameLogs.create(function () {});
+            if (!fromUndo) {
+                GameLogs.create(function () {});
+            }
+
             if (err) {
                 console.log(err);
             } else {
