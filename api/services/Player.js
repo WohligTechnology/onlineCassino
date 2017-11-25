@@ -209,7 +209,10 @@ var model = {
                     if (err) {
                         callback(err);
                     } else {
-                        Player.blastSocketWinner();
+                        Player.blastSocketWinner({
+                            winners: data.players,
+                            communityCards: data.communityCards
+                        });
                         callback(null, {
                             winners: data.players,
                             communityCards: data.communityCards
@@ -623,8 +626,8 @@ var model = {
             }
         });
     },
-    blastSocketWinner: function () {
-        sails.sockets.blast("Winner", {});
+    blastSocketWinner: function (data) {
+        sails.sockets.blast("Winner", data);
     },
     allIn: function (data, callback) {
         async.waterfall([
