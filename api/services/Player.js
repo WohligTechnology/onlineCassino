@@ -99,7 +99,6 @@ var model = {
             callback(err, userData);
         });
     },
-
     getAll: function (data, callback) {
         var cards = {};
         async.parallel({
@@ -428,7 +427,6 @@ var model = {
             callback(err, currentTab);
         });
     },
-
     addTab: function (data, callback) {
         var Model = this;
         Model.findOneAndUpdate({
@@ -611,9 +609,9 @@ var model = {
         }
 
     },
-
     blastSocket: function (data) {
         Player.getAll({}, function (err, allData) {
+            GameLogs.create(function () {});
             if (err) {
                 console.log(err);
             } else {
@@ -953,9 +951,7 @@ var model = {
         }
 
     },
-    undo: function (callback) {
 
-    }
 
 };
 module.exports = _.assign(module.exports, exports, model);

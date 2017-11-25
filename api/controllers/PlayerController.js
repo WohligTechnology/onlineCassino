@@ -58,9 +58,7 @@ var controller = {
     moveTurn: function (req, res) {
         Player.changeTurn(res.callback);
     },
-    undo: function (req, res) {
-        Player.undo(res.callback);
-    }
+
     //getTabDetail
 
 };
