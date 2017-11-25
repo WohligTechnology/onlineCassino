@@ -101,9 +101,31 @@ var model = {
         _.each(players, function (player) {
             player.hand = undefined;
         });
-
-
         callback();
+    },
+    removeCard: function (data, callback) {
+        CommunityCards.find().sort({
+            cardNo: 1
+        }).exec(function (err, data) {
+            if (err) {
+                callback(err);
+            } else {
+                var cards = _.filter(data, function (n, index) {
+                    return (data.cardIndex <= index);
+                });
+                async.concat(cards, function (card, callback) {
+                    card.cardValue = "";
+                    card.save(callback);
+                }, function (err, data) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        callback(err, data);
+                        Player.blastSocket();
+                    }
+                });
+            }
+        });
     }
 };
 module.exports = _.assign(module.exports, exports, model);
