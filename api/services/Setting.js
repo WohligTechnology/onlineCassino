@@ -14,7 +14,7 @@ var exports = _.cloneDeep(require("sails-wohlig-service")(schema));
 var model = {
     store: function (data, callback) {
         var Model = Setting;
-        async.each(data, function (singleSetting) {
+        async.each(data, function (singleSetting, callback) {
             Model.findOne({
                 _id: singleSetting._id
             }).exec(function (err, single) {

@@ -888,6 +888,12 @@ var model = {
                 }
 
 
+                //case 4 from Player and To Player is Same
+                if (fromPlayer.playerNo == toPlayer.playerNo) {
+                    removeAllTurn = true;
+                }
+
+
                 if (removeAllTurn) {
                     //Show Winner to be checked
                     Player.update({}, {
