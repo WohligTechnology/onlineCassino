@@ -348,7 +348,9 @@ var model = {
                 });
             }
         ], function (err, cumCards) {
-            Player.blastSocket();
+            Player.blastSocket({
+                newGame: true
+            });
             callback(err, cumCards);
         });
         readLastValue = "";
@@ -750,7 +752,7 @@ var model = {
                 });
             },
             function (callback) { // There is an MAIN Error where there is no dealer or No isLastBlind
-                if (cardNo == 3) {
+                if (cardNo == "LastPlayerCard") {
                     Player.findLastBlindNext(callback);
                 } else {
                     async.waterfall(
