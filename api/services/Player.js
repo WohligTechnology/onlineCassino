@@ -223,7 +223,6 @@ var model = {
         });
     },
     revealCards: function (data, callback) {
-
         CommunityCards.find({
             isOpen: true
         }).exec(function (err, cardsData) {
@@ -572,10 +571,19 @@ var model = {
                             callback(err);
                         } else {
                             callback(err, "Card Provided to Player " + response.players[toServe].playerNo);
-                            Player.blastSocket({
-                                player: true,
-                                value: response.players[toServe].playerNo
-                            });
+                            if (playerCards.length + 1 == (playerCount * maxCardsPerPlayer)) {
+                                Player.makeTurn("LastPlayerCard", function (err, data) {
+                                    Player.blastSocket({
+                                        player: true,
+                                        value: response.players[toServe].playerNo
+                                    });
+                                });
+                            } else {
+                                Player.blastSocket({
+                                    player: true,
+                                    value: response.players[toServe].playerNo
+                                });
+                            }
                         }
                     });
                 } else if (communityCardCount < maxCommunityCard) {
@@ -596,7 +604,6 @@ var model = {
                                         value: communityCardCount
                                     });
                                 });
-
                             } else {
                                 Player.blastSocket({
                                     player: false,
