@@ -627,6 +627,7 @@ var model = {
         Player.getAll({}, function (err, allData) {
             if (!fromUndo) {
                 GameLogs.create(function () {});
+                data.undo = true;
             }
 
             if (err) {
