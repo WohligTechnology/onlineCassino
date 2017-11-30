@@ -745,47 +745,63 @@ var model = {
     },
     makeTurn: function (cardNo, callback) {
         var findInitialObj = {};
-        async.waterfall([
-            function (callback) {
-                Player.update({}, {
-                    $set: {
-                        hasRaised: false,
-                        isTurn: false
-                    }
-                }, {
-                    multi: true
-                }, function (err, cards) {
-                    callback(err);
-                });
-            },
-            function (callback) { // There is an MAIN Error where there is no dealer or No isLastBlind
-                if (cardNo == "LastPlayerCard") {
-                    Player.findLastBlindNext(callback);
+        Player.find({
+            isActive: true,
+            isFold: false,
+            isAllIn: false
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                callback(err);
+            } else {
+                if (data.length > 1) {
+                    async.waterfall([
+                        function (callback) {
+                            Player.update({}, {
+                                $set: {
+                                    hasRaised: false,
+                                    isTurn: false
+                                }
+                            }, {
+                                multi: true
+                            }, function (err, cards) {
+                                callback(err);
+                            });
+                        },
+                        function (callback) { // There is an MAIN Error where there is no dealer or No isLastBlind
+                            if (cardNo == "LastPlayerCard") {
+                                Player.findLastBlindNext(callback);
+                            } else {
+                                async.waterfall(
+                                    [
+                                        function (callback) {
+                                            Player.update({}, {
+                                                $set: {
+                                                    hasRaised: false,
+                                                    isLastBlind: false,
+                                                    isTurn: false
+                                                }
+                                            }, {
+                                                multi: true
+                                            }, function (err) {
+                                                callback(err);
+                                            });
+                                        },
+                                        Player.findDealerNext
+                                    ], callback);
+                            }
+                        },
+                        function (player, callback) { // Enable turn from the same
+                            player.isTurn = true;
+                            player.save(callback);
+                        }
+                    ], callback);
                 } else {
-                    async.waterfall(
-                        [
-                            function (callback) {
-                                Player.update({}, {
-                                    $set: {
-                                        hasRaised: false,
-                                        isLastBlind: false,
-                                        isTurn: false
-                                    }
-                                }, {
-                                    multi: true
-                                }, function (err) {
-                                    callback(err);
-                                });
-                            },
-                            Player.findDealerNext
-                        ], callback);
+                    callback();
                 }
-            },
-            function (player, callback) { // Enable turn from the same
-                player.isTurn = true;
-                player.save(callback);
             }
-        ], callback);
+        });
+
+
     },
     raise: function (data, callback) {
         async.waterfall([
