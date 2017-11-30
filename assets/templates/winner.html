@@ -19,13 +19,19 @@
         </div>
         <div class="col-50">
           <div class="list">
-            <a class="item result-item" ng-repeat="player in players|orderBy:'winRank'" ng-class="{'winner-section':player.winner}">
+            <a class="item result-item" ng-repeat="player in players|orderBy:'winRank'" ng-class="{'winner-section':player.winner}" ng-class="toggleShowCardsClass(player)">
               <div class="row">
-                <div class="col col-20">
+                <div class="col col-20 winner-show-only">
                   <card card='{{player.cards[0]}}' ng-style="style" width="60" height="80"> </card>
                 </div>
-                <div class="col col-20">
+                <div class="col col-20 winner-show-only">
                   <card card='{{player.cards[1]}}' ng-style="style" width="60" height="80"> </card>
+                </div>
+                <div class="col col-20 non-winner-show-only">
+                  <card card='DONE' ng-style="style" width="60" height="80"> </card>
+                </div>
+                <div class="col col-20 non-winner-show-only">
+                  <card card='DONE' ng-style="style" width="60" height="80"> </card>
                 </div>
                 <div class="col col-60">
                   <h2>Player

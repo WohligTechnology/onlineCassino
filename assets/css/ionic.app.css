@@ -10366,3 +10366,17 @@ tab button {
   font-size: 30px;
   margin-bottom: 15px;
   float: right; }
+
+.result-item.winner-section .winner-show-only,
+.result-item.activated .winner-show-only {
+  display: block; }
+
+.result-item.winner-section .non-winner-show-only,
+.result-item.activated .non-winner-show-only {
+  display: none; }
+
+.winner-show-only {
+  display: none; }
+
+.non-winner-show-only {
+  display: block; }

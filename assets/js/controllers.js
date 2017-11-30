@@ -255,7 +255,7 @@ angular.module('starter.controllers', [])
     $scope.makeDealer = function (tabId) {
       apiService.makeDealer({
         "tabId": tabId,
-        isStraddle: ($scope.form.isStraddle && $scope.activePlayers() > 2)
+        isStraddle: ($scope.form.isStraddle && $scope.activePlayers().length > 2)
       }, function (data) {
         $state.go("dealer");
       });
@@ -312,6 +312,5 @@ angular.module('starter.controllers', [])
         }), " & ");
       });
     };
-
     $scope.showWinner();
   });
