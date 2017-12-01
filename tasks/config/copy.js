@@ -148,6 +148,13 @@ module.exports = function (grunt) {
                 dest: '.tmp/uploads'
             }]
         },
+        copyBower: {
+            files: [{
+                expand: true,
+                src: ["bower_components"],
+                dest: '.tmp/public'
+            }]
+        },
     });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
