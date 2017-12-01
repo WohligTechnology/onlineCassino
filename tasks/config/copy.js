@@ -148,7 +148,7 @@ module.exports = function (grunt) {
                 dest: '.tmp/uploads'
             }]
         },
-        copyBower: {
+        bower: {
             files: [{
                 expand: true,
                 src: ["bower_components"],
