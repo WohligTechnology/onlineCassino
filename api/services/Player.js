@@ -122,6 +122,7 @@ var model = {
                     hasCalled: 1,
                     hasChecked: 1,
                     isLastBlind: 1,
+                    hasRaisedd: 1,
                     _id: 0
                 }).exec(callback);
             },
