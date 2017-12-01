@@ -34,6 +34,10 @@ var schema = new Schema({
         type: Boolean,
         default: false
     },
+    hasRaisedd: {
+        type: Boolean,
+        default: false
+    },
     isAllIn: {
         type: Boolean,
         default: false
@@ -336,7 +340,10 @@ var model = {
                         cardsServe: 0,
                         isLastBlind: false,
                         hasRaised: false,
-                        isAllIn: false
+                        isAllIn: false,
+                        hasRaisedd: false,
+                        hasChecked: false,
+                        hasCalled: false
                     }
                 }, {
                     multi: true
