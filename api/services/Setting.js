@@ -27,7 +27,7 @@ var model = {
                     single.save(callback);
                 }
             });
-        });
+        }, callback);
     },
     search: function (data, callback) {
         data = {};
