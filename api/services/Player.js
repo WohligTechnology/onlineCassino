@@ -1069,8 +1069,6 @@ var model = {
             callback("No Player selected for Next");
         }
 
-    },
-
-
+    }
 };
 module.exports = _.assign(module.exports, exports, model);
