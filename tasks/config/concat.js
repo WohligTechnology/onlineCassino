@@ -15,14 +15,24 @@
  *
  */
 
-
+var _ = require("lodash");
 module.exports = function (grunt) {
     var folderName = grunt.option('target');
     if (folderName) {
         var jsFiles = require("../../" + folderName + "/files.js");
+        jsFiles = _.map(jsFiles, function (n) {
+            if (n) {
+                var firstText = _.head(_.split(n, "/"));
+                if (firstText == "js") {
+                    n = folderName + "/" + n;
+
+                }
+            }
+            return n;
+        });
+        console.log(jsFiles);
     }
     grunt.config.set('concat', {
-
         development: {
             options: {
                 sourceMap: false

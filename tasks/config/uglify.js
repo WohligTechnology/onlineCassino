@@ -17,6 +17,8 @@ module.exports = function (grunt) {
     };
     obj.files[folderName + '/js/production.min.js'] = folderName + '/js/production.js';
 
+
+
     grunt.config.set('uglify', {
         options: {
             mangle: false

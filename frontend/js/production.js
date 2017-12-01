@@ -66511,3 +66511,425 @@ angular.module('angularPromiseButtons')
         };
     });
 
+
+// Link all the JS Docs here
+var myApp = angular.module('myApp', [
+    'ui.router',
+    'pascalprecht.translate',
+    'angulartics',
+    'angulartics.google.analytics',
+    'ui.bootstrap',
+    'ngAnimate',
+    'angular-flexslider',
+    'ui.swiper',
+    'angularPromiseButtons',
+    'toastr'
+]);
+
+// Define all the routes below
+myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
+    var tempateURL = "views/template/template.html"; //Default Template URL
+
+    // for http request with session
+    $httpProvider.defaults.withCredentials = true;
+    $stateProvider
+        .state('home', {
+            url: "/",
+            templateUrl: tempateURL,
+            controller: 'HomeCtrl'
+        })
+        .state('form', {
+            url: "/form",
+            templateUrl: tempateURL,
+            controller: 'FormCtrl'
+        })
+        .state('grid', {
+            url: "/grid",
+            templateUrl: tempateURL,
+            controller: 'GridCtrl'
+        });
+    $urlRouterProvider.otherwise("/");
+    $locationProvider.html5Mode(isproduction);
+});
+
+// For Language JS
+myApp.config(function ($translateProvider) {
+    $translateProvider.translations('en', LanguageEnglish);
+    $translateProvider.translations('hi', LanguageHindi);
+    $translateProvider.preferredLanguage('en');
+});
+var LanguageEnglish = {
+  "ABOUT": "About",
+};
+
+var LanguageHindi = {
+  "ABOUT": "बारे में",
+};
+
+myApp.directive('img', function ($compile, $parse) {
+        return {
+            restrict: 'E',
+            replace: false,
+            link: function ($scope, element, attrs) {
+                var $element = $(element);
+                if (!attrs.noloading) {
+                    $element.after("<img src='img/loading.gif' class='loading' />");
+                    var $loading = $element.next(".loading");
+                    $element.load(function () {
+                        $loading.remove();
+                        $(this).addClass("doneLoading");
+                    });
+                } else {
+                    $($element).addClass("doneLoading");
+                }
+            }
+        };
+    })
+
+    .directive('hideOnScroll', function ($document) {
+        return {
+            restrict: 'EA',
+            replace: false,
+            link: function (scope, element, attr) {
+                var $element = $(element);
+                var lastScrollTop = 0;
+                $(window).scroll(function (event) {
+                    var st = $(this).scrollTop();
+                    if (st > lastScrollTop) {
+                        $(element).addClass('nav-up');
+                    } else {
+                        $(element).removeClass('nav-up');
+                    }
+                    lastScrollTop = st;
+                });
+            }
+        };
+    })
+
+
+    .directive('fancybox', function ($document) {
+        return {
+            restrict: 'EA',
+            replace: false,
+            link: function (scope, element, attr) {
+                var $element = $(element);
+                var target;
+                if (attr.rel) {
+                    target = $("[rel='" + attr.rel + "']");
+                } else {
+                    target = element;
+                }
+
+                target.fancybox({
+                    openEffect: 'fade',
+                    closeEffect: 'fade',
+                    closeBtn: true,
+                    padding: 0,
+                    helpers: {
+                        media: {}
+                    }
+                });
+            }
+        };
+    })
+
+    .directive('autoHeight', function ($compile, $parse) {
+        return {
+            restrict: 'EA',
+            replace: false,
+            link: function ($scope, element, attrs) {
+                var $element = $(element);
+                var windowHeight = $(window).height();
+                $element.css("min-height", windowHeight);
+            }
+        };
+    })
+
+
+    .directive('replace', function () {
+        return {
+            require: 'ngModel',
+            scope: {
+                regex: '@replace',
+                with: '@with'
+            },
+            link: function (scope, element, attrs, model) {
+                model.$parsers.push(function (val) {
+                    if (!val) {
+                        return;
+                    }
+                    var regex = new RegExp(scope.regex);
+                    var replaced = val.replace(regex, scope.with);
+                    if (replaced !== val) {
+                        model.$setViewValue(replaced);
+                        model.$render();
+                    }
+                    return replaced;
+                });
+            }
+        };
+    })
+
+    .directive('players', function ($document) {
+        return {
+            restrict: 'EA',
+            replace: true,
+            templateUrl: "views/directives/players.html",
+            scope: {
+                player: "="
+            },
+            link: function (scope, element, attr) {
+                // console.info(scope.person);
+            }
+        };
+    })
+    // .directive('cards', function ($document) {
+    //     return {
+    //         restrict: 'EA',
+    //         replace: true,
+    //         templateUrl: "views/directives/cards.html",
+    //         link: function (scope, element, attr) {
+    //         }
+    //     };
+    // })
+
+
+    .directive('card', function () {
+        return {
+            restrict: 'E',
+            replace: false,
+            scope: {
+                card: "@",
+                width: "@",
+                height: "@"
+            },
+            templateUrl: 'views/directives/cards.html',
+            link: function ($scope, element, attr) {
+                function calc() {
+                    $scope.style = {
+                        width: $scope.width + "px",
+                        height: $scope.height + "px"
+                    };
+                    $scope.cardFile = "img/cards/" + _.toUpper($scope.card) + ".svg";
+                }
+                calc();
+                $scope.$watch("card", function () {
+                    calc();
+                });
+            }
+        };
+    })
+    .directive('community', function ($document) {
+        return {
+            restrict: 'EA',
+            templateUrl: "views/directives/community.html",
+            scope: {
+                communityCard: "="
+            },
+            link: function (scope, element, attr) {}
+        };
+    })
+    .directive('playerCard', function () {
+        return {
+            restrict: 'EA',
+            templateUrl: "views/directives/player-cards.html",
+            link: function (scope, element, attr) {
+                // console.info(scope.person);
+            }
+        };
+    });
+// JavaScript Document
+myApp.filter('myFilter', function () {
+    // In the return function, we must pass in a single parameter which will be the data we will work on.
+    // We have the ability to support multiple other parameters that can be passed into the filter optionally
+    return function (input, optional1, optional2) {
+
+        var output;
+
+        // Do filter work here
+        return output;
+    };
+
+});
+
+myApp.filter('indianCurrency', function () {
+  return function (getNumber) {
+    if (!isNaN(getNumber)) {
+      var numberArr = getNumber.toString().split('.');
+      var lastThreeDigits = numberArr[0].substring(numberArr[0].length - 3);
+      var otherDigits = numberArr[0].substring(0, numberArr[0].length - 3);
+      if (otherDigits != '') {
+        lastThreeDigits = ',' + lastThreeDigits;
+      }
+      var finalNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThreeDigits;
+      if (numberArr.length > 1) {
+        var getRoundedDecimal = parseInt(numberArr[1].substring(0, 2)) + 1;
+        finalNumber += "." + getRoundedDecimal;
+      }
+      // return '₹' + finalNumber;
+      return finalNumber;
+    }
+  }
+});
+
+myApp.service('TemplateService', function () {
+    this.title = "Home";
+    this.meta = "";
+    this.metadesc = "";
+
+    var d = new Date();
+    this.year = d.getFullYear();
+
+    this.init = function () {
+        this.header = "views/template/header.html";
+        this.menu = "views/template/menu.html";
+        this.content = "views/content/content.html";
+        this.footer = "views/template/footer.html";
+    };
+
+    this.getHTML = function (page) {
+        this.init();
+        var data = this;
+        data.content = "views/" + page;
+        return data;
+    };
+
+    this.init();
+
+});
+myApp.factory('NavigationService', function () {
+    var navigation = [{
+            name: "Home",
+            classis: "active",
+            anchor: "home",
+            subnav: [{
+                name: "Subnav1",
+                classis: "active",
+                anchor: "home"
+            }]
+        }, {
+            name: "Form",
+            classis: "active",
+            anchor: "form",
+            subnav: []
+        },
+        {
+            name: "Grid",
+            classis: "active",
+            anchor: "grid",
+            subnav: []
+        }
+    ];
+
+    return {
+        getNavigation: function () {
+            return navigation;
+        },
+    };
+});
+myApp.factory('apiService', function ($http, $q, $timeout) {
+    return {
+        // This is a get Players Service for POST Method.
+        getall: function (callback) {
+            $http({
+                url: adminurl + 'Player/getAll',
+                method: 'POST'
+            }).then(function (data) {
+                callback(data);
+            });
+        },
+        getSettings: function (callback) {
+            $http({
+                url: adminurl + 'setting/search',
+                method: 'POST'
+            }).then(function (data) {
+                callback(data);
+            });
+        }
+        // This is a get Players Service for POST Method.
+    };
+});
+var updateSocketFunction = {};
+myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationService, $timeout, apiService, $uibModal) {
+    $scope.template = TemplateService.getHTML("content/home.html");
+    TemplateService.title = "Home"; //This is the Title of the Website
+    TemplateService.header = ""; //This is the Title of the Website
+    TemplateService.footer = ""; //This is the Title of the Website
+    $scope.navigation = NavigationService.getNavigation();
+    updateSocketFunction = function (data) {
+        $scope.communityCards = data.communityCards;
+        $scope.players = data.playerCards;
+        $scope.extra = data.extra;
+        $scope.hasTurn = data.hasTurn;
+        $scope.isCheck = data.isCheck;
+        $scope.showWinner = data.showWinner;
+        if (data.newGame) {
+            $scope.removeWinner();
+            $scope.getSettings();
+        }
+        if (data.undo) {
+            $scope.removeWinner();
+        }
+        $scope.$apply();
+    };
+    $scope.updatePlayers = function () {
+        apiService.getall(function (data) {
+            $scope.communityCards = data.data.data.communityCards;
+            $scope.players = data.data.data.playerCards;
+            $scope.hasTurn = data.data.data.hasTurn;
+            $scope.isCheck = data.data.data.isCheck;
+            $scope.showWinner = data.data.data.showWinner;
+        });
+    };
+    $scope.updatePlayers();
+    $scope.getSettings = function () {
+        apiService.getSettings(function (data) {
+            $scope.settings = data.data.data.results;
+        });
+    };
+    $scope.getSettings();
+    var winnerPopup;
+    $scope.showWinner = function (data) {
+        console.log(data);
+        winnerPopup = $uibModal.open({
+            templateUrl: "views/modal/winner.html",
+            size: "lg",
+            windowClass: "winner-modal",
+            scope: $scope
+        });
+    };
+    // $scope.showWinner();
+    $scope.removeWinner = function () {
+        if (winnerPopup) {
+            winnerPopup.close();
+        }
+
+    };
+    io.socket.on("Update", updateSocketFunction);
+    io.socket.on("ShowWinner", $scope.showWinner);
+});
+myApp.controller('headerCtrl', function ($scope, TemplateService) {
+    $scope.template = TemplateService;
+    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $(window).scrollTop(0);
+    });
+    $.fancybox.close(true);
+});
+myApp.controller('languageCtrl', function ($scope, TemplateService, $translate, $rootScope) {
+    $scope.changeLanguage = function () {
+        console.log("Language CLicked");
+        if (!$.jStorage.get("language")) {
+            $translate.use("hi");
+            $.jStorage.set("language", "hi");
+        } else {
+            if ($.jStorage.get("language") == "en") {
+                $translate.use("hi");
+                $.jStorage.set("language", "hi");
+            } else {
+                $translate.use("en");
+                $.jStorage.set("language", "en");
+            }
+        }
+        //  $rootScope.$apply();
+    };
+});
