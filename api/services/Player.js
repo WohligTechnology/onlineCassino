@@ -630,6 +630,9 @@ var model = {
             } else {
                 allData.undo = true;
             }
+            if (data && data.newGame) {
+                allDaya.newGame = true;
+            }
 
             if (err) {
                 console.log(err);
