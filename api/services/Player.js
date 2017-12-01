@@ -119,6 +119,8 @@ var model = {
                     cards: 1,
                     isAllIn: 1,
                     hasRaised: 1,
+                    hasCalled: 1,
+                    hasChecked: 1,
                     isLastBlind: 1,
                     _id: 0
                 }).exec(callback);
