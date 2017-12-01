@@ -680,7 +680,8 @@ var model = {
                         hasRaised: false,
                         isLastBlind: false,
                         hasCalled: false,
-                        hasChecked: false
+                        hasChecked: false,
+                        hasRaisedd: false
                     }
                 }, {
                     multi: true
@@ -828,7 +829,8 @@ var model = {
                         hasRaised: false,
                         isLastBlind: false,
                         hasCalled: false,
-                        hasChecked: false
+                        hasChecked: false,
+                        hasRaisedd: false
                     }
                 }, {
                     multi: true
@@ -839,6 +841,7 @@ var model = {
             Player.currentTurn,
             function (player, callback) {
                 player.hasRaised = true;
+                player.hasRaisedd = true;
                 player.save(function (err, data) {
                     callback(err);
                 });
@@ -852,7 +855,8 @@ var model = {
                 Player.update({}, {
                     $set: {
                         hasCalled: false,
-                        hasChecked: false
+                        hasChecked: false,
+                        hasRaisedd: false
                     }
                 }, {
                     multi: true
@@ -876,7 +880,8 @@ var model = {
                 Player.update({}, {
                     $set: {
                         hasCalled: false,
-                        hasChecked: false
+                        hasChecked: false,
+                        hasRaisedd: false
                     }
                 }, {
                     multi: true
@@ -900,7 +905,8 @@ var model = {
                 Player.update({}, {
                     $set: {
                         hasCalled: false,
-                        hasChecked: false
+                        hasChecked: false,
+                        hasRaisedd: false
                     }
                 }, {
                     multi: true
