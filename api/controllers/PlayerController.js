@@ -55,18 +55,16 @@ var controller = {
     raise: function (req, res) {
         Player.raise(req.body, res.callback);
     },
-    moveTurn: function (req, res) {
-        Player.changeTurn(res.callback);
-    },
+    // moveTurn: function (req, res) {
+    //     Player.changeTurn(res.callback);
+    // },
     call: function (req, res) {
         Player.call(res.callback);
     },
     check: function (req, res) {
         Player.check(res.callback);
     }
-
     //getTabDetail
-
 };
 
 module.exports = _.assign(module.exports, controller);
