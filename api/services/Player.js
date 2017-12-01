@@ -16,7 +16,6 @@ var schema = new Schema({
     isFold: {
         type: Boolean,
         default: false
-
     },
     isDealer: {
         type: Boolean,
@@ -36,6 +35,14 @@ var schema = new Schema({
         default: false
     },
     isAllIn: {
+        type: Boolean,
+        default: false
+    },
+    hasChecked: {
+        type: Boolean,
+        default: false
+    },
+    hasCalled: {
         type: Boolean,
         default: false
     }
@@ -668,7 +675,9 @@ var model = {
                 Player.update({}, {
                     $set: {
                         hasRaised: false,
-                        isLastBlind: false
+                        isLastBlind: false,
+                        hasCalled: false,
+                        hasChecked: false
                     }
                 }, {
                     multi: true
@@ -814,7 +823,9 @@ var model = {
                 Player.update({}, {
                     $set: {
                         hasRaised: false,
-                        isLastBlind: false
+                        isLastBlind: false,
+                        hasCalled: false,
+                        hasChecked: false
                     }
                 }, {
                     multi: true
@@ -832,8 +843,72 @@ var model = {
             Player.changeTurn
         ], callback);
     },
+    call: function (callback) {
+        async.waterfall([
+            function (callback) { // Remove All raise
+                Player.update({}, {
+                    $set: {
+                        hasRaised: false,
+                        isLastBlind: false,
+                        hasCalled: false,
+                        hasChecked: false
+                    }
+                }, {
+                    multi: true
+                }, function (err, cards) {
+                    callback(err);
+                });
+            },
+            Player.currentTurn,
+            function (player, callback) {
+                player.hasCalled = true;
+                player.save(function (err, data) {
+                    callback(err);
+                });
+            },
+            Player.changeTurn
+        ], callback);
+    },
+    check: function (callback) {
+        async.waterfall([
+            function (callback) { // Remove All raise
+                Player.update({}, {
+                    $set: {
+                        hasRaised: false,
+                        isLastBlind: false,
+                        hasCalled: false,
+                        hasChecked: false
+                    }
+                }, {
+                    multi: true
+                }, function (err, cards) {
+                    callback(err);
+                });
+            },
+            Player.currentTurn,
+            function (player, callback) {
+                player.hasChecked = true;
+                player.save(function (err, data) {
+                    callback(err);
+                });
+            },
+            Player.changeTurn
+        ], callback);
+    },
     fold: function (data, callback) {
         async.waterfall([
+            function (callback) { // Remove All raise
+                Player.update({}, {
+                    $set: {
+                        hasCalled: false,
+                        hasChecked: false
+                    }
+                }, {
+                    multi: true
+                }, function (err, cards) {
+                    callback(err);
+                });
+            },
             Player.currentTurn,
             function (player, callback) {
                 player.isFold = true;

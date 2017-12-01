@@ -58,6 +58,12 @@ var controller = {
     moveTurn: function (req, res) {
         Player.changeTurn(res.callback);
     },
+    call: function (req, res) {
+        Player.call(res.callback);
+    },
+    check: function (req, res) {
+        Player.check(res.callback);
+    },
 
     //getTabDetail
 
