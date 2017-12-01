@@ -63,7 +63,7 @@ var controller = {
     },
     check: function (req, res) {
         Player.check(res.callback);
-    },
+    }
 
     //getTabDetail
 
