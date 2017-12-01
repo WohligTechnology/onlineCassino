@@ -80,7 +80,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       scope: {
         player: "=ngPlayer"
       },
-      templateUrl: '/templates/directive/player.html',
+      templateUrl: 'templates/directive/player.html',
       link: function ($scope, element, attr) {}
     };
   })
@@ -91,7 +91,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       scope: {
         communityCard: "=ngCommunityCard"
       },
-      templateUrl: '/templates/directive/communityCard.html',
+      templateUrl: 'templates/directive/communityCard.html',
       link: function ($scope, element, attr) {
 
       }
@@ -106,7 +106,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         player: "=ngPlayer",
         method: "="
       },
-      templateUrl: '/templates/directive/winnerPlayer.html',
+      templateUrl: 'templates/directive/winnerPlayer.html',
       link: function ($scope, element, attr) {}
     };
   })
@@ -118,7 +118,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       scope: {
         player: "=ngPlayer",
       },
-      templateUrl: '/templates/directive/tab.html',
+      templateUrl: 'templates/directive/tab.html',
       link: function ($scope, element, attr) {
         $scope.makeActive = function (tabId, status) {
           $scope.player.isActive = status;
