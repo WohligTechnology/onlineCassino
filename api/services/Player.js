@@ -631,7 +631,7 @@ var model = {
                 allData.undo = true;
             }
             if (data && data.newGame) {
-                allDaya.newGame = true;
+                allData.newGame = true;
             }
 
             if (err) {
