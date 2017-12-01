@@ -30,7 +30,7 @@ module.exports = function (grunt) {
             }
             return n;
         });
-        console.log(jsFiles);
+        // console.log(jsFiles);
     }
     grunt.config.set('concat', {
         development: {
