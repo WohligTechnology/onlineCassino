@@ -848,8 +848,6 @@ var model = {
             function (callback) { // Remove All raise
                 Player.update({}, {
                     $set: {
-                        hasRaised: false,
-                        isLastBlind: false,
                         hasCalled: false,
                         hasChecked: false
                     }
@@ -874,8 +872,6 @@ var model = {
             function (callback) { // Remove All raise
                 Player.update({}, {
                     $set: {
-                        hasRaised: false,
-                        isLastBlind: false,
                         hasCalled: false,
                         hasChecked: false
                     }
