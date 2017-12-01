@@ -151,7 +151,7 @@ module.exports = function (grunt) {
         bower: {
             files: [{
                 expand: true,
-                src: ["bower_components"],
+                src: ["bower_components/**"],
                 dest: '.tmp/public'
             }]
         },
