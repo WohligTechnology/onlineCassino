@@ -19,8 +19,7 @@
 module.exports = function (grunt) {
     var folderName = grunt.option('target');
     if (folderName) {
-        // var jsFiles = require("../../" + folderName + "/files.js");
-        var jsFiles = "";
+        var jsFiles = require("../../" + folderName + "/files.js");
     }
     grunt.config.set('concat', {
 

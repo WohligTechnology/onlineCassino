@@ -17,6 +17,5 @@
  *
  */
 module.exports = function (grunt) {
-    // grunt.registerTask('default', ["mongobackup:restore", "copy:assets"]);
-    grunt.registerTask('default', ["copy:assets"]);
+    grunt.registerTask('default', ['copy:assets', 'copy:frontend']);
 };

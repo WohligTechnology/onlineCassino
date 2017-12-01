@@ -1,0 +1,513 @@
+/* Bootstrap Variables Goes Here */
+
+$brand-primary: #0d9dff !default;
+$brand-success: #84ce3c !default;
+$brand-warning: #ffec39 !default;
+$brand-danger: #fc483f !default;
+$brand-info: #000072 !default;
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+/* Bootstrap Variables Goes Here */
+
+@import "other/font-fix";
+body {
+    font-family: "AvenirLTStd-Roman";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img.loading {
+    text-align: center;
+    opacity: 1;
+    width: 32px !important;
+    height: auto;
+}
+
+img {
+    opacity: 0;
+    transition: all 300ms ease;
+}
+
+img.doneLoading {
+    opacity: 1;
+}
+
+img.enable-turn {
+    filter: hue-rotate(79deg) saturate(1.6);
+}
+
+nav li:hover .dropdown-menu {
+    display: block;
+}
+
+#map img {
+    opacity: 1;
+}
+
+a,
+.btn,
+[ui-sref] {
+    cursor: pointer;
+    transition: all ease 300ms;
+}
+
+//bootstrap forms
+.input-lg,
+.input-group-lg>.form-control,
+.input-group-lg>.input-group-addon,
+.input-group-lg>.input-group-btn>.btn,
+.btn,
+.form-control {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: $brand-primary;
+    outline: 0;
+    box-shadow: none;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-invalid {
+    color: $brand-danger;
+    .form-control {
+        border-color: $brand-danger;
+        color: $brand-danger;
+        &::-webkit-input-placeholder {
+            color: $brand-danger;
+        }
+    }
+}
+
+.form-submission {
+    min-height: 300px;
+}
+
+.content {
+    min-height: 450px;
+}
+
+.img-full {
+    width: 100%;
+    display: block;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.mt100 {
+    margin-top: 100px;
+}
+
+.bg-all {
+    background: url(../img/background.jpg) no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    .logo-left,
+    .logo-right {
+        padding: 25px;
+        background: hsla(0, 0%, 0%, 0.6);
+        margin: 0 20px;
+    }
+    .title {
+        margin-top: 35px;
+    }
+    .table-img {
+        margin: 60px 0;
+    }
+    .dealer-name {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        @include transform(translateX(-50%));
+        background: #b20003;
+        padding: 4px 18px 2px;
+        letter-spacing: 1px;
+        line-height: 1;
+        color: #fff;
+        font-size: 26px;
+        border: 1px solid #b20003;
+        border-radius: 8px;
+        font-family: "AvenirLTStd-Black";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .community-cards {
+        width: 700px;
+        position: absolute;
+        top: 48%;
+        left: 50%;
+        @include transform(translate(-50%, -50%));
+    }
+    .player-number {
+        position: absolute;
+        .img-circle-player {
+            width: 80px;
+            height: 82px;
+            img {
+                position: absolute;
+            }
+        }
+        .bubble {
+            position: absolute;
+            top: -9px;
+            right: -35px;
+            background: #da0015;
+            border-radius: 60%;
+            padding: 4px 5px;
+            text-align: justify;
+            color: #fff;
+            font-size: 20px;
+            z-index: 2;
+            &:after {
+                content: '';
+                position: absolute;
+                border-style: solid;
+                border-width: 20px 8px 0;
+                border-color: #da0015 transparent;
+                display: block;
+                width: 0;
+                z-index: 0;
+                bottom: -5px;
+                left: -5px;
+                @include transform(rotate(50deg));
+            }
+        }
+        .fold-pack {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 85px;
+            text-align: center;
+            z-index: 1;
+            @include transform(translate(-25%, 10px));
+            background: #b20003;
+            padding: 4px 9px 2px;
+            letter-spacing: 1px;
+            line-height: 1;
+            color: #fff;
+            font-size: 18px;
+            border: 1px solid #b20003;
+            border-radius: 8px;
+            font-family: "AvenirLTStd-Black";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .number {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            @include transform(translate(-50%, -50%));
+            font-size: 42px;
+            color: #fff;
+            font-family: "AvenirLTStd-Black";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .main-dealer {
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-style: italic;
+            background: #da0015;
+            color: #fff;
+            text-align: center;
+            line-height: 1.6;
+            position: absolute;
+            top: 26px;
+            right: 10px;
+            z-index: 1;
+            font-family: "AvenirLTStd-Roman";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .player-title {
+            color: #fff;
+            font-size: 20px;
+            position: absolute;
+            letter-spacing: 1px;
+        }
+        &.player-1 {
+            .two-cards {
+                left: 0;
+                top: 95px;
+                @include transform(rotate(180deg));
+                .card-one.ng-hide-remove {
+                    @include transform(translate(362px, 30px) !important);
+                }
+                .card-two.ng-hide-remove {
+                    @include transform(translate(352px, 27px) !important);
+                }
+            }
+        }
+        &.player-2 {
+            .two-cards {
+                left: -10px;
+                bottom: 125px;
+                @include transform(rotate(-20deg));
+                .card-one.ng-hide-remove {
+                    @include transform(translate(-290px, -355px) rotate(20deg) !important);
+                }
+                .card-two.ng-hide-remove {
+                    @include transform(translate(-300px, -356px) rotate(20deg) !important);
+                }
+            }
+        }
+        &.player-3 {
+            .two-cards {
+                .card-one.ng-hide-remove {
+                    @include transform(translate(-307px, -286px) !important);
+                }
+                .card-two.ng-hide-remove {
+                    @include transform(translate(-317px, -288px) !important);
+                }
+            }
+        }
+        &.player-4 {
+            .two-cards {
+                .card-one.ng-hide-remove {
+                    @include transform(translate(-133px, -286px) !important);
+                }
+                .card-two.ng-hide-remove {
+                    @include transform(translate(-143px, -288px) !important);
+                }
+            }
+        }
+        &.player-5 {
+            .two-cards {
+                .card-one.ng-hide-remove {
+                    @include transform(translate(97px, -287px) !important);
+                }
+                .card-two.ng-hide-remove {
+                    @include transform(translate(89px, -288px) !important);
+                }
+            }
+        }
+        &.player-6 {
+            .two-cards {
+                .card-one.ng-hide-remove {
+                    @include transform(translate(275px, -287px) !important);
+                }
+                .card-two.ng-hide-remove {
+                    @include transform(translate(266px, -287px) !important);
+                }
+            }
+        }
+        &.player-3,
+        &.player-4,
+        &.player-5,
+        &.player-6 {
+            .two-cards {
+                bottom: 140px;
+                right: 50%;
+                @include transform(translateX(-50%) rotate(0deg));
+            }
+        }
+        &.player-7 {
+            .two-cards {
+                bottom: 125px;
+                right: -10px;
+                @include transform(rotate(20deg));
+                .card-one.ng-hide-remove {
+                    @include transform(translate(259px, -353px) rotate(-20deg) !important);
+                }
+                .card-two.ng-hide-remove {
+                    @include transform(translate(250px, -356px) rotate(-20deg) !important);
+                }
+            }
+        }
+        &.player-8 {
+            .two-cards {
+                right: -46px;
+                top: 95px;
+                @include transform(rotate(180deg));
+                .card-one.ng-hide-remove {
+                    @include transform(translate(-354px, 28px) !important);
+                }
+                .card-two.ng-hide-remove {
+                    @include transform(translate(-364px, 24px) !important);
+                }
+            }
+        }
+        &.player-1,
+        &.player-8 {
+            top: 80px;
+            .fold-pack {
+                @include transform(translate(-25%, 10px)rotate(180deg));
+            }
+        }
+        &.player-2,
+        &.player-7 {
+            bottom: 100px;
+        }
+        &.player-3,
+        &.player-6,
+        &.player-4,
+        &.player-5 {
+            bottom: 40px;
+            .player-title {
+                bottom: -25px;
+                left: 50%;
+                @include transform (translateX(-50%));
+            }
+        }
+        &.player-1,
+        &.player-2 {
+            right: 110px;
+            .player-title {
+                right: -80px;
+                top: 50%;
+                @include transform (translateY(-50%));
+            }
+        }
+        &.player-8,
+        &.player-7 {
+            left: 110px;
+            .player-title {
+                left: -80px;
+                top: 50%;
+                @include transform (translateY(-50%));
+            }
+        }
+        &.player-3 {
+            right: 240px;
+        }
+        &.player-6 {
+            left: 240px;
+        }
+        &.player-4 {
+            right: 415px;
+        }
+        &.player-5 {
+            left: 415px;
+        }
+        &.dealer {
+            top: -40px;
+            left: 50%;
+            @include transform(translateX(-50%));
+        }
+    }
+    .two-cards {
+        position: absolute;
+        .card-two,
+        .card-one {
+            box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.7);
+        }
+        .card-one {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            transform: rotate(00deg);
+        }
+        .card-two {
+            position: absolute;
+            top: 2px;
+            left: 10px;
+            transform: rotate(10deg);
+        }
+    }
+    .table-score {
+        width: 350px;
+        padding-left: 30px;
+        position: relative;
+        .table-score-count {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 30px;
+            font-size: 20px;
+            font-family: "AvenirLTStd-Black";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            label {
+                padding: 0;
+                margin: 0;
+            }
+            .m0 {
+                margin: 0;
+            }
+            .pad-0 {
+                padding: 0;
+            }
+            .row {
+                padding: 4px 0;
+            }
+            .row+.row {
+                border-top: 1px solid #000;
+            }
+        }
+    }
+}
+
+.card-one.ng-hide-remove.ng-hide-remove-active {
+    @include transform(translate(0, 0) !important);
+}
+
+.card-one,
+.card-two {
+    transition: 0.5s linear all !important;
+}
+
+.card-two.ng-hide-remove.ng-hide-remove-active {
+    @include transform(translateY(0) !important);
+}
+
+.pack-cards {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    @include transform(translateX(-50%));
+}
+
+//winner modal
+.winner-modal {
+    padding-top:5%;
+    .img-winner-holder {
+        min-height: 180px;
+    }
+    .player-card {
+        position: absolute;
+        top: 5px;
+        right: 71px;
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            @include transform(translate(-50%, -50%));
+            font-size: 24px;
+            color: #fff;
+            font-family: "AvenirLTStd-Black";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
+    .modal-content {
+        background-color: transparent;
+        border-color: transparent;
+        border-radius: 0px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    .img-winner-card {
+        width: 65px;
+        position: absolute;
+        top: -20px;
+        left: 24%;
+        .winner-card-two {
+            position: absolute;
+            top: 0;
+            left: -39px;
+            ;
+            @include transform(rotate(-22deg));
+        }
+    }
+    .modal-lg {
+        width: 1170px;
+    }
+}

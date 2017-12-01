@@ -119,7 +119,20 @@ module.exports = function (grunt) {
                 dest: '.tmp/public/backend'
             }]
         },
-
+        jsDevelopment: {
+            files: [{
+                expand: true,
+                src: require('../../frontend/files.js'),
+                dest: '.tmp/public/frontend/js'
+            }]
+        },
+        jsBackendDevelopment: {
+            files: [{
+                expand: true,
+                src: require('../../backend/files.js'),
+                dest: '.tmp/public/backend/js'
+            }]
+        },
         production: {
             files: [{
                 expand: true,
