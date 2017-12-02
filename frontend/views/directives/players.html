@@ -4,13 +4,13 @@
         <img src="img/disable-icon.png" alt="" width="80" class="disable-player" ng-show="!player.isActive">
     </div>
     <div class="main-dealer text-uppercase" ng-show="player.isDealer">D</div>
-    <div class="bubble text-uppercase" ng-show="player.hasRaisedd && !player.isAllIn">
+    <div class="bubble" ng-show="player.hasRaisedd && !player.isAllIn">
         Raise
     </div>
-    <div class="bubble text-uppercase" ng-show="player.hasCalled">
+    <div class="bubble" ng-show="player.hasCalled">
         Call
     </div>
-    <div class="bubble text-uppercase" ng-show="player.hasChecked">
+    <div class="bubble" ng-show="player.hasChecked">
         Check
     </div>
     <div class="number">
