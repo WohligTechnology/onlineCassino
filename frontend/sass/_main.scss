@@ -232,69 +232,74 @@ a,
             position: absolute;
             letter-spacing: 1px;
         }
+        .two-cards.folddone {
+            img {
+                @include filter(grayscale(100%));
+            }
+        }
         &.player-1 {
             .two-cards {
-                left: 0;
-                top: 95px;
-                @include transform(rotate(180deg));
+                left: 15px;
+                top: 130px;
+                @include transform(rotate(205deg));
                 .card-one.ng-hide-remove {
-                    @include transform(translate(362px, 30px) !important);
+                    @include transform(translate(380px, -108px) rotate(-25deg)!important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(352px, 27px) !important);
+                    @include transform(translate(370px, -108px) rotate(-25deg) !important);
                 }
             }
         }
         &.player-2 {
             .two-cards {
-                left: -10px;
-                bottom: 125px;
-                @include transform(rotate(-20deg));
+                left: -35%;
+                bottom: 115px;
+                @include transform(rotate(-30deg));
                 .card-one.ng-hide-remove {
-                    @include transform(translate(-290px, -355px) rotate(20deg) !important);
+                    @include transform(translate(-208px, -398px) rotate(30deg) !important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(-300px, -356px) rotate(20deg) !important);
+                    @include transform(translate(-217px, -399px) rotate(30deg) !important);
                 }
             }
         }
         &.player-3 {
             .two-cards {
                 .card-one.ng-hide-remove {
-                    @include transform(translate(-307px, -286px) !important);
+                    @include transform(translate(-286px, -287px) !important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(-317px, -288px) !important);
+                    @include transform(translate(-297px, -287px)rotate(0deg) !important);
                 }
             }
         }
         &.player-4 {
             .two-cards {
                 .card-one.ng-hide-remove {
-                    @include transform(translate(-133px, -286px) !important);
+                    @include transform(translate(-112px, -286px) !important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(-143px, -288px) !important);
+                    @include transform(translate(-122px, -287px) !important);
                 }
             }
         }
         &.player-5 {
             .two-cards {
                 .card-one.ng-hide-remove {
-                    @include transform(translate(97px, -287px) !important);
+                    @include transform(translate(118px, -287px) !important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(89px, -288px) !important);
+                    @include transform(translate(109px, -287px) !important);
                 }
             }
         }
         &.player-6 {
             .two-cards {
                 .card-one.ng-hide-remove {
-                    @include transform(translate(275px, -287px) !important);
+                    @include transform(translate(294px, -287px) !important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(266px, -287px) !important);
+                    @include transform(translate(284px, -289px) !important);
                 }
             }
         }
@@ -304,33 +309,33 @@ a,
         &.player-6 {
             .two-cards {
                 bottom: 140px;
-                right: 50%;
+                left: 25%;
                 @include transform(translateX(-50%) rotate(0deg));
             }
         }
         &.player-7 {
             .two-cards {
-                bottom: 125px;
-                right: -10px;
-                @include transform(rotate(20deg));
+                right: 0px;
+                bottom: 130px;
+                @include transform(rotate(30deg));
                 .card-one.ng-hide-remove {
-                    @include transform(translate(259px, -353px) rotate(-20deg) !important);
+                    @include transform(translate(205px, -398px) rotate(-30deg) !important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(250px, -356px) rotate(-20deg) !important);
+                    @include transform(translate(195px, -404px) rotate(-30deg) !important);
                 }
             }
         }
         &.player-8 {
             .two-cards {
-                right: -46px;
-                top: 95px;
-                @include transform(rotate(180deg));
+                right: -22px;
+                top: 112px;
+                @include transform(rotate(152deg));
                 .card-one.ng-hide-remove {
-                    @include transform(translate(-354px, 28px) !important);
+                    @include transform(translate(-368px, -128px) rotate(28deg) !important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(-364px, 24px) !important);
+                    @include transform(translate(-379px, -128px) rotate(28deg) !important);
                 }
             }
         }
