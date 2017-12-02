@@ -39,7 +39,8 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     $scope.getSettings();
     var winnerPopup;
     $scope.showWinner = function (data) {
-        console.log(data);
+        $scope.winner= data.data;
+                console.log($scope.winner);
         winnerPopup = $uibModal.open({
             templateUrl: "views/modal/winner.html",
             size: "lg",
@@ -47,12 +48,10 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
             scope: $scope
         });
     };
-    // $scope.showWinner();
     $scope.removeWinner = function () {
         if (winnerPopup) {
             winnerPopup.close();
         }
-
     };
     io.socket.on("Update", updateSocketFunction);
     io.socket.on("ShowWinner", $scope.showWinner);
