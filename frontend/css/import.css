@@ -10109,8 +10109,8 @@ a,
 .position-relative {
   position: relative; }
 
-.mt100 {
-  margin-top: 100px; }
+.mt50 {
+  margin-top: 50px; }
 
 .bg-all {
   background: url(../img/background.jpg) no-repeat center center;
@@ -10118,11 +10118,12 @@ a,
   min-height: 100vh; }
   .bg-all .logo-left,
   .bg-all .logo-right {
-    padding: 25px;
+    padding: 15px;
     background: rgba(0, 0, 0, 0.6);
-    margin: 0 20px; }
+    margin: 0 20px;
+    max-width: 140px; }
   .bg-all .title {
-    margin-top: 35px; }
+    margin-top: 15px; }
   .bg-all .table-img {
     margin: 60px 0; }
   .bg-all .dealer-name {
