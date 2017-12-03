@@ -17,7 +17,7 @@
         {{player.playerNo}}
     </div>
     <!-- <div class="player-title text-uppercase">Player</div> -->
-    <div class="two-cards">
+    <div class="two-cards" ng-class="{'folddone':player.isFold}">
         <div class="fold-active fold-pack text-uppercase" ng-show="player.isFold">
             Fold
         </div>

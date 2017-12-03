@@ -48,6 +48,5 @@ module.exports = [
   // Contorllers
   'js/controllers/controller.js',
   'js/controllers/header-controller.js',
-  'js/controllers/language-controller.js',
-  'js/sails/sails.io.js',
+  'js/controllers/language-controller.js'
 ];
