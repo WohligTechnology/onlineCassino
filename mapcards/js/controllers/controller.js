@@ -89,7 +89,9 @@ myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationServic
     TemplateService.title = "Navigation"; //This is the Title of the Website
     $scope.allCards = TemplateService.getAllCard();
     $scope.mapCard = {
-        selected: _.head($scope.allCards),
+        selected: {
+            shortName: "NONE"
+        },
         isSaving: "",
         isVerifing: "",
         isNextCard: ""
