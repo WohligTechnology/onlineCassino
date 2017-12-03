@@ -41,11 +41,9 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     };
 
     $scope.changeCard = function () {
-        console.log($scope.allCards[0]);
         var indexCard = _.findIndex($scope.allCards, function (n) {
             return n.shortName == $scope.mapCard.selected.shortName;
         });
-        console.log(indexCard);
         if (indexCard == ($scope.allCards.length - 1)) {
             $scope.completedDeck = true;
             toastr.success("Desk Mapping Completed");
