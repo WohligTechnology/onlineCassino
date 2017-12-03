@@ -1,7 +1,8 @@
 var updateSocketFunction = {};
-myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr) {
+myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr, $interval) {
     var changingCardTime = 2000;
     var retryApiTime = 1000;
+    var savingCardInterval, verifingCardInterval, nextCardInterval;
     $scope.template = TemplateService.getHTML("content/home.html");
     TemplateService.title = "Home"; //This is the Title of the Website
     TemplateService.header = ""; //This is the Title of the Website
@@ -16,8 +17,9 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
 
     $scope.savingCard = function () {
         $scope.mapCard.isSaving = "Pending";
-        $timeout(function () {
+        savingCardInterval = $interval(function () {
             $scope.mapCard.isSaving = "Complete";
+            $scope.stopAll();
             $scope.verifingCard();
         }, retryApiTime);
 
@@ -25,16 +27,18 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
 
     $scope.verifingCard = function () {
         $scope.mapCard.isVerifing = "Pending";
-        $timeout(function () {
+        verifingCardInterval = $interval(function () {
             $scope.mapCard.isVerifing = "Complete";
+            $scope.stopAll();
             $scope.nextCard();
         }, retryApiTime);
     };
 
     $scope.nextCard = function () {
         $scope.mapCard.isNextCard = "Pending";
-        $timeout(function () {
+        nextCardInterval = $interval(function () {
             $scope.mapCard.isNextCard = "Complete";
+            $scope.stopAll();
             $scope.changeCard();
         }, changingCardTime);
 
@@ -54,6 +58,15 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
             $scope.mapCard.isNextCard = "";
             $scope.savingCard();
         }
+    };
+
+    $scope.stopAll = function () {
+        $interval.cancel(savingCardInterval);
+        $interval.cancel(verifingCardInterval);
+        $interval.cancel(nextCardInterval);
+        savingCardInterval = undefined;
+        verifingCardInterval = undefined;
+        nextCardInterval = undefined;
     };
 
 

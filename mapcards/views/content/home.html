@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-4">
                 <select class="form-control select-card" ng-options="card as (card.shortName +' - '+ card.fullName) for card in allCards"
-                    ng-model="mapCard.selected">
+                    ng-model="mapCard.selected" ng-change="restartApp();">
                 </select>
             </div>
         </div>
