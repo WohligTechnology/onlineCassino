@@ -1,25 +1,13 @@
-module.exports.serialport = {
-
-};
+module.exports.serialport = {};
 
 global.isCallApi = true;
 
-function callApi(cardName) {
-
+function callServe(cardName) {
     if (isCallApi) {
         global.isCallApi = false;
-        var options = {
-            method: 'POST',
-            url: env.realHost + '/api/Player/serve',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: {
-                card: cardName
-            },
-            json: true
-        };
-        request(options, function (error, response, body) {
+        Player.serve({
+            card: cardName
+        }, function (err, data) {
             global.isCallApi = true;
             if (error) {
                 console.log(error);
@@ -54,7 +42,7 @@ SerialPort.list(function (err, allSerial) {
 
             port.open(function (err) {
                 if (err) {
-                    // return console.log('Error opening port: ', err.message);
+                    return console.log('Error opening port: ', err.message);
                 }
             });
 
@@ -72,6 +60,10 @@ SerialPort.list(function (err, allSerial) {
                 console.log();
                 console.log();
             });
+            port.on('error', function (error) {
+                red("Error Opening Port");
+                beep(5);
+            });
             port.on('close', function () {
                 red("Card Reader Disconnected");
                 beep(3);
@@ -84,29 +76,20 @@ SerialPort.list(function (err, allSerial) {
                     var newCard = _.chain(stringArr).head().split(" ").join("").trim().value();
                     console.log(newCard);
                     string = "";
-                    var cardSelected = _.find(sails.config.cards, function (n) {
-                        var retVal = false;
-                        if (_.isArray(n.value)) {
-                            var findVal = _.find(n.value, function (m) {
-                                return m == newCard;
-                            });
-                            if (findVal) {
-                                retVal = true;
+                    Card.getCard(newCard, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        } else if (_.isEmpty(data)) {
+                            console.log("No Such Card Found");
+                        } else {
+                            if (data.name.length == 2) {
+                                beep();
+                                callServe(data.name);
+                            } else {
+                                beep(5);
                             }
-                        } else {
-                            retVal = (n.value == newCard);
                         }
-                        return retVal;
                     });
-                    if (cardSelected) {
-                        if (cardSelected.name.length == 2) {
-                            beep();
-                        } else {
-                            beep(5);
-                        }
-                        console.log("The Card is " + cardSelected.name);
-                        callApi(cardSelected.name);
-                    }
                 }
             });
         } else {
