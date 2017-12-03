@@ -1,5 +1,7 @@
 var updateSocketFunction = {};
-myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout) {
+myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr) {
+    var changingCardTime = 2000;
+    var retryApiTime = 1000;
     $scope.template = TemplateService.getHTML("content/home.html");
     TemplateService.title = "Home"; //This is the Title of the Website
     TemplateService.header = ""; //This is the Title of the Website
@@ -17,7 +19,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         $timeout(function () {
             $scope.mapCard.isSaving = "Complete";
             $scope.verifingCard();
-        }, 1000);
+        }, retryApiTime);
 
     };
 
@@ -26,7 +28,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         $timeout(function () {
             $scope.mapCard.isVerifing = "Complete";
             $scope.nextCard();
-        }, 1000);
+        }, retryApiTime);
     };
 
     $scope.nextCard = function () {
@@ -34,7 +36,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         $timeout(function () {
             $scope.mapCard.isNextCard = "Complete";
             $scope.changeCard();
-        }, 1000);
+        }, changingCardTime);
 
     };
 
@@ -46,6 +48,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         console.log(indexCard);
         if (indexCard == ($scope.allCards.length - 1)) {
             $scope.completedDeck = true;
+            toastr.success("Desk Mapping Completed");
         } else {
             $scope.mapCard.selected = $scope.allCards[++indexCard];
             $scope.mapCard.isSaving = "";
