@@ -23,6 +23,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/",
             templateUrl: tempateURL,
             controller: 'HomeCtrl'
+        })
+        .state('read', {
+            url: "/read",
+            templateUrl: tempateURL,
+            controller: 'ReadCtrl'
         });
     $urlRouterProvider.otherwise("/");
     $locationProvider.html5Mode(isproduction);

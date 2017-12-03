@@ -10103,6 +10103,9 @@ select.select-card {
 .danger {
   color: #fc483f; }
 
+.template.content {
+  margin-top: 50px; }
+
 #fancybox-loading,
 .fancybox-close,
 .fancybox-next span,

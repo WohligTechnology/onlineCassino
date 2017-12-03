@@ -4,9 +4,8 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     var retryApiTime = 1000;
     var savingCardInterval, verifingCardInterval, nextCardInterval;
     $scope.template = TemplateService.getHTML("content/home.html");
+    $scope.navigation = NavigationService.getNavigation();
     TemplateService.title = "Home"; //This is the Title of the Website
-    TemplateService.header = ""; //This is the Title of the Website
-    TemplateService.footer = ""; //This is the Title of the Website
     $scope.allCards = TemplateService.getAllCard();
     $scope.mapCard = {
         selected: _.head($scope.allCards),
@@ -22,7 +21,6 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
             $scope.stopAll();
             $scope.verifingCard();
         }, retryApiTime);
-
     };
 
     $scope.verifingCard = function () {
@@ -72,5 +70,29 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
 
 
     //initializing all calls
-    $scope.savingCard();
+    $scope.restartApp = function () {
+        $scope.stopAll();
+        $scope.savingCard();
+        $scope.mapCard.isSaving = "";
+        $scope.mapCard.isVerifing = "";
+        $scope.mapCard.isNextCard = "";
+    };
+    $scope.restartApp();
+
+});
+myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr, $interval) {
+    var changingCardTime = 2000;
+    var retryApiTime = 1000;
+    var savingCardInterval, verifingCardInterval, nextCardInterval;
+    $scope.template = TemplateService.getHTML("content/read.html");
+    $scope.navigation = NavigationService.getNavigation();
+    TemplateService.title = "Navigation"; //This is the Title of the Website
+    $scope.allCards = TemplateService.getAllCard();
+    $scope.mapCard = {
+        selected: _.head($scope.allCards),
+        isSaving: "",
+        isVerifing: "",
+        isNextCard: ""
+    };
+
 });
