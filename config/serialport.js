@@ -82,6 +82,7 @@ SerialPort.list(function (err, allSerial) {
                 var stringArr = _.split(string, "\n");
                 if (stringArr.length > 1) {
                     var newCard = _.chain(stringArr).head().split(" ").join("").trim().value();
+                    console.log(newCard);
                     string = "";
                     var cardSelected = _.find(sails.config.cards, function (n) {
                         var retVal = false;
