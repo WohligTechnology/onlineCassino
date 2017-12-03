@@ -47,20 +47,26 @@
                 <tbody>
                     <tr>
                         <td>Saving Card</td>
-                        <td>
-                            <i class="fa fa-check-square-o success" aria-hidden="true"></i>
+                        <td ng-switch="mapCard.isSaving">
+                            <i class="fa fa-clock-o default" aria-hidden="true" ng-switch-when="Pending"></i>
+                            <i class="fa fa-warning danger" aria-hidden="true" ng-switch-when="Error"></i>
+                            <i class="fa fa-check-square-o success" aria-hidden="true" ng-switch-when="Complete"></i>
                         </td>
                     </tr>
                     <tr>
                         <td>Verifing Card</td>
-                        <td>
-                            <i class="fa fa-check-square-o success" aria-hidden="true"></i>
+                        <td ng-switch="mapCard.isVerifing">
+                            <i class="fa fa-clock-o default" aria-hidden="true" ng-switch-when="Pending"></i>
+                            <i class="fa fa-warning danger" aria-hidden="true" ng-switch-when="Error"></i>
+                            <i class="fa fa-check-square-o success" aria-hidden="true" ng-switch-when="Complete"></i>
                         </td>
                     </tr>
                     <tr>
                         <td>Changing Card</td>
-                        <td>
-                            <i class="fa fa-clock-o default" aria-hidden="true"></i>
+                        <td ng-switch="mapCard.isNextCard">
+                            <i class="fa fa-clock-o default" aria-hidden="true" ng-switch-when="Pending"></i>
+                            <i class="fa fa-warning danger" aria-hidden="true" ng-switch-when="Error"></i>
+                            <i class="fa fa-check-square-o success" aria-hidden="true" ng-switch-when="Complete"></i>
                         </td>
                     </tr>
                 </tbody>
