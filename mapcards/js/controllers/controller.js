@@ -8,4 +8,16 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     $scope.mapCard = {
         selected: _.head($scope.allCards)
     };
+
+    $scope.savingCard = function () {
+
+    };
+
+    $scope.verifingCard = function () {
+
+    };
+
+    $scope.nextCard = function () {
+
+    };
 });

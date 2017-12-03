@@ -10094,6 +10094,15 @@ img.doneLoading {
 select.select-card {
   margin: 20px 0; }
 
+.success {
+  color: #84ce3c; }
+
+.default {
+  color: #0d9dff; }
+
+.danger {
+  color: #fc483f; }
+
 #fancybox-loading,
 .fancybox-close,
 .fancybox-next span,

@@ -1,8 +1,13 @@
 <div class="container">
     <div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <h1>Map Cards</h1>
+            </div>
+            <div class="col-md-4">
+                <select class="form-control select-card" ng-options="card as (card.shortName +' - '+ card.fullName) for card in allCards"
+                    ng-model="mapCard.selected">
+                </select>
             </div>
         </div>
 
@@ -13,9 +18,7 @@
         </div>
         <div class="col-md-4">
             <h3>Card Details</h3>
-            <select class="form-control select-card" ng-options="card as (card.shortName +' - '+ card.fullName) for card in allCards"
-                ng-model="mapCard.selected">
-            </select>
+
             <table class="table table-hover table-bordered">
                 <tbody>
                     <tr>
@@ -38,7 +41,31 @@
             </table>
 
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h3>Place Card</h3>
+            <table class="table table-hover table-bordered">
+                <tbody>
+                    <tr>
+                        <td>Saving Card</td>
+                        <td>
+                            <i class="fa fa-check-square-o success" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Verifing Card</td>
+                        <td>
+                            <i class="fa fa-check-square-o success" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Changing Card</td>
+                        <td>
+                            <i class="fa fa-clock-o default" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>
