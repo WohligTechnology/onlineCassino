@@ -491,6 +491,8 @@ a,
         min-height: 180px;
         margin-bottom: 20px;
         &.winner-only-one {
+            margin-top: 20%;
+            position: relative;
             .img-winner-card {
                 width: 110px;
                 top: -20px;
@@ -498,7 +500,7 @@ a,
             }
             .player-card {
                 top: 8px;
-                right: 100px;
+                right: 85px;
                 span {
                     font-size: 30px;
                 }
