@@ -82,7 +82,6 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
 
 });
 myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr, $interval) {
-    var changingCardTime = 2000;
     var retryApiTime = 1000;
     var savingCardInterval, verifingCardInterval, nextCardInterval;
     $scope.template = TemplateService.getHTML("content/read.html");
@@ -100,8 +99,20 @@ myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationServic
 
     $scope.startReading = function () {
         var intervalObj = $interval(function () {
-            console.log("Called");
-        }, 1000);
+            apiService.findCard(function (data) {
+                if (data.status == 200 && data.data.value) {
+                    $scope.mapCard.selected = _.find($scope.allCards, function (n) {
+                        return n.shortName == data.data.data.cardValue;
+                    });
+                    $scope.mapCard.rfidValue = data.data.data.cardId;
+                } else {
+                    console.log("Error");
+                    $scope.mapCard.selected = {
+                        shortName: "NONE"
+                    };
+                }
+            });
+        }, retryApiTime);
         allIntervals.push(intervalObj);
     };
 

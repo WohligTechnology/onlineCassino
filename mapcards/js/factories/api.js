@@ -17,7 +17,7 @@ myApp.factory('apiService', function ($http, $q, $timeout) {
                 callback(data);
             });
         },
-        findCard: function () {
+        findCard: function (callback) {
             $http({
                 url: adminurl + 'Card/findCard',
                 method: 'POST'

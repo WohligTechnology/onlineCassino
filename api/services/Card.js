@@ -50,6 +50,7 @@ var model = {
                 callback("No such Card Found in saveLastCard");
             } else {
                 data.value.push(currentCardId);
+                data.value = _.uniq(data.value);
                 data.save(callback);
             }
         });
