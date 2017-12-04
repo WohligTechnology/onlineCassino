@@ -3,8 +3,20 @@ var controller = {
     createCards: function (req, res) {
         Card.createCards(res.callback);
     },
-    getCard: function (req, res) {
-        Card.getCard(res.callback);
+    findCard: function (req, res) {
+        Card.findCard(res.callback);
+    },
+    saveCard: function (req, res) {
+        async.waterfall([
+            Card.findCard,
+            function (data, callback) { //saving the values to the database
+                if (data.count === 0) {
+                    Card.saveLastCard(req.body, callback);
+                } else {
+                    callback("Error Value already Mapped");
+                }
+            }
+        ], res.callback);
     }
 };
 module.exports = _.assign(module.exports, controller);

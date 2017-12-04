@@ -1,6 +1,8 @@
 module.exports.serialport = {};
 
 global.isCallApi = true;
+global.currentCardId = "";
+global.currentCardValue = "";
 
 function callServe(cardName) {
     if (isCallApi) {
@@ -9,14 +11,10 @@ function callServe(cardName) {
             card: cardName
         }, function (err, data) {
             global.isCallApi = true;
-            if (error) {
-                console.log(error);
+            if (err) {
+                red(err);
             } else {
-                if (body.value) {
-                    green(body.data);
-                } else {
-                    red(body.error);
-                }
+                green(data);
             }
         });
     } else {
@@ -41,9 +39,7 @@ SerialPort.list(function (err, allSerial) {
 
 
             port.open(function (err) {
-                if (err) {
-                    return console.log('Error opening port: ', err.message);
-                }
+                if (err) {}
             });
 
             // The open event is always emitted
@@ -74,15 +70,20 @@ SerialPort.list(function (err, allSerial) {
                 var stringArr = _.split(string, "\n");
                 if (stringArr.length > 1) {
                     var newCard = _.chain(stringArr).head().split(" ").join("").trim().value();
-                    console.log(newCard);
+                    console.log("Card Id :" + newCard);
+                    currentCardId = newCard;
                     string = "";
                     Card.getCard(newCard, function (err, data) {
                         if (err) {
                             console.log(err);
+                            currentCardValue = data.name;
                         } else if (_.isEmpty(data)) {
                             console.log("No Such Card Found");
+                            currentCardValue = "";
                         } else {
+                            currentCardValue = data.name;
                             if (data.name.length == 2) {
+                                green("Card is : " + data.name);
                                 beep();
                                 callServe(data.name);
                             } else {
@@ -90,6 +91,8 @@ SerialPort.list(function (err, allSerial) {
                             }
                         }
                     });
+                } else {
+                    currentCardId = "";
                 }
             });
         } else {
