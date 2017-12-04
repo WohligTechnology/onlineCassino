@@ -1,4 +1,5 @@
 var updateSocketFunction = {};
+var allIntervals = [];
 myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr, $interval) {
     var changingCardTime = 2000;
     var retryApiTime = 1000;
@@ -16,30 +17,32 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
 
     $scope.savingCard = function () {
         $scope.mapCard.isSaving = "Pending";
-        savingCardInterval = $interval(function () {
+        var intervalObj = $interval(function () {
             $scope.mapCard.isSaving = "Complete";
             $scope.stopAll();
             $scope.verifingCard();
         }, retryApiTime);
+        allIntervals.push(intervalObj);
     };
 
     $scope.verifingCard = function () {
         $scope.mapCard.isVerifing = "Pending";
-        verifingCardInterval = $interval(function () {
+        var intervalObj = $interval(function () {
             $scope.mapCard.isVerifing = "Complete";
             $scope.stopAll();
             $scope.nextCard();
         }, retryApiTime);
+        allIntervals.push(intervalObj);
     };
 
     $scope.nextCard = function () {
         $scope.mapCard.isNextCard = "Pending";
-        nextCardInterval = $interval(function () {
+        var intervalObj = $interval(function () {
             $scope.mapCard.isNextCard = "Complete";
             $scope.stopAll();
             $scope.changeCard();
         }, changingCardTime);
-
+        allIntervals.push(intervalObj);
     };
 
     $scope.changeCard = function () {
@@ -59,12 +62,10 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     };
 
     $scope.stopAll = function () {
-        $interval.cancel(savingCardInterval);
-        $interval.cancel(verifingCardInterval);
-        $interval.cancel(nextCardInterval);
-        savingCardInterval = undefined;
-        verifingCardInterval = undefined;
-        nextCardInterval = undefined;
+        _.each(allIntervals, function (n) {
+            $interval.cancel(n);
+        });
+        $scope.allIntervals = [];
     };
 
 
@@ -96,5 +97,30 @@ myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationServic
         isVerifing: "",
         isNextCard: ""
     };
+
+    $scope.startReading = function () {
+        var intervalObj = $interval(function () {
+            console.log("Called");
+        }, 1000);
+        allIntervals.push(intervalObj);
+    };
+
+
+
+    $scope.stopAll = function () {
+        _.each(allIntervals, function (n) {
+            $interval.cancel(n);
+        });
+        $scope.allIntervals = [];
+    };
+
+
+
+    //initializing all calls
+    $scope.restartApp = function () {
+        $scope.stopAll();
+        $scope.startReading();
+    };
+    $scope.restartApp();
 
 });

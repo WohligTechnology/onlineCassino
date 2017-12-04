@@ -16,6 +16,14 @@ myApp.factory('apiService', function ($http, $q, $timeout) {
             }).then(function (data) {
                 callback(data);
             });
+        },
+        findCard: function () {
+            $http({
+                url: adminurl + 'Card/findCard',
+                method: 'POST'
+            }).then(function (data) {
+                callback(data);
+            });
         }
         // This is a get Players Service for POST Method.
     };
