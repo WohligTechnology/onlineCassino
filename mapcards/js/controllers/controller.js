@@ -100,7 +100,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
 
 });
 myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr, $interval) {
-    var retryApiTime = 1000;
+    var retryApiTime = 300;
     var savingCardInterval, verifingCardInterval, nextCardInterval;
     $scope.template = TemplateService.getHTML("content/read.html");
     $scope.navigation = NavigationService.getNavigation();
