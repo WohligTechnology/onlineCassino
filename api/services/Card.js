@@ -20,6 +20,9 @@ var model = {
     getCard: function (value, callback) {
         Card.findOne({
             value: value
+        }, {
+            name: 1,
+            _id: 0
         }).exec(callback);
     }
 };
