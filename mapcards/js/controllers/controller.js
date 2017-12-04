@@ -1,8 +1,8 @@
 var updateSocketFunction = {};
 var allIntervals = [];
 myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr, $interval) {
-    var changingCardTime = 1000;
-    var retryApiTime = 1000;
+    var changingCardTime = 200;
+    var retryApiTime = 500;
     var savingCardInterval, verifingCardInterval, nextCardInterval;
     $scope.template = TemplateService.getHTML("content/home.html");
     $scope.navigation = NavigationService.getNavigation();
