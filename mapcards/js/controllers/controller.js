@@ -87,10 +87,11 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     //initializing all calls
     $scope.restartApp = function () {
         $scope.stopAll();
-        $scope.savingCard();
         $scope.mapCard.isSaving = "";
         $scope.mapCard.isVerifing = "";
         $scope.mapCard.isNextCard = "";
+        $scope.savingCard();
+
     };
 
     $scope.startReading = function () {
