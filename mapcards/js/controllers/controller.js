@@ -1,7 +1,7 @@
 var updateSocketFunction = {};
 var allIntervals = [];
 myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr, $interval) {
-    var changingCardTime = 2000;
+    var changingCardTime = 1000;
     var retryApiTime = 1000;
     var savingCardInterval, verifingCardInterval, nextCardInterval;
     $scope.template = TemplateService.getHTML("content/home.html");
@@ -41,7 +41,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
                 if (data.status == 200 && data.data.value && $scope.mapCard.selected.shortName == data.data.data.cardValue) {
                     $scope.mapCard.isVerifing = "Complete";
                     $scope.stopAll();
-                    $scope.nextCard();
+                    // $scope.nextCard();
                 } else {
                     console.log("Error");
                     $scope.mapCard.isVerifing = "Error";

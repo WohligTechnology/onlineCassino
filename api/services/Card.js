@@ -26,6 +26,7 @@ var model = {
         }).exec(callback);
     },
     findCard: function (callback) {
+        console.log(currentCardId);
         if (currentCardId) {
             Card.count({
                 value: currentCardId
