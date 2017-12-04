@@ -24,6 +24,35 @@ var model = {
             name: 1,
             _id: 0
         }).exec(callback);
+    },
+    findCard: function (callback) {
+        if (currentCardId) {
+            Card.count({
+                value: currentCardId
+            }).exec(function (err, data) {
+                callback(err, {
+                    count: data,
+                    cardId: currentCardId,
+                    cardValue: currentCardValue
+                });
+            });
+        } else {
+            callback("No Value found in the Card");
+        }
+    },
+    saveLastCard: function (data, callback) {
+        Card.findOne({
+            name: data.name
+        }).exec(function (err, data) {
+            if (err) {
+                callback(err);
+            } else if (_.isEmpty(data)) {
+                callback("No such Card Found in saveLastCard");
+            } else {
+                data.value.push(currentCardId);
+                data.save(callback);
+            }
+        });
     }
 };
 module.exports = _.assign(module.exports, exports, model);

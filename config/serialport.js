@@ -76,12 +76,14 @@ SerialPort.list(function (err, allSerial) {
                     Card.getCard(newCard, function (err, data) {
                         if (err) {
                             console.log(err);
+                            currentCardValue = data.name;
                         } else if (_.isEmpty(data)) {
                             console.log("No Such Card Found");
+                            currentCardValue = "";
                         } else {
+                            currentCardValue = data.name;
                             if (data.name.length == 2) {
                                 green("Card is : " + data.name);
-                                currentCardValue = data.name;
                                 beep();
                                 callServe(data.name);
                             } else {
@@ -89,6 +91,8 @@ SerialPort.list(function (err, allSerial) {
                             }
                         }
                     });
+                } else {
+                    currentCardId = "";
                 }
             });
         } else {
