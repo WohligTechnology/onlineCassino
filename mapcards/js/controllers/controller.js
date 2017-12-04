@@ -41,7 +41,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
                 if (data.status == 200 && data.data.value && $scope.mapCard.selected.shortName == data.data.data.cardValue) {
                     $scope.mapCard.isVerifing = "Complete";
                     $scope.stopAll();
-                    // $scope.nextCard();
+                    $scope.nextCard();
                 } else {
                     console.log("Error");
                     $scope.mapCard.isVerifing = "Error";
