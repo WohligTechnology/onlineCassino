@@ -5,6 +5,7 @@ $brand-success: #84ce3c !default;
 $brand-warning: #ffec39 !default;
 $brand-danger: #fc483f !default;
 $brand-info: #000072 !default;
+$table-icon-font-size:30px !default;
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
 /* Bootstrap Variables Goes Here */
@@ -38,14 +39,21 @@ select.select-card {
 
 .success {
     color: $brand-success;
+    font-size: $table-icon-font-size;
 }
 
 .default {
     color: $brand-primary;
+    font-size: $table-icon-font-size;
 }
 
 .danger {
     color: $brand-danger;
+    font-size: $table-icon-font-size;
+}
+
+.normal {
+    font-size: $table-icon-font-size;
 }
 
 .template.content {

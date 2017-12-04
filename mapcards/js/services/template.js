@@ -67,7 +67,7 @@ myApp.service('TemplateService', function () {
             },
             {
                 shortName: "7",
-                fullName: "Sevel"
+                fullName: "Seven"
             },
             {
                 shortName: "8",

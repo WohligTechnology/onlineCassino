@@ -10095,13 +10095,19 @@ select.select-card {
   margin: 20px 0; }
 
 .success {
-  color: #84ce3c; }
+  color: #84ce3c;
+  font-size: 30px; }
 
 .default {
-  color: #0d9dff; }
+  color: #0d9dff;
+  font-size: 30px; }
 
 .danger {
-  color: #fc483f; }
+  color: #fc483f;
+  font-size: 30px; }
+
+.normal {
+  font-size: 30px; }
 
 .template.content {
   margin-top: 50px; }
