@@ -18,9 +18,18 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     $scope.savingCard = function () {
         $scope.mapCard.isSaving = "Pending";
         var intervalObj = $interval(function () {
-            $scope.mapCard.isSaving = "Complete";
-            $scope.stopAll();
-            $scope.verifingCard();
+            console.log($scope.mapCard.selected.shortName);
+            apiService.saveCard($scope.mapCard.selected.shortName, function (data) {
+                if (data.status == 200 && data.data.value) {
+                    $scope.mapCard.isSaving = "Complete";
+                    $scope.stopAll();
+                    $scope.verifingCard();
+                } else {
+                    console.log("Error");
+                    $scope.mapCard.isSaving = "Error";
+                    console.log(data);
+                }
+            });
         }, retryApiTime);
         allIntervals.push(intervalObj);
     };
@@ -28,9 +37,17 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     $scope.verifingCard = function () {
         $scope.mapCard.isVerifing = "Pending";
         var intervalObj = $interval(function () {
-            $scope.mapCard.isVerifing = "Complete";
-            $scope.stopAll();
-            $scope.nextCard();
+            apiService.findCard(function (data) {
+                if (data.status == 200 && data.data.value && $scope.mapCard.selected.shortName == data.data.data.cardValue) {
+                    $scope.mapCard.isVerifing = "Complete";
+                    $scope.stopAll();
+                    $scope.nextCard();
+                } else {
+                    console.log("Error");
+                    $scope.mapCard.isVerifing = "Error";
+                    console.log(data);
+                }
+            });
         }, retryApiTime);
         allIntervals.push(intervalObj);
     };
@@ -68,8 +85,6 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         $scope.allIntervals = [];
     };
 
-
-
     //initializing all calls
     $scope.restartApp = function () {
         $scope.stopAll();
@@ -78,7 +93,10 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         $scope.mapCard.isVerifing = "";
         $scope.mapCard.isNextCard = "";
     };
-    $scope.restartApp();
+
+    $scope.startReading = function () {
+        $scope.restartApp();
+    };
 
 });
 myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationService, apiService, $uibModal, $timeout, toastr, $interval) {
@@ -134,4 +152,4 @@ myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationServic
     };
     $scope.restartApp();
 
-});
+})

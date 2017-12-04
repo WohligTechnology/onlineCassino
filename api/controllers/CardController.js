@@ -16,7 +16,7 @@ var controller = {
                     callback("Error Value already Mapped");
                 }
             }
-        ], callback);
+        ], res.callback);
     }
 };
 module.exports = _.assign(module.exports, controller);

@@ -10091,7 +10091,7 @@ img {
 img.doneLoading {
   opacity: 1; }
 
-select.select-card {
+.select-card {
   margin: 20px 0; }
 
 .success {
