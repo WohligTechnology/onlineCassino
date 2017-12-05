@@ -124,3 +124,6 @@ backup
 .vscode
 *.logsendgrid.env
 sendgrid.env
+frontend/css/import.css
+frontend/css/import.css.map
+frontend/css/import.css
