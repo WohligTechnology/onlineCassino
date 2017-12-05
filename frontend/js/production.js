@@ -66890,8 +66890,10 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     $scope.getSettings();
     var winnerPopup;
     $scope.showWinner = function (data) {
-        $scope.winner= data.data;
-                console.log($scope.winner);
+        if (winnerPopup) {
+            winnerPopup.close();
+        }
+        $scope.winner = data.data;
         winnerPopup = $uibModal.open({
             templateUrl: "views/modal/winner.html",
             size: "lg",
