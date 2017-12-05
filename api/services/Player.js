@@ -754,7 +754,7 @@ var model = {
                                 }
                             }, function (err, data) {
                                 callback(err, data);
-
+                                console.log(data.removeTurn[0], data.addTurn[0]);
                                 Player.whetherToEndTurn(data.removeTurn[0], data.addTurn[0], function (err) {
                                     Player.blastSocket();
                                 });
@@ -935,7 +935,6 @@ var model = {
         Player.find({
             $or: [{
                 isActive: true,
-                isFold: false,
                 isAllIn: false
             }, {
                 hasRaised: true
@@ -967,7 +966,7 @@ var model = {
                 // case 1 
                 // When fromPlayer.isLastBlind checks
                 if (fromPlayer.isLastBlind) {
-                    // red(1);
+                    red(1);
                     removeAllTurn = true;
                 }
 
@@ -978,7 +977,7 @@ var model = {
                 });
                 // Find Players between 
                 if (isRaisedBetween > 0) {
-                    // red(2);
+                    red(2);
                     removeAllTurn = true;
                 }
 
@@ -996,7 +995,7 @@ var model = {
                 });
                 // Find Players between 
                 if (isRaisedBetween > 0) {
-                    // red(3);
+                    red(3);
                     removeAllTurn = true;
                 }
                 // Main Error in Dealer Related Search WHEN Dealer Folds
