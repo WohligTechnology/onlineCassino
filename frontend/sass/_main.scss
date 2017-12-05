@@ -100,8 +100,8 @@ a,
     position: relative;
 }
 
-.mt50 {
-    margin-top: 50px;
+.mt100 {
+    margin-top: 100px;
 }
 
 .bg-all {
@@ -110,10 +110,10 @@ a,
     min-height: 100vh;
     .logo-left,
     .logo-right {
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.6);
-    margin: 0 20px;
-    max-width: 140px;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.6);
+        margin: 0 20px;
+        max-width: 140px;
     }
     .title {
         margin-top: 15px;
@@ -174,8 +174,8 @@ a,
                 display: block;
                 width: 0;
                 z-index: 0;
-                bottom: -10px;
-                left: -3px;
+                bottom: -7px;
+                left: -6px;
                 @include transform(rotate(50deg));
             }
         }
@@ -570,4 +570,11 @@ a,
         text-align: center;
         margin-bottom: 70px;
     }
+}
+.community-cards {
+    width: 700px;
+    margin: 0 auto;
+}
+.modal-backdrop.in {
+    opacity: 0.9;
 }

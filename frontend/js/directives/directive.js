@@ -38,7 +38,6 @@ myApp.directive('img', function ($compile, $parse) {
         };
     })
 
-
     .directive('fancybox', function ($document) {
         return {
             restrict: 'EA',
@@ -76,7 +75,6 @@ myApp.directive('img', function ($compile, $parse) {
             }
         };
     })
-
 
     .directive('replace', function () {
         return {
@@ -125,7 +123,6 @@ myApp.directive('img', function ($compile, $parse) {
     //     };
     // })
 
-
     .directive('card', function () {
         return {
             restrict: 'E',
@@ -151,6 +148,7 @@ myApp.directive('img', function ($compile, $parse) {
             }
         };
     })
+
     .directive('community', function ($document) {
         return {
             restrict: 'EA',
@@ -161,6 +159,7 @@ myApp.directive('img', function ($compile, $parse) {
             link: function (scope, element, attr) {}
         };
     })
+    
     .directive('playerCard', function () {
         return {
             restrict: 'EA',

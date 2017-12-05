@@ -2,7 +2,7 @@
     <!--<pre>{{winner.length}}</pre>-->
     <div class="col-md-12">
         <div class="title-winner" ng-if="winner.length > 1">
-            <img src="img/split-pot.png" alt="" width="300px">
+            <img src="img/split-pot.png" alt="" width="500px">
         </div>
     </div>
     <div class="col-md-4" ng-repeat="winners in winner" ng-if="winner.length > 1">
@@ -38,6 +38,36 @@
                 </card>
                 <card card='{{winner[0].cards[1]}}' ng-style="style" class="img-full winner-card-two">
                 </card>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="community-cards">
+    <div class="row">
+        <div class="col-md-1 col-sm-1"></div>
+        <div class="col-md-2 col-sm-2">
+            <div class="community-image">
+                <community community-card="communityCards[1]"></community>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-2">
+            <div class="community-image">
+                <community community-card="communityCards[2]"></community>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-2">
+            <div class="community-image">
+                <community community-card="communityCards[3]"></community>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-2">
+            <div class="community-image">
+                <community community-card="communityCards[5]"></community>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-2">
+            <div class="community-image">
+                <community community-card="communityCards[7]"></community>
             </div>
         </div>
     </div>
