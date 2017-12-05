@@ -39,7 +39,6 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     $scope.getSettings();
     var winnerPopup;
     $scope.showWinner = function (data) {
-        console.log(data);
         if (winnerPopup) {
             winnerPopup.close();
         }
