@@ -14,6 +14,12 @@
     <link rel="shortcut icon" href="img/favicon.ico" />
 
     <title ng-bind="'Casino-Poker | '+template.title"></title>
+    <script src="js/sails/sails.io.js"></script>
+    <script>
+      var adminUUU = "<%= ((typeof adminUUU) == "undefined") ? "" : adminUUU  %>";
+      var adminurl = "<%= ((typeof adminurl) == "undefined") ? "" : adminurl  %>";
+      io.sails.url = adminUUU;
+    </script>
    
 
     <!--[if IE]> <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script> <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script> <![endif]-->
