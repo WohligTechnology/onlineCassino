@@ -240,7 +240,6 @@ angular.module('starter.controllers', [])
       });
     };
 
-
     $scope.newGame();
 
     $scope.updatePlayers = function () {
@@ -285,7 +284,8 @@ angular.module('starter.controllers', [])
       }
     };
     $scope.form = {
-      isStraddle: false
+      isStraddle: false,
+      adminurl: apiService.getAdminUrl()
     };
 
     //Settings
@@ -299,6 +299,11 @@ angular.module('starter.controllers', [])
     $scope.settingShow = false;
     $scope.toggleSettingShow = function () {
       $scope.settingShow = !$scope.settingShow;
+    };
+
+    $scope.saveAdminUrl = function () {
+      apiService.saveAdminUrl($scope.form.adminurl);
+      window.location.href = window.location.origin;
     };
 
   })

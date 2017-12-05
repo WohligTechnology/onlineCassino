@@ -35,7 +35,7 @@
         </form>
 
 
-        <div class="row" ng-if="settings">
+        <div class="row">
             <div class="col col-33"></div>
             <div class="col col-33"></div>
             <div class="col col-33">
@@ -48,10 +48,20 @@
                 <div class="list" ng-show="settingShow">
                     <label class="item item-input" ng-repeat="setting in settings">
                         <span class="input-label">{{setting.name}}</span>
-                        <input type="text" ng-model="setting.value" class="setting-input">
+                        <input type="text" ng-model="setting.value" class="setting-input font-big">
                     </label>
+
                     <button class="button button-royal button-block button-outline button-small" ng-click="storeSetting();">Save</button>
+
+                    <label class="item item-input">
+                        <span class="input-label">Admin Url</span>
+                        <input type="text" ng-model="form.adminurl" class="setting-input font-big">
+
+                    </label>
+                    <button class="button button-assertive button-block button-outline button-small text-right" ng-click="saveAdminUrl();">Save Admin URL</button>
+
                 </div>
+
             </div>
         </div>
 

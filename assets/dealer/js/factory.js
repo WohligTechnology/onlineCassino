@@ -99,6 +99,12 @@ myApp.factory('apiService', function ($http, $q, $timeout) {
             $http.post(adminurl + 'Setting/store', data).then(function (data) {
                 callback(data.data);
             });
+        },
+        getAdminUrl: function () {
+            return $.jStorage.get("adminurl");
+        },
+        saveAdminUrl: function (adminurl) {
+            $.jStorage.set("adminurl", adminurl);
         }
     };
 });
