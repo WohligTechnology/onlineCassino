@@ -736,47 +736,30 @@ var model = {
                     if (err) {
                         callback(err);
                     } else {
-
-                        var newPlayers = _.filter(players, function (n) {
-                            return !n.isFold;
+                        var turnIndex = _.findIndex(players, function (n) {
+                            return (n._id + "") == (playerFromTop._id + "");
                         });
-                        console.log(newPlayers.length);
-                        if (false) {
-                            newPlayers[0].cards = [];
-                            newPlayers[0].winner = true;
-                            Player.blastSocket();
-                            Player.blastSocketWinner({
-                                winners: newPlayers
-                            });
-                        } else {
-                            var turnIndex = _.findIndex(players, function (n) {
-                                return (n._id + "") == (playerFromTop._id + "");
-                            });
-                            if (turnIndex >= 0) {
-                                async.parallel({
-                                    removeTurn: function (callback) {
-                                        var player = players[turnIndex];
-                                        player.isTurn = false;
-                                        player.save(callback);
-                                    },
-                                    addTurn: function (callback) {
-                                        var newTurnIndex = (turnIndex + 1) % players.length;
-                                        var player = players[newTurnIndex];
-                                        player.isTurn = true;
-                                        player.save(callback);
-                                    }
-                                }, function (err, data) {
-                                    callback(err, data);
-                                    console.log(data.removeTurn[0], data.addTurn[0]);
-                                    Player.whetherToEndTurn(data.removeTurn[0], data.addTurn[0], function (err) {
-                                        Player.blastSocket();
-                                    });
+                        if (turnIndex >= 0) {
+                            async.parallel({
+                                removeTurn: function (callback) {
+                                    var player = players[turnIndex];
+                                    player.isTurn = false;
+                                    player.save(callback);
+                                },
+                                addTurn: function (callback) {
+                                    var newTurnIndex = (turnIndex + 1) % players.length;
+                                    var player = players[newTurnIndex];
+                                    player.isTurn = true;
+                                    player.save(callback);
+                                }
+                            }, function (err, data) {
+                                callback(err, data);
+                                console.log(data.removeTurn[0], data.addTurn[0]);
+                                Player.whetherToEndTurn(data.removeTurn[0], data.addTurn[0], function (err) {
+                                    Player.blastSocket();
                                 });
-                            } else {
-                                callback("No Element Remaining");
-                            }
+                            });
                         }
-
                     }
                 });
 
@@ -936,7 +919,29 @@ var model = {
                     callback(err);
                 });
             },
+            function (callback) {
+                Player.find({
+                    isFold: false,
+                    isActive: true
+                }).exec(function (err, data) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        if (data.length == 1) {
+                            data[0].winner = true;
+                            Player.blastSocketWinner({
+                                winners: data
+                            });
+                            callback();
+                        } else {
+                            callback();
+                        }
+                    }
+
+                });
+            },
             Player.currentTurn,
+
             function (player, callback) {
                 player.isFold = true;
                 player.save(function (err, data) {
