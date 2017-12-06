@@ -754,7 +754,6 @@ var model = {
                                 }
                             }, function (err, data) {
                                 callback(err, data);
-                                console.log(data.removeTurn[0], data.addTurn[0]);
                                 Player.whetherToEndTurn(data.removeTurn[0], data.addTurn[0], function (err) {
                                     Player.blastSocket();
                                 });
@@ -919,6 +918,13 @@ var model = {
                     callback(err);
                 });
             },
+            Player.currentTurn,
+            function (player, callback) {
+                player.isFold = true;
+                player.save(function (err, data) {
+                    callback(err);
+                });
+            },
             function (callback) {
                 Player.find({
                     isFold: false,
@@ -938,14 +944,6 @@ var model = {
                         }
                     }
 
-                });
-            },
-            Player.currentTurn,
-
-            function (player, callback) {
-                player.isFold = true;
-                player.save(function (err, data) {
-                    callback(err);
                 });
             },
             Player.changeTurn
