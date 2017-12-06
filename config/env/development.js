@@ -21,6 +21,6 @@ module.exports = {
     //   connection: 'someMongodbServer'
     // }
 
-    port: 81,
-    realHost: "http://localhost:81"
+    port: 1337,
+    realHost: "http://localhost:1337"
 };
