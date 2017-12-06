@@ -10152,13 +10152,15 @@ a,
 .bg-all {
   background: url(../img/background.jpg) no-repeat center center;
   background-size: cover;
-  min-height: 100vh; }
+  height: 100vh;
+  overflow: hidden;
+  position: relative; }
   .bg-all .logo-left,
   .bg-all .logo-right {
     padding: 15px;
     background: rgba(0, 0, 0, 0.6);
     margin: 0 20px;
-    max-width: 140px; }
+    max-width: 180px; }
   .bg-all .title {
     margin-top: 20px; }
   .bg-all .table-img {
@@ -10202,25 +10204,25 @@ a,
         position: absolute; }
     .bg-all .player-number .bubble {
       position: absolute;
-      top: -9px;
-      right: -35px;
+      top: -10px;
+      right: -56px;
       background: #da0015;
       border-radius: 60%;
-      padding: 4px 5px;
+      padding: 5px 10px;
       text-align: justify;
       color: #fff;
-      font-size: 20px;
+      font-size: 25px;
       z-index: 2; }
       .bg-all .player-number .bubble:after {
         content: '';
         position: absolute;
         border-style: solid;
-        border-width: 20px 8px 0;
+        border-width: 33px 6px 0;
         border-color: #da0015 transparent;
         display: block;
         width: 0;
         z-index: 0;
-        bottom: -7px;
+        bottom: -13px;
         left: -6px;
         -webkit-transform: rotate(50deg);
         -moz-transform: rotate(50deg);
@@ -10234,11 +10236,11 @@ a,
       min-width: 85px;
       text-align: center;
       z-index: 1;
-      -webkit-transform: translate(-25%, 10px);
-      -moz-transform: translate(-25%, 10px);
-      -ms-transform: translate(-25%, 10px);
-      -o-transform: translate(-25%, 10px);
-      transform: translate(-25%, 10px);
+      -webkit-transform: translate(-20%, 18px);
+      -moz-transform: translate(-20%, 18px);
+      -ms-transform: translate(-20%, 18px);
+      -o-transform: translate(-20%, 18px);
+      transform: translate(-20%, 18px);
       background: #b20003;
       padding: 4px 9px 2px;
       letter-spacing: 1px;
@@ -10289,189 +10291,183 @@ a,
       -webkit-filter: grayscale(100%);
       filter: grayscale(100%); }
     .bg-all .player-number.player-1 .two-cards {
-      left: 15px;
-      top: 130px;
-      -webkit-transform: rotate(205deg);
-      -moz-transform: rotate(205deg);
-      -ms-transform: rotate(205deg);
-      -o-transform: rotate(205deg);
-      transform: rotate(205deg); }
+      left: 52px;
+      top: 160px;
+      -webkit-transform: rotate(190deg);
+      -moz-transform: rotate(190deg);
+      -ms-transform: rotate(190deg);
+      -o-transform: rotate(190deg);
+      transform: rotate(190deg); }
       .bg-all .player-number.player-1 .two-cards .card-one.ng-hide-remove {
-        -webkit-transform: translate(380px, -108px) rotate(-25deg) !important;
-        -moz-transform: translate(380px, -108px) rotate(-25deg) !important;
-        -ms-transform: translate(380px, -108px) rotate(-25deg) !important;
-        -o-transform: translate(380px, -108px) rotate(-25deg) !important;
-        transform: translate(380px, -108px) rotate(-25deg) !important; }
+        -webkit-transform: translate(337px, -69px) rotate(-10deg) !important;
+        -moz-transform: translate(337px, -69px) rotate(-10deg) !important;
+        -ms-transform: translate(337px, -69px) rotate(-10deg) !important;
+        -o-transform: translate(337px, -69px) rotate(-10deg) !important;
+        transform: translate(337px, -69px) rotate(-10deg) !important; }
       .bg-all .player-number.player-1 .two-cards .card-two.ng-hide-remove {
-        -webkit-transform: translate(370px, -108px) rotate(-25deg) !important;
-        -moz-transform: translate(370px, -108px) rotate(-25deg) !important;
-        -ms-transform: translate(370px, -108px) rotate(-25deg) !important;
-        -o-transform: translate(370px, -108px) rotate(-25deg) !important;
-        transform: translate(370px, -108px) rotate(-25deg) !important; }
+        -webkit-transform: translate(328px, -108px) rotate(-25deg) !important;
+        -moz-transform: translate(328px, -108px) rotate(-25deg) !important;
+        -ms-transform: translate(328px, -108px) rotate(-25deg) !important;
+        -o-transform: translate(328px, -108px) rotate(-25deg) !important;
+        transform: translate(328px, -108px) rotate(-25deg) !important; }
     .bg-all .player-number.player-2 .two-cards {
-      left: -35%;
-      bottom: 115px;
-      -webkit-transform: rotate(-30deg);
-      -moz-transform: rotate(-30deg);
-      -ms-transform: rotate(-30deg);
-      -o-transform: rotate(-30deg);
-      transform: rotate(-30deg); }
+      left: -8px;
+      top: 139px;
+      -webkit-transform: rotate(215deg);
+      -moz-transform: rotate(215deg);
+      -ms-transform: rotate(215deg);
+      -o-transform: rotate(215deg);
+      transform: rotate(215deg); }
       .bg-all .player-number.player-2 .two-cards .card-one.ng-hide-remove {
-        -webkit-transform: translate(-208px, -398px) rotate(30deg) !important;
-        -moz-transform: translate(-208px, -398px) rotate(30deg) !important;
-        -ms-transform: translate(-208px, -398px) rotate(30deg) !important;
-        -o-transform: translate(-208px, -398px) rotate(30deg) !important;
-        transform: translate(-208px, -398px) rotate(30deg) !important; }
+        -webkit-transform: translate(510px, -242px) rotate(-36deg) !important;
+        -moz-transform: translate(510px, -242px) rotate(-36deg) !important;
+        -ms-transform: translate(510px, -242px) rotate(-36deg) !important;
+        -o-transform: translate(510px, -242px) rotate(-36deg) !important;
+        transform: translate(510px, -242px) rotate(-36deg) !important; }
       .bg-all .player-number.player-2 .two-cards .card-two.ng-hide-remove {
-        -webkit-transform: translate(-217px, -399px) rotate(30deg) !important;
-        -moz-transform: translate(-217px, -399px) rotate(30deg) !important;
-        -ms-transform: translate(-217px, -399px) rotate(30deg) !important;
-        -o-transform: translate(-217px, -399px) rotate(30deg) !important;
-        transform: translate(-217px, -399px) rotate(30deg) !important; }
+        -webkit-transform: translate(500px, -243px) rotate(-34deg) !important;
+        -moz-transform: translate(500px, -243px) rotate(-34deg) !important;
+        -ms-transform: translate(500px, -243px) rotate(-34deg) !important;
+        -o-transform: translate(500px, -243px) rotate(-34deg) !important;
+        transform: translate(500px, -243px) rotate(-34deg) !important; }
     .bg-all .player-number.player-3 .two-cards .card-one.ng-hide-remove {
-      -webkit-transform: translate(-286px, -287px) !important;
-      -moz-transform: translate(-286px, -287px) !important;
-      -ms-transform: translate(-286px, -287px) !important;
-      -o-transform: translate(-286px, -287px) !important;
-      transform: translate(-286px, -287px) !important; }
+      -webkit-transform: translate(-282px, -577px) rotate(36deg) !important;
+      -moz-transform: translate(-282px, -577px) rotate(36deg) !important;
+      -ms-transform: translate(-282px, -577px) rotate(36deg) !important;
+      -o-transform: translate(-282px, -577px) rotate(36deg) !important;
+      transform: translate(-282px, -577px) rotate(36deg) !important; }
     .bg-all .player-number.player-3 .two-cards .card-two.ng-hide-remove {
-      -webkit-transform: translate(-297px, -287px) rotate(0deg) !important;
-      -moz-transform: translate(-297px, -287px) rotate(0deg) !important;
-      -ms-transform: translate(-297px, -287px) rotate(0deg) !important;
-      -o-transform: translate(-297px, -287px) rotate(0deg) !important;
-      transform: translate(-297px, -287px) rotate(0deg) !important; }
+      -webkit-transform: translate(-291px, -578px) rotate(36deg) !important;
+      -moz-transform: translate(-291px, -578px) rotate(36deg) !important;
+      -ms-transform: translate(-291px, -578px) rotate(36deg) !important;
+      -o-transform: translate(-291px, -578px) rotate(36deg) !important;
+      transform: translate(-291px, -578px) rotate(36deg) !important; }
     .bg-all .player-number.player-4 .two-cards .card-one.ng-hide-remove {
-      -webkit-transform: translate(-112px, -286px) !important;
-      -moz-transform: translate(-112px, -286px) !important;
-      -ms-transform: translate(-112px, -286px) !important;
-      -o-transform: translate(-112px, -286px) !important;
-      transform: translate(-112px, -286px) !important; }
+      -webkit-transform: translate(-294px, -430px) rotate(2deg) !important;
+      -moz-transform: translate(-294px, -430px) rotate(2deg) !important;
+      -ms-transform: translate(-294px, -430px) rotate(2deg) !important;
+      -o-transform: translate(-294px, -430px) rotate(2deg) !important;
+      transform: translate(-294px, -430px) rotate(2deg) !important; }
     .bg-all .player-number.player-4 .two-cards .card-two.ng-hide-remove {
-      -webkit-transform: translate(-122px, -287px) !important;
-      -moz-transform: translate(-122px, -287px) !important;
-      -ms-transform: translate(-122px, -287px) !important;
-      -o-transform: translate(-122px, -287px) !important;
-      transform: translate(-122px, -287px) !important; }
+      -webkit-transform: translate(-302px, -432px) rotate(2deg) !important;
+      -moz-transform: translate(-302px, -432px) rotate(2deg) !important;
+      -ms-transform: translate(-302px, -432px) rotate(2deg) !important;
+      -o-transform: translate(-302px, -432px) rotate(2deg) !important;
+      transform: translate(-302px, -432px) rotate(2deg) !important; }
     .bg-all .player-number.player-5 .two-cards .card-one.ng-hide-remove {
-      -webkit-transform: translate(118px, -287px) !important;
-      -moz-transform: translate(118px, -287px) !important;
-      -ms-transform: translate(118px, -287px) !important;
-      -o-transform: translate(118px, -287px) !important;
-      transform: translate(118px, -287px) !important; }
+      -webkit-transform: translate(320px, -432px) rotate(2deg) !important;
+      -moz-transform: translate(320px, -432px) rotate(2deg) !important;
+      -ms-transform: translate(320px, -432px) rotate(2deg) !important;
+      -o-transform: translate(320px, -432px) rotate(2deg) !important;
+      transform: translate(320px, -432px) rotate(2deg) !important; }
     .bg-all .player-number.player-5 .two-cards .card-two.ng-hide-remove {
-      -webkit-transform: translate(109px, -287px) !important;
-      -moz-transform: translate(109px, -287px) !important;
-      -ms-transform: translate(109px, -287px) !important;
-      -o-transform: translate(109px, -287px) !important;
-      transform: translate(109px, -287px) !important; }
+      -webkit-transform: translate(312px, -432px) rotate(2deg) !important;
+      -moz-transform: translate(312px, -432px) rotate(2deg) !important;
+      -ms-transform: translate(312px, -432px) rotate(2deg) !important;
+      -o-transform: translate(312px, -432px) rotate(2deg) !important;
+      transform: translate(312px, -432px) rotate(2deg) !important; }
     .bg-all .player-number.player-6 .two-cards .card-one.ng-hide-remove {
-      -webkit-transform: translate(294px, -287px) !important;
-      -moz-transform: translate(294px, -287px) !important;
-      -ms-transform: translate(294px, -287px) !important;
-      -o-transform: translate(294px, -287px) !important;
-      transform: translate(294px, -287px) !important; }
+      -webkit-transform: translate(338px, -553px) rotate(-28deg) !important;
+      -moz-transform: translate(338px, -553px) rotate(-28deg) !important;
+      -ms-transform: translate(338px, -553px) rotate(-28deg) !important;
+      -o-transform: translate(338px, -553px) rotate(-28deg) !important;
+      transform: translate(338px, -553px) rotate(-28deg) !important; }
     .bg-all .player-number.player-6 .two-cards .card-two.ng-hide-remove {
-      -webkit-transform: translate(284px, -289px) !important;
-      -moz-transform: translate(284px, -289px) !important;
-      -ms-transform: translate(284px, -289px) !important;
-      -o-transform: translate(284px, -289px) !important;
-      transform: translate(284px, -289px) !important; }
-    .bg-all .player-number.player-3 .two-cards, .bg-all .player-number.player-4 .two-cards, .bg-all .player-number.player-5 .two-cards, .bg-all .player-number.player-6 .two-cards {
-      bottom: 140px;
-      left: 25%;
+      -webkit-transform: translate(327px, -554px) rotate(-28deg) !important;
+      -moz-transform: translate(327px, -554px) rotate(-28deg) !important;
+      -ms-transform: translate(327px, -554px) rotate(-28deg) !important;
+      -o-transform: translate(327px, -554px) rotate(-28deg) !important;
+      transform: translate(327px, -554px) rotate(-28deg) !important; }
+    .bg-all .player-number.player-7 .two-cards {
+      right: -50px;
+      top: 115px;
+      -webkit-transform: rotate(140deg);
+      -moz-transform: rotate(140deg);
+      -ms-transform: rotate(140deg);
+      -o-transform: rotate(140deg);
+      transform: rotate(140deg); }
+      .bg-all .player-number.player-7 .two-cards .card-one.ng-hide-remove {
+        -webkit-transform: translate(-485px, -278px) rotate(40deg) !important;
+        -moz-transform: translate(-485px, -278px) rotate(40deg) !important;
+        -ms-transform: translate(-485px, -278px) rotate(40deg) !important;
+        -o-transform: translate(-485px, -278px) rotate(40deg) !important;
+        transform: translate(-485px, -278px) rotate(40deg) !important; }
+      .bg-all .player-number.player-7 .two-cards .card-two.ng-hide-remove {
+        -webkit-transform: translate(-492px, -279px) rotate(40deg) !important;
+        -moz-transform: translate(-492px, -279px) rotate(40deg) !important;
+        -ms-transform: translate(-492px, -279px) rotate(40deg) !important;
+        -o-transform: translate(-492px, -279px) rotate(40deg) !important;
+        transform: translate(-492px, -279px) rotate(40deg) !important; }
+    .bg-all .player-number.player-8 .two-cards {
+      right: -0px;
+      top: 150px;
+      -webkit-transform: rotate(-190deg);
+      -moz-transform: rotate(-190deg);
+      -ms-transform: rotate(-190deg);
+      -o-transform: rotate(-190deg);
+      transform: rotate(-190deg); }
+      .bg-all .player-number.player-8 .two-cards .card-one.ng-hide-remove {
+        -webkit-transform: translate(-323px, -70px) rotate(10deg) !important;
+        -moz-transform: translate(-323px, -70px) rotate(10deg) !important;
+        -ms-transform: translate(-323px, -70px) rotate(10deg) !important;
+        -o-transform: translate(-323px, -70px) rotate(10deg) !important;
+        transform: translate(-323px, -70px) rotate(10deg) !important; }
+      .bg-all .player-number.player-8 .two-cards .card-two.ng-hide-remove {
+        -webkit-transform: translate(-335px, -72px) rotate(10deg) !important;
+        -moz-transform: translate(-335px, -72px) rotate(10deg) !important;
+        -ms-transform: translate(-335px, -72px) rotate(10deg) !important;
+        -o-transform: translate(-335px, -72px) rotate(10deg) !important;
+        transform: translate(-335px, -72px) rotate(10deg) !important; }
+    .bg-all .player-number.player-3 .two-cards {
+      bottom: 125px;
+      left: -40px;
+      -webkit-transform: translateX(-50%) rotate(-35deg);
+      -moz-transform: translateX(-50%) rotate(-35deg);
+      -ms-transform: translateX(-50%) rotate(-35deg);
+      -o-transform: translateX(-50%) rotate(-35deg);
+      transform: translateX(-50%) rotate(-35deg); }
+    .bg-all .player-number.player-4 .two-cards, .bg-all .player-number.player-5 .two-cards {
+      bottom: 160px;
+      left: 15px;
       -webkit-transform: translateX(-50%) rotate(0deg);
       -moz-transform: translateX(-50%) rotate(0deg);
       -ms-transform: translateX(-50%) rotate(0deg);
       -o-transform: translateX(-50%) rotate(0deg);
       transform: translateX(-50%) rotate(0deg); }
-    .bg-all .player-number.player-7 .two-cards {
-      right: 0px;
-      bottom: 130px;
-      -webkit-transform: rotate(30deg);
-      -moz-transform: rotate(30deg);
-      -ms-transform: rotate(30deg);
-      -o-transform: rotate(30deg);
-      transform: rotate(30deg); }
-      .bg-all .player-number.player-7 .two-cards .card-one.ng-hide-remove {
-        -webkit-transform: translate(205px, -398px) rotate(-30deg) !important;
-        -moz-transform: translate(205px, -398px) rotate(-30deg) !important;
-        -ms-transform: translate(205px, -398px) rotate(-30deg) !important;
-        -o-transform: translate(205px, -398px) rotate(-30deg) !important;
-        transform: translate(205px, -398px) rotate(-30deg) !important; }
-      .bg-all .player-number.player-7 .two-cards .card-two.ng-hide-remove {
-        -webkit-transform: translate(195px, -404px) rotate(-30deg) !important;
-        -moz-transform: translate(195px, -404px) rotate(-30deg) !important;
-        -ms-transform: translate(195px, -404px) rotate(-30deg) !important;
-        -o-transform: translate(195px, -404px) rotate(-30deg) !important;
-        transform: translate(195px, -404px) rotate(-30deg) !important; }
-    .bg-all .player-number.player-8 .two-cards {
-      right: -22px;
-      top: 112px;
-      -webkit-transform: rotate(152deg);
-      -moz-transform: rotate(152deg);
-      -ms-transform: rotate(152deg);
-      -o-transform: rotate(152deg);
-      transform: rotate(152deg); }
-      .bg-all .player-number.player-8 .two-cards .card-one.ng-hide-remove {
-        -webkit-transform: translate(-368px, -128px) rotate(28deg) !important;
-        -moz-transform: translate(-368px, -128px) rotate(28deg) !important;
-        -ms-transform: translate(-368px, -128px) rotate(28deg) !important;
-        -o-transform: translate(-368px, -128px) rotate(28deg) !important;
-        transform: translate(-368px, -128px) rotate(28deg) !important; }
-      .bg-all .player-number.player-8 .two-cards .card-two.ng-hide-remove {
-        -webkit-transform: translate(-379px, -128px) rotate(28deg) !important;
-        -moz-transform: translate(-379px, -128px) rotate(28deg) !important;
-        -ms-transform: translate(-379px, -128px) rotate(28deg) !important;
-        -o-transform: translate(-379px, -128px) rotate(28deg) !important;
-        transform: translate(-379px, -128px) rotate(28deg) !important; }
-    .bg-all .player-number.player-1, .bg-all .player-number.player-8 {
-      top: 80px; }
-      .bg-all .player-number.player-1 .fold-pack, .bg-all .player-number.player-8 .fold-pack {
-        -webkit-transform: translate(-25%, 10px) rotate(180deg);
-        -moz-transform: translate(-25%, 10px) rotate(180deg);
-        -ms-transform: translate(-25%, 10px) rotate(180deg);
-        -o-transform: translate(-25%, 10px) rotate(180deg);
-        transform: translate(-25%, 10px) rotate(180deg); }
+    .bg-all .player-number.player-6 .two-cards {
+      bottom: 150px;
+      right: 0;
+      -webkit-transform: translateX(-50%) rotate(30deg);
+      -moz-transform: translateX(-50%) rotate(30deg);
+      -ms-transform: translateX(-50%) rotate(30deg);
+      -o-transform: translateX(-50%) rotate(30deg);
+      transform: translateX(-50%) rotate(30deg); }
+    .bg-all .player-number.player-1, .bg-all .player-number.player-7, .bg-all .player-number.player-2, .bg-all .player-number.player-8 {
+      top: 5%; }
+      .bg-all .player-number.player-1 .fold-pack, .bg-all .player-number.player-7 .fold-pack, .bg-all .player-number.player-2 .fold-pack, .bg-all .player-number.player-8 .fold-pack {
+        -webkit-transform: translate(-20%, 18px) rotate(180deg);
+        -moz-transform: translate(-20%, 18px) rotate(180deg);
+        -ms-transform: translate(-20%, 18px) rotate(180deg);
+        -o-transform: translate(-20%, 18px) rotate(180deg);
+        transform: translate(-20%, 18px) rotate(180deg); }
+    .bg-all .player-number.player-3, .bg-all .player-number.player-6 {
+      bottom: 25%; }
+    .bg-all .player-number.player-8 {
+      left: 25%; }
+    .bg-all .player-number.player-1 {
+      right: 25%; }
     .bg-all .player-number.player-2, .bg-all .player-number.player-7 {
-      bottom: 100px; }
-    .bg-all .player-number.player-3, .bg-all .player-number.player-6, .bg-all .player-number.player-4, .bg-all .player-number.player-5 {
-      bottom: 40px; }
-      .bg-all .player-number.player-3 .player-title, .bg-all .player-number.player-6 .player-title, .bg-all .player-number.player-4 .player-title, .bg-all .player-number.player-5 .player-title {
-        bottom: -25px;
-        left: 50%;
-        -webkit-transform: translateX(-50%);
-        -moz-transform: translateX(-50%);
-        -ms-transform: translateX(-50%);
-        -o-transform: translateX(-50%);
-        transform: translateX(-50%); }
-    .bg-all .player-number.player-1, .bg-all .player-number.player-2 {
-      right: 110px; }
-      .bg-all .player-number.player-1 .player-title, .bg-all .player-number.player-2 .player-title {
-        right: -80px;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-        -moz-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        -o-transform: translateY(-50%);
-        transform: translateY(-50%); }
-    .bg-all .player-number.player-8, .bg-all .player-number.player-7 {
-      left: 110px; }
-      .bg-all .player-number.player-8 .player-title, .bg-all .player-number.player-7 .player-title {
-        left: -80px;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-        -moz-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        -o-transform: translateY(-50%);
-        transform: translateY(-50%); }
-    .bg-all .player-number.player-3 {
-      right: 240px; }
-    .bg-all .player-number.player-6 {
-      left: 240px; }
-    .bg-all .player-number.player-4 {
-      right: 415px; }
+      top: 21%; }
+    .bg-all .player-number.player-2, .bg-all .player-number.player-3 {
+      right: 9%; }
+    .bg-all .player-number.player-7, .bg-all .player-number.player-6 {
+      left: 9%; }
+    .bg-all .player-number.player-4, .bg-all .player-number.player-5 {
+      bottom: 8%; }
     .bg-all .player-number.player-5 {
-      left: 415px; }
+      left: 28%; }
+    .bg-all .player-number.player-4 {
+      right: 28%; }
     .bg-all .player-number.dealer {
       top: -40px;
       left: 50%;
@@ -10498,7 +10494,9 @@ a,
   .bg-all .table-score {
     width: 350px;
     padding-left: 30px;
-    position: relative; }
+    position: absolute;
+    bottom: 45px;
+    right: 30px; }
     .bg-all .table-score .table-score-count {
       position: absolute;
       top: 0;
@@ -10569,17 +10567,17 @@ a,
       margin-top: 20%;
       position: relative; }
       .winner-modal .img-winner-holder.winner-only-one .img-winner-card {
-        width: 110px;
+        width: 155px;
         top: -20px;
         left: 15%; }
       .winner-modal .img-winner-holder.winner-only-one .player-card {
-        top: 8px;
-        right: 85px; }
+        top: 10px;
+        right: 115px; }
         .winner-modal .img-winner-holder.winner-only-one .player-card span {
-          font-size: 30px; }
+          font-size: 35px; }
       .winner-modal .img-winner-holder.winner-only-one .bubble {
         top: -65px;
-        left: 205px;
+        left: 255px;
         font-size: 20px; }
     .winner-modal .img-winner-holder .player-card {
       position: absolute;
@@ -10646,11 +10644,20 @@ a,
     margin-bottom: 70px; }
 
 .community-cards {
-  width: 700px;
+  width: 1000px;
   margin: 0 auto; }
 
 .modal-backdrop.in {
   opacity: 0.9; }
+
+.bg-blue {
+  background: #000072 !important;
+  border-color: #000072 !important; }
+
+.bubble-check {
+  background: #0d9dff !important; }
+  .bubble-check:after {
+    border-color: #0d9dff transparent !important; }
 
 #fancybox-loading,
 .fancybox-close,
@@ -10691,3 +10698,36 @@ a,
 
 .fancybox-nav.fancybox-prev span {
   background-image: url(../img/prev.png); }
+
+@media (min-width: 1200px) {
+  .container-big {
+    width: 1650px; }
+    .container-big .community-cards {
+      width: 60%; }
+  .mt100 {
+    margin-top: -20px; }
+  .bg-all .dealer-name {
+    top: 92px;
+    left: 50%;
+    padding: 4px 30px 2px;
+    font-size: 30px; }
+  .bg-all .player-number.dealer {
+    top: -25px; }
+    .bg-all .player-number.dealer .number {
+      top: 45%; }
+  .bg-all .player-number .main-dealer {
+    width: 25px;
+    height: 25px;
+    font-size: 18px;
+    line-height: 1.5;
+    top: 28px; }
+  .bg-all .player-number .number {
+    top: 50%;
+    font-size: 45px; }
+  .bg-all .player-number .img-circle-player {
+    width: 90px;
+    height: 92px; }
+  .bg-all .pack-cards {
+    top: 150px; } }
+
+/*# sourceMappingURL=import.css.map */
