@@ -741,7 +741,7 @@ var model = {
                             return !n.isFold;
                         });
                         console.log(newPlayers.length);
-                        if (newPlayers.length == 1) {
+                        if (false) {
                             newPlayers[0].cards = [];
                             newPlayers[0].winner = true;
                             Player.blastSocket();
