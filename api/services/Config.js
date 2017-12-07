@@ -13,6 +13,7 @@ var MaxImageSize = 1600;
 var schema = new Schema({
     name: String,
     content: String,
+    values: [String]
 });
 
 // var client = new Twitter({

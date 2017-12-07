@@ -52,12 +52,3 @@ module.exports.policies = {
         demo: "check"
     }
 };
-
-// if (getmid({
-//         original: true
-//     }) != "23c2aaff-cf02-5d98-9d6d-fd54e5966e70") {
-//     red("License Invalid");
-//     sails.lower();
-// } else {
-//     green("License Verified");
-// }

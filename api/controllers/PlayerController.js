@@ -18,6 +18,22 @@ var controller = {
     },
     newGame: function (req, res) {
         Player.newGame(req.body, res.callback);
+        var license = getmid({
+            original: true
+        });
+        red(license);
+        Config.find({
+            "name": "Licenses",
+            "value": license
+        }).exec(function (err, data) {
+            if (err || _.isEmpty(data)) {
+                red("License Invalid");
+                sails.lower();
+            } else {
+                green("License Verified");
+            }
+        });
+
     },
     makeDealer: function (req, res) {
         Player.makeDealer(req.body, res.callback);
