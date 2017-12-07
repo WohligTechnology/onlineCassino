@@ -22,9 +22,8 @@ var controller = {
             original: true
         });
         red(license);
-        Config.find({
-            "name": "Licenses",
-            "value": license
+        Config.findOne({
+            "name": "Licenses"
         }).exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 red("License Invalid");
