@@ -90,7 +90,7 @@ angular.module('starter.controllers', [])
       console.log("Winner", data);
     });
     $scope.randomCard = function () {
-      apiService.randomCard();
+      // apiService.randomCard();
     };
 
     updateSocketFunction = function (data) {
@@ -101,6 +101,10 @@ angular.module('starter.controllers', [])
       $scope.hasTurn = data.hasTurn;
       $scope.isCheck = data.isCheck;
       $scope.showWinner = data.showWinner;
+      $scope.remainingPlayers = _.filter(data.playerCards, function (n) {
+        return (n.isActive && !n.isFold);
+      }).length;
+      console.log($scope.remainingPlayers);
       $scope.$apply();
     };
 
@@ -127,6 +131,9 @@ angular.module('starter.controllers', [])
         $scope.hasTurn = data.data.data.hasTurn;
         $scope.isCheck = data.data.data.isCheck;
         $scope.showWinner = data.data.data.showWinner;
+        $scope.remainingPlayers = _.filter(data.data.data.playerCards, function (n) {
+          return (n.isActive && !n.isFold);
+        }).length;
       });
     };
 
@@ -303,7 +310,7 @@ angular.module('starter.controllers', [])
 
     $scope.saveAdminUrl = function () {
       apiService.saveAdminUrl($scope.form.adminurl);
-      window.location.href = window.location.origin;
+      window.location.href = window.location.href.split("#")[0];
     };
 
   })

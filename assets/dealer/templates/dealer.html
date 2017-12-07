@@ -33,7 +33,7 @@
       </div>
 
 
-      <div class="row" ng-if="hasTurn">
+      <div class="row" ng-if="hasTurn" ng-show="remainingPlayers>1">
         <div class="col col-25 text-center">
           <button class="button button-dark button-block button-outline" ng-click="showConfirmationModal('allIn');">All In</button>
         </div>
@@ -50,9 +50,9 @@
           <button class="button button-dark button-block button-outline">Fold</button>
         </div>
       </div>
-      <div class="row" ng-if="!hasTurn">
+      <div class="row" ng-if="!hasTurn" ng-show="remainingPlayers>1">
         <div class="col col-100 text-center">
-          <button class="button button-light button-block" ng-show="!showWinner" ng-click="randomCard();">Serve Card</button>
+          <button class="button button-royal button-block" ng-show="!showWinner" ng-click="randomCard();">Serve Card</button>
           <button class="button button-royal button-block button-outline" ng-show="showWinner" ui-sref="winner">Show Winner</button>
         </div>
       </div>

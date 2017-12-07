@@ -19,7 +19,8 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         if (data.undo) {
             $scope.removeWinner();
         }
-        if (data.player) {
+        console.log(data);
+        if (data.extra && data.extra.player) {
             var x = document.getElementById("cardAudio");
             x.play();
         }
