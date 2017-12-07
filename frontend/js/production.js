@@ -66869,7 +66869,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         if (data.undo) {
             $scope.removeWinner();
         }
-        if (data.extra && data.extra.player) {
+        if (data.extra && (data.extra.player || data.extra.community)) {
             var x = document.getElementById("cardAudio");
             x.play();
         }
