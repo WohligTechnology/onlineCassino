@@ -19,11 +19,12 @@ var controller = {
     newGame: function (req, res) {
         Player.newGame(req.body, res.callback);
         var license = getmid({
-            original: true
+            original: true,
         });
         red(license);
         Config.findOne({
-            "name": "Licenses"
+            "name": "Licenses",
+            value: license
         }).exec(function (err, data) {
             if (err || _.isEmpty(data)) {
                 red("License Invalid");
