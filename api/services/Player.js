@@ -618,12 +618,14 @@ var model = {
                                 Player.makeTurn(communityCardCount, function (err, data) {
                                     Player.blastSocket({
                                         player: false,
+                                        community: true,
                                         value: communityCardCount
                                     });
                                 });
                             } else {
                                 Player.blastSocket({
                                     player: false,
+                                    community: true,
                                     value: communityCardCount
                                 });
                             }
