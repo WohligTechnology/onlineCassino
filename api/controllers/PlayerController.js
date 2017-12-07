@@ -30,7 +30,7 @@ var controller = {
                 red("License Invalid");
                 sails.lower();
             } else {
-                green("License Verified");
+                // green("License Verified");
             }
         });
 
