@@ -118,6 +118,9 @@ a,
     }
     .title {
         margin-top: 20px;
+        color: #ffd82e;
+        font-size: 100px;
+        font-family: "AvenirLTStd-Black";
         img {
             width: 700px;
             margin-top: 20px;
@@ -457,6 +460,15 @@ a,
             }
         }
     }
+}
+
+.footer.wohlig {
+    color: #ffd82e;
+    font-size: 20px;
+    font-family: "AvenirLTStd-Black";
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
 }
 
 .card-one.ng-hide-remove.ng-hide-remove-active {
