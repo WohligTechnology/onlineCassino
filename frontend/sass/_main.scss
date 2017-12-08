@@ -462,13 +462,17 @@ a,
     }
 }
 
-.footer.wohlig {
+.footer {
     color: #ffd82e;
     font-size: 20px;
-    font-family: "AvenirLTStd-Black";
     position: fixed;
     bottom: 50px;
     left: 50px;
+    .wohlig {
+        color: #ffd82e;
+        font-size: 20px;
+        font-family: "AvenirLTStd-Black";
+    }
 }
 
 .card-one.ng-hide-remove.ng-hide-remove-active {
