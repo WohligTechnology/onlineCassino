@@ -54,10 +54,10 @@ var controller = {
         Player.serve(req.body, res.callback);
     },
     randomServe: function (req, res) {
-        if (envType == "production") {
+        if (envType != "production") {
             Player.serve(req.body, res.callback);
         } else {
-            callback();
+            res.callback();
         }
     },
     revealCards: function (req, res) {

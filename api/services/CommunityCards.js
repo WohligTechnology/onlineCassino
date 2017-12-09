@@ -15,6 +15,10 @@ var schema = new Schema({
     isBurn: {
         type: Boolean,
         default: false
+    },
+    serve: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -126,6 +130,30 @@ var model = {
                     }
                 });
             }
+        });
+    },
+    closeServe: function (callback) {
+        var Model = this;
+        Model.findOne().sort({
+            cardNo: 1
+        }).exec(function (err, data) {
+            data.serve = false;
+            data.save(callback);
+        });
+    },
+    checkServe: function (callback) {
+        var Model = this;
+        Model.findOne().sort({
+            cardNo: 1
+        }).exec(callback);
+    },
+    startServe: function (callback) {
+        var Model = this;
+        Model.findOne().sort({
+            cardNo: 1
+        }).exec(function (err, data) {
+            data.serve = true;
+            data.save(callback);
         });
     }
 };

@@ -355,7 +355,8 @@ var model = {
                 CommunityCards.update({}, {
                     $set: {
                         cardValue: "",
-                        isOpen: false
+                        isOpen: false,
+                        serve: false
                     }
                 }, {
                     multi: true
