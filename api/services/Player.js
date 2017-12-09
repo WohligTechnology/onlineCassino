@@ -528,6 +528,7 @@ var model = {
     },
     serve: function (data, callback) {
         if (data.card && data.card.length == 2) {
+
             async.parallel({
                 players: function (callback) {
                     Player.find({

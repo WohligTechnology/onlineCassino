@@ -51,11 +51,28 @@ var controller = {
         Player.addTab(req.body, res.callback);
     },
     serve: function (req, res) {
-        Player.serve(req.body, res.callback);
+        CommunityCards.checkServe(function (err, data) {
+            if (err) {
+                res.callback(err);
+            } else {
+                if (data && data.serve) {
+                    Player.serve(req.body, res.callback);
+                }
+            }
+        });
+
     },
     randomServe: function (req, res) {
         if (envType != "production") {
-            Player.serve(req.body, res.callback);
+            CommunityCards.checkServe(function (err, data) {
+                if (err) {
+                    res.callback(err);
+                } else {
+                    if (data && data.serve) {
+                        Player.serve(req.body, res.callback);
+                    }
+                }
+            });
         } else {
             res.callback();
         }
