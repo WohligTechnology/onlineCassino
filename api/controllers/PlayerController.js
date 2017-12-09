@@ -53,6 +53,13 @@ var controller = {
     serve: function (req, res) {
         Player.serve(req.body, res.callback);
     },
+    randomServe: function (req, res) {
+        if (envType == "production") {
+            Player.serve(req.body, res.callback);
+        } else {
+            callback();
+        }
+    },
     revealCards: function (req, res) {
         Player.revealCards(req.body, res.callback);
     },
