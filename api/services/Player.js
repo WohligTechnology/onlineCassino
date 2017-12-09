@@ -798,10 +798,22 @@ var model = {
                         },
                         function (callback) { // There is an MAIN Error where there is no dealer or No isLastBlind
                             if (cardNo == "LastPlayerCard") {
-                                Player.findLastBlindNext(callback);
+                                async.waterfall([
+                                    function (callback) {
+                                        CommunityCards.closeServe(function (err, data) {
+                                            callback(err);
+                                        });
+                                    },
+                                    Player.findLastBlindNext
+                                ], callback);
                             } else {
                                 async.waterfall(
                                     [
+                                        function (callback) {
+                                            CommunityCards.closeServe(function (err) {
+                                                callback(err);
+                                            });
+                                        },
                                         function (callback) {
                                             Player.update({}, {
                                                 $set: {
@@ -1038,9 +1050,7 @@ var model = {
                 if (removeAllTurn) {
                     //Show Winner to be checked
                     async.parallel({
-                        removeServe: function (callback) {
-                            CommunityCards.closeServe(callback);
-                        },
+                        removeServe: CommunityCards.startServe,
                         updatePlayers: function (callback) {
                             Player.update({}, {
                                 $set: {

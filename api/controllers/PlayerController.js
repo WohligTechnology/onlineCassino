@@ -57,6 +57,8 @@ var controller = {
             } else {
                 if (data && data.serve) {
                     Player.serve(req.body, res.callback);
+                } else {
+                    res.callback(data);
                 }
             }
         });
@@ -70,6 +72,8 @@ var controller = {
                 } else {
                     if (data && data.serve) {
                         Player.serve(req.body, res.callback);
+                    } else {
+                        res.callback(data);
                     }
                 }
             });
