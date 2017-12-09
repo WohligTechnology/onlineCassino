@@ -10162,13 +10162,12 @@ a,
     max-width: 180px; }
   .bg-all .title {
     margin-top: 20px;
-    color: #ffd72e;
+    color: #ffb80b;
     font-size: 100px;
-    font-family: "AvenirLTStd-Black";
+    font-family: AvenirLTStd-Black;
     text-transform: uppercase;
     -webkit-text-stroke-width: 4px;
-    -webkit-text-stroke-color: #ffffff;
-    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0); }
+    -webkit-text-stroke-color: #cacaca; }
     .bg-all .title img {
       width: 700px;
       margin-top: 20px; }
@@ -10659,15 +10658,14 @@ a,
         -o-transform: rotate(50deg);
         transform: rotate(50deg); }
   .winner-modal .title-winner {
-    color: #ffd72e;
+    color: #ffb80b;
     font-size: 70px;
     font-family: "AvenirLTStd-Black";
     text-align: center;
     text-transform: uppercase;
     line-height: 1;
     -webkit-text-stroke-width: 4px;
-    -webkit-text-stroke-color: #ffffff;
-    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0); }
+    -webkit-text-stroke-color: #cacaca; }
 
 .mt-70 {
   margin-top: 70px; }
