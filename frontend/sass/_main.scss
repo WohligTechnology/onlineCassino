@@ -118,12 +118,10 @@ a,
     }
     .title {
         margin-top: 20px;
-        color: #ffb80b;
+        color: #ffd92e;
         font-size: 100px;
-        font-family: AvenirLTStd-Black;
+        font-family: Budmo-Jigglish;
         text-transform: uppercase;
-        -webkit-text-stroke-width: 4px;
-        -webkit-text-stroke-color: #cacaca;
         img {
             width: 700px;
             margin-top: 20px;
@@ -593,30 +591,33 @@ a,
         }
     }
     .title-winner {
-        color: #ffb80b;
+        color: #ffd92e;
         font-size: 70px;
         font-family: "AvenirLTStd-Black";
         text-align: center;
         text-transform: uppercase;
         line-height: 1;
-        -webkit-text-stroke-width: 4px;
-        -webkit-text-stroke-color: #cacaca;
     }
 }
-.mt-70{
+
+.mt-70 {
     margin-top: 70px;
 }
+
 .community-cards {
     width: 1000px;
     margin: 0 auto;
 }
+
 .modal-backdrop.in {
     opacity: 0.9;
 }
+
 .bg-blue {
     background: $brand-info !important;
     border-color: $brand-info !important;
 }
+
 .bubble-check {
     background: $brand-primary !important;
     &:after {
