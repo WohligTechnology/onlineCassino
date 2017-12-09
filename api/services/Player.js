@@ -528,11 +528,11 @@ var model = {
     },
     serve: function (data, callback) {
 
-        CommunityCards.checkServe(function (err, data) {
+        CommunityCards.checkServe(function (err, dataserve) {
             if (err) {
                 callback(err);
             } else {
-                if (data && data.serve) {
+                if (dataserve && dataserve.serve) {
 
                     if (data.card && data.card.length == 2) {
 
@@ -654,7 +654,7 @@ var model = {
                     }
 
                 } else {
-                    callback(data);
+                    callback(dataserve);
                 }
             }
         });
