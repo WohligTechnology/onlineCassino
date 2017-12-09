@@ -2,7 +2,8 @@
     <!--<pre>{{winner.length}}</pre>-->
     <div class="col-md-12">
         <div class="title-winner" ng-if="winner.length > 1">
-            <img src="img/split-pot.png" alt="" width="500px">
+            <!--<img src="img/split-pot.png" alt="" width="500px">-->
+            Split pot - Winner - Player <span ng-repeat="winners in winner"> {{winners.playerNo}}</span>
         </div>
         <div class="title-winner text-center" ng-if="winner.length==1">
              Winner - <span ng-repeat="winners in winner">Player {{winners.playerNo}}</span>
