@@ -397,6 +397,9 @@ var model = {
                         });
                         if (playerIndex >= 0) {
                             async.parallel({
+                                startServe: function (callback) {
+                                    CommunityCards.startServe(callback);
+                                },
                                 addDealer: function (callback) {
                                     players[playerIndex].isDealer = true;
                                     players[playerIndex].save(callback);
@@ -1033,17 +1036,30 @@ var model = {
 
                 if (removeAllTurn) {
                     //Show Winner to be checked
-                    Player.update({}, {
-                        $set: {
-                            hasRaised: false,
-                            isLastBlind: false,
-                            isTurn: false
+                    async.parallel({
+                        removeServe: function (callback) {
+                            CommunityCards.closeServe(callback);
+                        },
+                        updatePlayers: function (callback) {
+                            Player.update({}, {
+                                $set: {
+                                    hasRaised: false,
+                                    isLastBlind: false,
+                                    isTurn: false,
+                                    hasCalled: false,
+                                    hasChecked: false,
+                                    hasRaisedd: false
+                                }
+                            }, {
+                                multi: true
+                            }, function (err) {
+                                callback(err);
+                            });
                         }
-                    }, {
-                        multi: true
-                    }, function (err) {
+                    }, function (err, data) {
                         callback(err);
                     });
+
                 } else {
                     callback(null);
                 }
