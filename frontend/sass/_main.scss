@@ -118,9 +118,12 @@ a,
     }
     .title {
         margin-top: 20px;
-        color: #ffd82e;
+        color: #ffd72e;
         font-size: 100px;
         font-family: "AvenirLTStd-Black";
+        -webkit-text-stroke-width: 4px;
+        -webkit-text-stroke-color: #ffffff;
+        text-shadow: 2px 2px 3px rgba(255, 255, 255, 0);
         img {
             width: 700px;
             margin-top: 20px;
@@ -464,13 +467,12 @@ a,
 
 .footer {
     color: #ffd82e;
-    font-size: 20px;
+    font-size: 16px;
     position: fixed;
     bottom: 50px;
     left: 50px;
     .wohlig {
         color: #ffd82e;
-        font-size: 20px;
         font-family: "AvenirLTStd-Black";
     }
 }
@@ -542,10 +544,10 @@ a,
             z-index: 4;
             span {
                 position: absolute;
-                top: 50%;
-                left: 50%;
+                top: 53%;
+                left: 49%;
                 @include transform(translate(-50%, -50%));
-                font-size: 24px;
+                font-size: 26px;
                 color: #fff;
                 font-family: "AvenirLTStd-Black";
                 -webkit-font-smoothing: antialiased;
@@ -591,25 +593,31 @@ a,
         }
     }
     .title-winner {
+        color: #ffd72e;
+        font-size: 100px;
+        font-family: "AvenirLTStd-Black";
         text-align: center;
-        margin-bottom: 70px;
+        text-transform: uppercase;
+        line-height: 1;
+        -webkit-text-stroke-width: 4px;
+        -webkit-text-stroke-color: #ffffff;
+        text-shadow: 2px 2px 3px rgba(255, 255, 255, 0);
     }
 }
-
+.mt-70{
+    margin-top: 70px;
+}
 .community-cards {
     width: 1000px;
     margin: 0 auto;
 }
-
 .modal-backdrop.in {
     opacity: 0.9;
 }
-
 .bg-blue {
     background: $brand-info !important;
     border-color: $brand-info !important;
 }
-
 .bubble-check {
     background: $brand-primary !important;
     &:after {

@@ -4,8 +4,14 @@
         <div class="title-winner" ng-if="winner.length > 1">
             <img src="img/split-pot.png" alt="" width="500px">
         </div>
+        <div class="title-winner text-center" ng-if="winner.length==1">
+             Winner - <span ng-repeat="winners in winner">Player {{winners.playerNo}}</span>
+        </div>
     </div>
-    <div class="col-md-4" ng-repeat="winners in winner" ng-if="winner.length > 1">
+    <div class="col-md-12" ng-if="winner.length > 1">
+        <div class="row">
+<div class="mt-70">
+    <div class="col-md-4" ng-repeat="winners in winner" >
         <div class="img-winner-holder">
             <div class="bubble">
                 {{winners.descr}}
@@ -23,13 +29,17 @@
             </div>
         </div>
     </div>
+</div>
+        </div>
+    </div>
+
     <div class="col-md-offset-2 col-md-8" ng-if="winner.length==1">
         <div class="img-winner-holder winner-only-one">
             <div class="bubble" ng-if="winner[0].descr">
                 {{winner[0].descr}}
             </div>
             <img src="img/winner.png" alt="" class="img-full">
-            <div class="player-card" >
+            <div class="player-card">
                 <img src="img/circle-icon.png" alt="" width="75">
                 <span>{{winner[0].playerNo}}</span>
             </div>
@@ -42,7 +52,7 @@
         </div>
     </div>
 </div>
-<div class="community-cards" ng-if="winner[0].descr">
+<div class="community-cards">
     <div class="row">
         <div class="col-md-1 col-sm-1"></div>
         <div class="col-md-2 col-sm-2">
