@@ -9,12 +9,13 @@
             </div>
           </div>
           <div class="padding">
-            <button class="button button-royal button-block icon-left ion-chevron-left" ui-sref="dealer">Winner: {{winnerString}}
-              <span ng-if="winners.length>1">(SPLIT POT)</span>
+            <button class="button button-royal button-block fnt-3em icon-left ion-chevron-left" ui-sref="dealer">
+              <span class="light-grey">Winner:</span> </br> {{winnerString}} </br>
+              <span class="light-grey" ng-if="winners.length>1">(SPLIT POT)</span>
             </button>
           </div>
           <div class="marb-30 text-center padding">
-            <a class="button button-block button-royal button-outline" ui-sref='table'>New Game</a>
+            <a class="button button-block button-royal fnt-3em button-outline" ui-sref='table'>New Game</a>
           </div>
         </div>
         <div class="col-50">

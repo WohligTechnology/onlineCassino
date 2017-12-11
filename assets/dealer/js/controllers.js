@@ -90,13 +90,13 @@ angular.module('starter.controllers', [])
       console.log("Winner", data);
     });
     $scope.randomCard = function () {
-      // apiService.randomCard();
+      apiService.randomCard();
     };
 
     updateSocketFunction = function (data) {
       console.log(data);
       $scope.communityCards = data.communityCards;
-      $scope.playersChunk = _.chunk(data.playerCards, 4);
+      $scope.playersChunk = _.chunk(data.playerCards, 8);
       $scope.extra = data.extra;
       $scope.hasTurn = data.hasTurn;
       $scope.isCheck = data.isCheck;
@@ -127,7 +127,7 @@ angular.module('starter.controllers', [])
         }
 
         $scope.communityCards = data.data.data.communityCards;
-        $scope.playersChunk = _.chunk(data.data.data.playerCards, 4);
+        $scope.playersChunk = _.chunk(data.data.data.playerCards, 8);
         $scope.hasTurn = data.data.data.hasTurn;
         $scope.isCheck = data.data.data.isCheck;
         $scope.showWinner = data.data.data.showWinner;
@@ -252,7 +252,7 @@ angular.module('starter.controllers', [])
     $scope.updatePlayers = function () {
       apiService.getAll(function (data) {
         $scope.allPlayers = data.data.data.playerCards;
-        $scope.playersChunk = _.chunk(data.data.data.playerCards, 4);
+        $scope.playersChunk = _.chunk(data.data.data.playerCards, 8);
         _.each($scope.allPlayers, function (n) {
           if (n.isDealer) {
             $scope.dealer = {
@@ -325,8 +325,8 @@ angular.module('starter.controllers', [])
         });
         $scope.communityCards = data.data.data.communityCards;
         $scope.winnerString = _.join(_.map($scope.winners, function (n) {
-          return "Player " + n.playerNo;
-        }), " & ");
+          return "Player-" + n.playerNo;
+        }), " , ");
       });
     };
     $scope.showWinner();

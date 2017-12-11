@@ -1,12 +1,14 @@
-<!-- <div class="player-ui" ng-click="makeActive(player.playerNo,!player.isActive)" ng-class="{'player-selected':player.isActive}">
+<!-- <div class="player-ui" on-tap="makeActive(player.playerNo,!player.isActive)" ng-class="{'player-selected':player.isActive}">
     <h2 class="text-center">
         <span class="holder">
             {{player.playerNo}}
         </span>
     </h2>
 </div> -->
+
 <div ng-click="makeActive(player.playerNo,!player.isActive)">
-    <button class="button button-positive button-block btn-start " ng-disabled="!player.isActive">
+    <button class="button button-positive button-block btn-start fnt-8em" ng-disabled="!player.isActive">
+
         <span class="holder">
             {{player.playerNo}}
         </span>

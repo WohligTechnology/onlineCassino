@@ -2,7 +2,7 @@
     <ion-content class="few-pad">
         <div class="poker-table">
             <div class="row" ng-repeat="players in playersChunk">
-                <div class="col col-25" ng-repeat="player in players">
+                <div class="col" ng-repeat="player in players">
                     <tab ng-player="player" ng-if="player"></tab>
                 </div>
             </div>
@@ -13,14 +13,15 @@
                     <div class="input-label">
                         <i class="ion-ios-people"></i> Dealer
                     </div>
-                    <span class="low-opacity">(Default: {{dealer.dealerPlayer}})</span>
+                    <span class="low-opacity fnt-16">(Default: {{dealer.dealerPlayer}})</span>
                     <select id="dealer" ng-model="dealer.dealerPlayer">
                         <option ng-repeat="p in activePlayers() track by $index" value="{{p.playerNo}}">Player {{p.playerNo}}</option>
                     </select>
                 </label>
             </div>
             <div class="item item-toggle" ng-if="activePlayers().length>2">
-                Straddle {{form.isStraddle}}
+                <span class="fnt-24">Straddle</span>
+                <span class="fnt-16">{{form.isStraddle}}</span>
                 <label class="toggle toggle-positive">
                     <input type="checkbox" ng-model="form.isStraddle">
                     <div class="track">
@@ -29,36 +30,39 @@
                 </label>
             </div>
             <div class="text-center">
-                <button class="button button-positive button-block" ng-disabled="!dealer.dealerPlayer || !isDealerPlayerInActive(dealer.dealerPlayer) || (activePlayers().length<2)"
+                <button class="button button-positive button-block fnt4-5em btn-pad" ng-disabled="!dealer.dealerPlayer || !isDealerPlayerInActive(dealer.dealerPlayer) || (activePlayers().length<2)"
                     ng-click="makeDealer(dealer.dealerPlayer);">Start</button>
             </div>
         </form>
 
 
         <div class="row">
-            <div class="col col-33"></div>
-            <div class="col col-33"></div>
-            <div class="col col-33">
+            <div class="col col-25"></div>
+            <div class="col col-25"></div>
+            <div class="col col-50">
                 <div class="clearfix">
-                    <button class="button button-royal button-outline setting-button " ng-click="toggleSettingShow();">
+                    <button class="button button-royal button-outline setting-button " on-tap="toggleSettingShow();">
                         <i class="ion ion-ios-cog"></i>
                     </button>
                 </div>
 
-                <div class="list" ng-show="settingShow">
+                <div class="list popup-custom" ng-show="settingShow">
                     <label class="item item-input" ng-repeat="setting in settings">
                         <span class="input-label">{{setting.name}}</span>
                         <input type="text" ng-model="setting.value" class="setting-input font-big">
                     </label>
 
-                    <button class="button button-royal button-block button-outline button-small" ng-click="storeSetting();">Save</button>
+
+                    <button class="button button-royal button-block button-outline button-small fnt-22" ng-click="storeSetting();">Save</button>
+
 
                     <label class="item item-input">
                         <span class="input-label">Admin Url</span>
                         <input type="text" ng-model="form.adminurl" class="setting-input font-big">
 
                     </label>
-                    <button class="button button-assertive button-block button-outline button-small text-right" ng-click="saveAdminUrl();">Save Admin URL</button>
+
+                    <button class="button button-assertive button-block button-outline button-small fnt-22 text-right" ng-click="saveAdminUrl();">Save Admin URL</button>
 
                 </div>
 
