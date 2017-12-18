@@ -53,6 +53,14 @@ var schema = new Schema({
     showCard: {
         type: Boolean,
         default: false
+    },
+    isSmallBlind: {
+        type: Boolean,
+        default: false
+    },
+    isBigBlind: {
+        type: Boolean,
+        default: false
     }
 });
 schema.plugin(deepPopulate, {
@@ -132,7 +140,9 @@ var model = {
                     isLastBlind: 1,
                     hasRaisedd: 1,
                     showCard: 1,
-                    _id: 0
+                    _id: 0,
+                    isSmallBlind: 1,
+                    isBigBlind: 1
                 }).exec(callback);
             },
             communityCards: function (callback) {
@@ -349,7 +359,9 @@ var model = {
                         hasRaisedd: false,
                         hasChecked: false,
                         hasCalled: false,
-                        showCard: false
+                        showCard: false,
+                        isSmallBlind: false,
+                        isBigBlind: false
                     }
                 }, {
                     multi: true
@@ -1146,7 +1158,19 @@ var model = {
         } else {
             callback("No Player selected for Next");
         }
-
+    },
+    showCard: function (data, callback) {
+        Player.findOne({
+            "playerNo": data.playerNo
+        }).exec(function (err, data) {
+            if (err) {
+                callback(err);
+            } else {
+                data.showCard = true;
+                data.save(callback);
+                Player.showWinner(function () {});
+            }
+        });
     }
 };
 module.exports = _.assign(module.exports, exports, model);
