@@ -734,7 +734,7 @@ var model = {
                 descr: n.descr,
                 playerNo: n.playerNo,
                 winner: n.winner,
-
+                showCard: n.showCard
             };
             return obj;
         });
@@ -1192,8 +1192,10 @@ var model = {
                 callback(err);
             } else {
                 data.showCard = true;
-                data.save(callback);
-                Player.showWinner(function () {});
+                data.save(function () {
+                    Player.showWinner(callback);
+                });
+
             }
         });
     }
