@@ -86,6 +86,9 @@ var controller = {
     },
     check: function (req, res) {
         Player.check(res.callback);
+    },
+    showPlayerCard: function (req, res) {
+        Player.showPlayerCard(req.body, res.callback);
     }
     //getTabDetail
 };

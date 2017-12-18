@@ -728,11 +728,13 @@ var model = {
         var newWinner = _.filter(data.winners, function (n) {
             return n.winner;
         });
-        var finalWinner = _.map(newWinner, function (n) {
+        var finalWinner = _.map(data.winners, function (n) {
             var obj = {
                 cards: n.cards,
                 descr: n.descr,
-                playerNo: n.playerNo
+                playerNo: n.playerNo,
+                winner: n.winner,
+
             };
             return obj;
         });
@@ -1182,7 +1184,7 @@ var model = {
             callback("No Player selected for Next");
         }
     },
-    showCard: function (data, callback) {
+    showPlayerCard: function (data, callback) {
         Player.findOne({
             "playerNo": data.playerNo
         }).exec(function (err, data) {
