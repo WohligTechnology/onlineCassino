@@ -49,6 +49,10 @@ var schema = new Schema({
     hasCalled: {
         type: Boolean,
         default: false
+    },
+    showCard: {
+        type: Boolean,
+        default: false
     }
 });
 schema.plugin(deepPopulate, {
@@ -343,7 +347,8 @@ var model = {
                         isAllIn: false,
                         hasRaisedd: false,
                         hasChecked: false,
-                        hasCalled: false
+                        hasCalled: false,
+                        showCard: false
                     }
                 }, {
                     multi: true
