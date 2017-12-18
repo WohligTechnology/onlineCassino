@@ -422,10 +422,33 @@ var model = {
                                     players[playerIndex].isDealer = true;
                                     players[playerIndex].save(callback);
                                 },
-                                addBlind: function (callback) {
-                                    var skipBlind = 2;
-                                    if (data.isStraddle) {
-                                        skipBlind = 3;
+                                addSmallBlind: function (callback) {
+                                    if (data.removeSmallBlind) {
+                                        callback();
+                                    } else {
+                                        var nextPlayer = (playerIndex + 1) % players.length;
+                                        players[nextPlayer].isSmallBlind = true;
+                                        players[nextPlayer].save(callback);
+                                    }
+
+                                },
+                                addBigBlind: function () {
+                                    var nextPlayer = 0;
+                                    if (data.removeSmallBlind) {
+                                        nextPlayer = (playerIndex + 1) % players.length;
+
+                                    } else {
+                                        nextPlayer = (playerIndex + 2) % players.length;
+
+                                    }
+                                    players[nextPlayer].isBigBlind = true;
+                                    players[nextPlayer].save(callback);
+                                },
+                                addStraddle: function () {
+
+                                    var skipBlind = 2 + parseInt(data.straddle);
+                                    if (data.removeSmallBlind) {
+                                        skipBlind--;
                                     }
                                     var turnIndex = (playerIndex + skipBlind) % players.length;
                                     players[turnIndex].isLastBlind = true;
