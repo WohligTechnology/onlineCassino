@@ -501,7 +501,7 @@ a,
 .winner-modal {
     padding-top: 2%;
     .modal-lg {
-        width: 1170px;
+        width: 1580px;
         margin: 15px auto;
     }
     .modal-content {
@@ -538,7 +538,7 @@ a,
         .player-card {
             position: absolute;
             top: 5px;
-            right: 71px;
+            right: 88px;
             z-index: 4;
             span {
                 position: absolute;
@@ -553,7 +553,7 @@ a,
             }
         }
         .img-winner-card {
-            width: 65px;
+            width: 100px;
             position: absolute;
             top: -10px;
             left: 14%;
@@ -567,7 +567,7 @@ a,
         .bubble {
             position: absolute;
             top: -55px;
-            left: 135px;
+            left: 200px;
             background: #da0015;
             border-radius: 55%;
             padding: 20px 40px;
@@ -607,6 +607,16 @@ a,
 .community-cards {
     width: 1000px;
     margin: 0 auto;
+}
+
+.community-cards-one-winner {
+    width: 800px;
+    margin: 75px auto;
+    color: #fff;
+    h4 {
+        font-size: 32px;
+        padding: 0 15px;
+    }
 }
 
 .modal-backdrop.in {
