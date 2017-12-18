@@ -597,6 +597,10 @@ a,
         text-align: center;
         text-transform: uppercase;
         line-height: 1;
+        &.text-winner-other{
+            color: #fff;
+            font-size: 40px;
+        }
     }
 }
 
