@@ -10503,7 +10503,7 @@ a,
       padding: 20px 40px;
       text-align: justify;
       color: #fff;
-      font-size: 16px;
+      font-size: 18px;
       z-index: 2; }
       .winner-modal .img-winner-holder .bubble:after {
         content: '';
@@ -10525,6 +10525,9 @@ a,
     text-align: center;
     text-transform: uppercase;
     line-height: 1; }
+    .winner-modal .title-winner.text-winner-other {
+      color: #fff;
+      font-size: 40px; }
 
 .mt-70 {
   margin-top: 70px; }
