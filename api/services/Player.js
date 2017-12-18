@@ -432,7 +432,7 @@ var model = {
                                     }
 
                                 },
-                                addBigBlind: function () {
+                                addBigBlind: function (callback) {
                                     var nextPlayer = 0;
                                     if (data.removeSmallBlind) {
                                         nextPlayer = (playerIndex + 1) % players.length;
@@ -444,7 +444,7 @@ var model = {
                                     players[nextPlayer].isBigBlind = true;
                                     players[nextPlayer].save(callback);
                                 },
-                                addStraddle: function () {
+                                addStraddle: function (callback) {
 
                                     var skipBlind = 2 + parseInt(data.straddle);
                                     if (data.removeSmallBlind) {
