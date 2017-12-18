@@ -131,6 +131,7 @@ var model = {
                     hasChecked: 1,
                     isLastBlind: 1,
                     hasRaisedd: 1,
+                    showCard: 1,
                     _id: 0
                 }).exec(callback);
             },
