@@ -115,25 +115,25 @@
         </div>
     </div>
 </div>
-<div class="title-winner text-winner-other text-center" ng-if="winner.length==1">
-    Other Player
+<div class="title-winner text-winner-other text-center" ng-if="showCard.length > 0">
+    Other Players
 </div>
 <div class="row">
     <div class="mt-70">
-        <div class="col-md-4" ng-repeat="winners in winner">
+        <div class="col-md-4" ng-repeat="showCards in showCard">
             <div class="img-winner-holder">
                 <div class="bubble">
-                    {{winners.descr}}
+                    {{showCards.descr}}
                 </div>
                 <img src="img/winner.png" alt="" class="img-full">
                 <div class="player-card">
                     <img src="img/circle-icon.png" alt="" width="50">
-                    <span>{{winners.playerNo}}</span>
+                    <span>{{showCards.playerNo}}</span>
                 </div>
                 <div class="img-winner-card">
-                    <card card='{{winners.cards[0]}}' ng-style="style" class="img-full">
+                    <card card='{{showCards.cards[0]}}' ng-style="style" class="img-full">
                     </card>
-                    <card card='{{winners.cards[1]}}' ng-style="style" class="img-full winner-card-two">
+                    <card card='{{showCards.cards[1]}}' ng-style="style" class="img-full winner-card-two">
                     </card>
                 </div>
             </div>
