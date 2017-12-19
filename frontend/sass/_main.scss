@@ -221,20 +221,33 @@ a,
         }
         .main-dealer {
             border-radius: 50%;
-            width: 22px;
-            height: 22px;
+            width: 25px;
+            height: 25px;
+            font-size: 18px;
+            line-height: 1.5;
+            top: 28px;
             font-style: italic;
-            background: #da0015;
             color: #fff;
             text-align: center;
-            line-height: 1.6;
             position: absolute;
-            top: 22px;
-            left: 10px;
             z-index: 1;
             font-family: "AvenirLTStd-Roman";
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            &.dealer-circle {
+                left: 10px;
+                background: #da0015;
+            }
+            &.player-blind {
+                right: 6px;
+                background: #009686;
+                width: 30px;
+                height: 30px;
+                font-size: 20px;
+                &.small-blind {
+                    background: #673AB7;
+                }
+            }
         }
         .player-title {
             color: #fff;
@@ -597,7 +610,7 @@ a,
         text-align: center;
         text-transform: uppercase;
         line-height: 1;
-        &.text-winner-other{
+        &.text-winner-other {
             color: #fff;
             font-size: 40px;
         }

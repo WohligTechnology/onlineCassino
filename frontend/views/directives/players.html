@@ -3,7 +3,9 @@
         <img src="img/circle-icon.png" alt="" width="90" ng-show="player.isActive" ng-class="{'enable-turn':player.isTurn}">
         <img src="img/disable-icon.png" alt="" width="90" class="disable-player" ng-show="!player.isActive">
     </div>
-    <div class="main-dealer text-uppercase" ng-show="player.isDealer">D</div>
+    <div class="main-dealer dealer-circle text-uppercase" ng-show="player.isDealer">D</div>
+    <div class="main-dealer player-blind small-blind" ng-if="player.isSmallBlind"> Sb </div>
+    <div class="main-dealer player-blind " ng-if="player.isBigBlind"> Bb </div>
     <div class="bubble" ng-show="player.hasRaisedd && !player.isAllIn">
         Raise
     </div>
