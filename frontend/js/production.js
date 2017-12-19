@@ -66892,11 +66892,17 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
     };
     $scope.getSettings();
     var winnerPopup;
-    $scope.showWinner = function (data) {
+    $scope.showWinnerSocket = function (data) {
+        console.log(data);
         if (winnerPopup) {
             winnerPopup.close();
         }
-        $scope.winner = data.data;
+        $scope.winner = _.filter(data.data, function (n) {
+            return n.winner;
+        });
+        $scope.showCard = _.filter(data.data, function (n) {
+            return n.showCard;
+        });
         winnerPopup = $uibModal.open({
             templateUrl: "views/modal/winner.html",
             size: "lg",
@@ -66910,7 +66916,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         }
     };
     io.socket.on("Update", updateSocketFunction);
-    io.socket.on("ShowWinner", $scope.showWinner);
+    io.socket.on("ShowWinner", $scope.showWinnerSocket);
 });
 myApp.controller('headerCtrl', function ($scope, TemplateService) {
     $scope.template = TemplateService;
