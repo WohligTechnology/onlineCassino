@@ -10226,10 +10226,10 @@ a,
       -moz-osx-font-smoothing: grayscale; }
     .bg-all .player-number .main-dealer {
       border-radius: 50%;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
       font-size: 18px;
-      line-height: 1.5;
+      line-height: 1.7;
       top: 28px;
       font-style: italic;
       color: #fff;
@@ -10246,8 +10246,7 @@ a,
         right: 6px;
         background: #009686;
         width: 30px;
-        height: 30px;
-        font-size: 20px; }
+        height: 30px; }
         .bg-all .player-number .main-dealer.player-blind.small-blind {
           background: #673AB7; }
     .bg-all .player-number .player-title {
