@@ -734,7 +734,8 @@ var model = {
                 descr: n.descr,
                 playerNo: n.playerNo,
                 winner: n.winner,
-                showCard: n.showCard
+                showCard: n.showCard,
+                rank: n.winRank
             };
             return obj;
         });
