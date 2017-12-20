@@ -223,7 +223,7 @@ a,
             border-radius: 50%;
             width: 30px;
             height: 30px;
-            font-size: 18px;
+            font-size: 20px;
             line-height: 1.7;
             top: 28px;
             font-style: italic;
@@ -240,11 +240,14 @@ a,
             }
             &.player-blind {
                 right: 6px;
-                background: #009686;
+                background: #fff;
+                color: #009686;
+                border-color: #009686;
                 width: 30px;
                 height: 30px;
                 &.small-blind {
-                    background: #673AB7;
+                    color: #673AB7;
+                    border-color: #673AB7;
                 }
             }
         }
@@ -268,7 +271,7 @@ a,
                     @include transform(translate(337px, -69px) rotate(-10deg)!important);
                 }
                 .card-two.ng-hide-remove {
-                    @include transform(translate(328px, -108px) rotate(-25deg) !important);
+                    @include transform(translate(324px, -70px) rotate(-10deg) !important);
                 }
             }
         }
@@ -546,6 +549,17 @@ a,
                 left: 255px;
                 font-size: 20px;
             }
+        }
+        .rank {
+            position: absolute;
+            font-size: 49px;
+            color: #fff;
+            bottom: 85px;
+            right: 110px;
+            vertical-align: middle;
+            font-family: "AvenirLTStd-Black";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale; 
         }
         .player-card {
             position: absolute;
