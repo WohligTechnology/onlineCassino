@@ -242,12 +242,12 @@ a,
                 right: 6px;
                 background: #fff;
                 color: #009686;
-                border-color: #009686;
+                border: 1px solid #009686;
                 width: 30px;
                 height: 30px;
                 &.small-blind {
                     color: #673AB7;
-                    border-color: #673AB7;
+                    border: 1px solid #673AB7;
                 }
             }
         }
