@@ -57,7 +57,11 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         var intervalObj = $interval(function () {
             $scope.mapCard.isNextCard = "Complete";
             $scope.stopAll();
-            $scope.changeCard();
+            var shouldStart = $scope.changeCard();
+            if (shouldStart) {
+                $scope.startReading();
+            }
+
         }, changingCardTime);
         allIntervals.push(intervalObj);
     };
@@ -69,11 +73,13 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         if (indexCard == ($scope.allCards.length - 1)) {
             $scope.completedDeck = true;
             toastr.success("Desk Mapping Completed");
+            return false;
         } else {
             $scope.mapCard.selected = $scope.allCards[++indexCard];
             $scope.mapCard.isSaving = "";
             $scope.mapCard.isVerifing = "";
             $scope.mapCard.isNextCard = "";
+            return true;
         }
     };
 
