@@ -64,7 +64,8 @@
     "angular-ui-swiper": "^2.3.6",
     "textAngular": "^1.5.16",
     "cleave.js": "^0.7.10",
-    "angular-promise-buttons": "^0.1.21"
+    "angular-promise-buttons": "^0.1.21",
+    "mousetrap": "https://github.com/ccampbell/mousetrap.git#^1.6.1"
   },
   "resolutions": {
     "angular": "1.6.7"

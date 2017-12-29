@@ -92,7 +92,7 @@ SerialPort.list(function (err, allSerial) {
                         }
                     });
                 } else {
-                    currentCardId = "";
+                    // currentCardId = "";
                 }
             });
         } else {

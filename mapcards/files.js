@@ -6,6 +6,8 @@ module.exports = [
   'bower_components/fancybox/dist/jquery.fancybox.js',
   'bower_components/smart-app-banner/smart-app-banner.js',
   "bower_components/moment/min/moment.min.js",
+  "bower_components/mousetrap/mousetrap.js",
+
 
 
   //Angular Libs
@@ -23,6 +25,7 @@ module.exports = [
   "bower_components/angular-toastr/dist/angular-toastr.js",
   "bower_components/angular-toastr/dist/angular-toastr.tpls.js",
   "bower_components/angular-promise-buttons/dist/angular-promise-buttons.js",
+  "bower_components/angular-hotkeys/src/hotkeys.js",
 
   //App.js
   'js/app.js',

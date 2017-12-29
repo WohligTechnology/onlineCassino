@@ -9,7 +9,8 @@ var myApp = angular.module('myApp', [
     'angular-flexslider',
     'ui.swiper',
     'angularPromiseButtons',
-    'toastr'
+    'toastr',
+    'cfp.hotkeys'
 ]);
 
 // Define all the routes below
