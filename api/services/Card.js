@@ -55,6 +55,37 @@ var model = {
                 data.save(callback);
             }
         });
+    },
+    replaceCard: function (data, callback) {
+        async.waterfall([
+            function (callback) { // find and Remove Card
+                Card.findOne({
+                    value: currentCardId
+                }).exec(function (err, data) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        if (_.isEmpty(data)) {
+                            callback();
+                        } else {
+                            _.remove(data.value, function (n) {
+                                return n.value == currentCardId;
+                            });
+                            data.save(function () {
+                                callback();
+                            });
+                        }
+
+                    }
+                });
+            },
+            function (callback) { // find other remove card
+                Card.saveLastCard({
+                    name: name
+                }, callback);
+            }
+        ], callback);
+
     }
 };
 module.exports = _.assign(module.exports, exports, model);
