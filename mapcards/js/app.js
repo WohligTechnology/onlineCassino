@@ -29,6 +29,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locat
             url: "/read",
             templateUrl: tempateURL,
             controller: 'ReadCtrl'
+        })
+        .state('replace', {
+            url: "/replace",
+            templateUrl: tempateURL,
+            controller: 'ReplaceCtrl'
         });
     $urlRouterProvider.otherwise("/");
     $locationProvider.html5Mode(isproduction);
