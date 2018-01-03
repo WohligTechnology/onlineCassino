@@ -38,8 +38,17 @@
                     </tr>
                 </tbody>
             </table>
-
+            <br>
+            <h3>Replace Details</h3>
+            <select class="form-control select-card" ng-options="card as (card.shortName +' - '+ card.fullName) for card in allCards"
+                ng-model="replaceWith.value">
+            </select>
+            <button ng-show="replaceWith.shortName" ng-click="replaceCard();" class="btn btn-danger">Replace With {{replaceWith.shortName +' - '+ replaceWith.fullName}}</button>
         </div>
+        <div class="col-md-4">
+            <pre>{{replaceWith}}</pre>
+        </div>
+
 
     </div>
 

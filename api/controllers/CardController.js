@@ -17,6 +17,9 @@ var controller = {
                 }
             }
         ], res.callback);
+    },
+    replaceCard: function (req, res) {
+        Card.replaceCard(req.body, res.callback);
     }
 };
 module.exports = _.assign(module.exports, controller);

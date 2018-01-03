@@ -77,7 +77,20 @@ myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationServic
         },
         isSaving: "",
         isVerifing: "",
-        isNextCard: ""
+        isNextCard: "",
+    };
+
+    $scope.replaceWith = {
+        value: {}
+    };
+
+
+    $scope.replaceCard = function () {
+        if (replaceWith.shortName) {
+            apiService.replaceCard(replaceWith.shortName, function () {
+                toastr.success("Card Replaced Successfully");
+            });
+        }
     };
 
     $scope.startReading = function () {
@@ -117,4 +130,7 @@ myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationServic
     };
     $scope.restartApp();
 
-})
+
+    // apiService.changeCard("");
+
+});
