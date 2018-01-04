@@ -71,8 +71,6 @@ var model = {
                             data.value = _.filter(data.value, function (n) {
                                 return n != currentCardId;
                             });
-                            red("Checking");
-                            console.log(data.value);
                             data.save(function () {
                                 callback();
                             });
