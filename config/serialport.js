@@ -12,9 +12,9 @@ function callServe(cardName) {
         }, function (err, data) {
             global.isCallApi = true;
             if (err) {
-                red(err);
+                // red(err);
             } else {
-                green(data);
+                // green(data);
             }
         });
     } else {

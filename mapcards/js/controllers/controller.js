@@ -86,10 +86,11 @@ myApp.controller('ReadCtrl', function ($scope, TemplateService, NavigationServic
 
 
     $scope.replaceCard = function () {
-        if (replaceWith.shortName) {
-            apiService.replaceCard(replaceWith.shortName, function () {
+        if ($scope.replaceWith.value.shortName) {
+            apiService.replaceCard($scope.replaceWith.value.shortName, function () {
                 toastr.success("Card Replaced Successfully");
             });
+            $scope.replaceWith.value = {};
         }
     };
 

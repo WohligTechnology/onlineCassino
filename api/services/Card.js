@@ -26,7 +26,7 @@ var model = {
         }).exec(callback);
     },
     findCard: function (callback) {
-        console.log(currentCardId);
+        // console.log(currentCardId);
         if (currentCardId) {
             Card.count({
                 value: currentCardId
@@ -68,9 +68,11 @@ var model = {
                         if (_.isEmpty(data)) {
                             callback();
                         } else {
-                            _.remove(data.value, function (n) {
-                                return n.value == currentCardId;
+                            data.value = _.filter(data.value, function (n) {
+                                return n != currentCardId;
                             });
+                            red("Checking");
+                            console.log(data.value);
                             data.save(function () {
                                 callback();
                             });
@@ -81,7 +83,7 @@ var model = {
             },
             function (callback) { // find other remove card
                 Card.saveLastCard({
-                    name: name
+                    name: data.name
                 }, callback);
             }
         ], callback);
