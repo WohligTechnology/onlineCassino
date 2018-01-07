@@ -19,7 +19,7 @@
                         </div>
                         <img src="img/winner.png" alt="" class="img-full">
                         <div class="player-card">
-                            <img src="img/circle-icon.png" alt="" width="50">
+                            <img src="img/circle-icon.png" alt="" width="60">
                             <span>{{winners.playerNo}}</span>
                         </div>
                         <div class="img-winner-card">
@@ -33,14 +33,14 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" ng-if="winner.length==1">
+    <div class="col-md-7" ng-if="winner.length==1">
         <div class="img-winner-holder winner-only-one">
             <div class="bubble" ng-if="winner[0].descr">
                 {{winner[0].descr}}
             </div>
             <img src="img/winner.png" alt="" class="img-full">
             <div class="player-card">
-                <img src="img/circle-icon.png" alt="" width="75">
+                <img src="img/circle-icon.png" alt="" width="100">
                 <span>{{winner[0].playerNo}}</span>
             </div>
             <div class="img-winner-card" ng-if="winner[0].descr">
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" ng-if="winner.length==1">
+    <div class="col-md-5" ng-if="winner.length==1">
         <div class="community-cards-one-winner">
             <div class="row">
                 <h4 class="text-uppercase"> Community Card</h4>
@@ -127,7 +127,7 @@
                 </div>
                 <img src="img/other.png" alt="" class="img-full">
                 <div class="player-card">
-                    <img src="img/circle-icon.png" alt="" width="50">
+                    <img src="img/circle-icon.png" alt="" width="60">
                     <span>{{showCards.playerNo}}</span>
                 </div>
                 <div class="rank"> - {{showCards.rank}}</div>
