@@ -114,7 +114,7 @@ a,
     .logo-right {
         padding: 15px;
         margin: 0 20px;
-        max-width: 180px;
+        max-width: 170px;
     }
     .title {
         margin-top: 20px;
@@ -555,7 +555,7 @@ a,
         .rank {
             position: absolute;
             font-size: 60px;
-            color: #fff;
+            color: #000;
             bottom: 70px;
             right: 120px;
             letter-spacing: -5px;
@@ -575,7 +575,7 @@ a,
                 left: 49%;
                 @include transform(translate(-50%, -50%));
                 font-size: 36px;
-                color: #fff;
+                color: #000;
                 font-family: "AvenirLTStd-Black";
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
