@@ -10220,7 +10220,7 @@ a,
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
       font-size: 42px;
-      color: #fff;
+      color: #000;
       font-family: "AvenirLTStd-Black";
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale; }
@@ -10241,7 +10241,7 @@ a,
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale; }
       .bg-all .player-number .main-dealer.dealer-circle {
-        left: 0px;
+        right: -10px;
         background: #da0015; }
       .bg-all .player-number .main-dealer.player-blind {
         right: -10px;
@@ -10466,7 +10466,7 @@ a,
     min-height: 180px;
     margin-bottom: 20px; }
     .winner-modal .img-winner-holder.winner-only-one {
-      margin-top: 20%;
+      margin-top: 12%;
       position: relative; }
       .winner-modal .img-winner-holder.winner-only-one .img-winner-card {
         width: 210px;
@@ -10640,7 +10640,7 @@ a,
   .bg-all .player-number .number {
     top: 58%;
     left: 55%;
-    font-size: 62px; }
+    font-size: 55px; }
   .bg-all .player-number .img-circle-player {
     width: 90px;
     height: 92px; }
