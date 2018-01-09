@@ -1,7 +1,7 @@
-<div class="player-{{player.playerNo}} player-number" ng-disabled="true">
+<div class="player-{{player.playerNo}} player-number" ng-disabled="true" ng-class="{'disable':!player.isActive || player.isFold}">
     <div class="img-circle-player">
-        <img src="img/circle-icon.png" alt="" width="100" ng-show="player.isActive" ng-class="{'enable-turn':player.isTurn}">
-        <img src="img/disable-icon.png" alt="" width="100" class="disable-player" ng-show="!player.isActive">
+        <img src="img/circle-icon.png" alt="" width="95" ng-show="player.isActive" ng-class="{'enable-turn':player.isTurn}">
+        <img src="img/disable-icon.png" alt="" width="95" class="disable-player" ng-show="!player.isActive">
     </div>
     <div class="main-dealer dealer-circle text-uppercase" ng-show="player.isDealer">D</div>
     <div class="main-dealer player-blind small-blind" ng-if="player.isSmallBlind"> SB </div>

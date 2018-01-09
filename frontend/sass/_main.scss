@@ -210,10 +210,10 @@ a,
         }
         .number {
             position: absolute;
-            top: 45%;
-            left: 50%;
+            top: 57%;
+            left: 52%;
+            font-size: 60px;
             @include transform(translate(-50%, -50%));
-            font-size: 42px;
             color: #000;
             font-family: "AvenirLTStd-Black";
             -webkit-font-smoothing: antialiased;
@@ -423,6 +423,16 @@ a,
             top: -40px;
             left: 50%;
             @include transform(translateX(-50%));
+        }
+        &.disable {
+            .blind-seen.blind {
+                background: #e2dac0;
+                color: #e2dac0;
+                opacity: 0.8;
+            }
+            .number {
+                color: #6a6a6a;
+            }
         }
     }
     .two-cards {
