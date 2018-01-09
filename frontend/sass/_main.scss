@@ -553,7 +553,7 @@ a,
                 top: 18px;
                 right: 160px;
                 span {
-                    font-size: 62px;
+                    font-size: 70px;
                 }
             }
             .bubble {
@@ -581,7 +581,7 @@ a,
             z-index: 4;
             span {
                 position: absolute;
-                top: 52%;
+                top: 53%;
                 left: 49%;
                 @include transform(translate(-50%, -50%));
                 font-size: 36px;

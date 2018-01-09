@@ -10614,7 +10614,7 @@ a,
         top: 18px;
         right: 160px; }
         .winner-modal .img-winner-holder.winner-only-one .player-card span {
-          font-size: 62px; }
+          font-size: 70px; }
       .winner-modal .img-winner-holder.winner-only-one .bubble {
         top: -65px;
         left: 375px;
@@ -10637,7 +10637,7 @@ a,
       z-index: 4; }
       .winner-modal .img-winner-holder .player-card span {
         position: absolute;
-        top: 52%;
+        top: 53%;
         left: 49%;
         -webkit-transform: translate(-50%, -50%);
         -moz-transform: translate(-50%, -50%);
