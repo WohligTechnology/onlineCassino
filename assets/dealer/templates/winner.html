@@ -10,7 +10,8 @@
           </div>
           <div class="padding">
             <button class="button button-royal button-block fnt-3em icon-left ion-chevron-left" ui-sref="dealer">
-              <span class="light-grey">Winner:</span> </br> {{winnerString}} </br>
+              <span class="light-grey">Winner:</span>
+              </br> {{winnerString}} </br>
               <span class="light-grey" ng-if="winners.length>1">(SPLIT POT)</span>
             </button>
           </div>
@@ -20,7 +21,8 @@
         </div>
         <div class="col-50">
           <div class="list">
-            <a class="item result-item" ng-repeat="player in players|orderBy:'winRank'" ng-class="{'winner-section':player.winner}" ng-class="toggleShowCardsClass(player)">
+            <a class="item result-item" ng-repeat="player in players|orderBy:'winRank'" ng-class="{'winner-section':player.winner,
+          'show-card':player.showCard}" ng-class="toggleShowCardsClass(player)">
               <div class="row">
                 <div class="col col-20 winner-show-only">
                   <card card='{{player.cards[0]}}' ng-style="style" width="60" height="80"> </card>
@@ -40,6 +42,10 @@
                   </h2>
                   <p class=" big-font color-white"> {{player.descr}}</p>
                   <span class="badge badge-royal">Rank {{player.winRank}}</span>
+
+                  <button class="button button-royal button-outline fnt-24 btn-show" ng-if="!player.showCard" on-tap="showPlayerCard(player)">
+                    Show
+                  </button>
                 </div>
               </div>
 

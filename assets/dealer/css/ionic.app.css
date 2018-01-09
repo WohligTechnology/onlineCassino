@@ -10245,6 +10245,9 @@ pre {
     background: #fff !important;
     color: #886aea !important; }
 
+.show-card p {
+  color: #000 !important; }
+
 .item.result-item {
   padding: 0px 20px; }
   .item.result-item .big-font {
@@ -10315,6 +10318,21 @@ pre {
   background: #000187;
   border-color: #000187; }
 
+.player-blind {
+  padding: 12px 6px;
+  left: 5px;
+  height: 45px;
+  width: 45px;
+  background: #fff;
+  font-size: 1.3em;
+  margin: 0;
+  color: #009686;
+  border-color: #009686; }
+
+.small-blind {
+  border-color: #673AB7;
+  color: #673AB7; }
+
 .player-raised {
   bottom: 52px;
   background: #ef473a;
@@ -10375,11 +10393,13 @@ card.community-card {
   float: right; }
 
 .result-item.winner-section .winner-show-only,
-.result-item.activated .winner-show-only {
+.result-item.activated .winner-show-only,
+.result-item.show-card .winner-show-only {
   display: block; }
 
 .result-item.winner-section .non-winner-show-only,
-.result-item.activated .non-winner-show-only {
+.result-item.activated .non-winner-show-only,
+.result-item.show-card .non-winner-show-only {
   display: none; }
 
 .winner-show-only {
@@ -10419,3 +10439,9 @@ card.community-card {
 
 span.light-grey {
   color: #e2cf00; }
+
+.btn-show {
+  padding: 4px 30px;
+  line-height: 1;
+  min-height: auto;
+  letter-spacing: 2px; }

@@ -263,10 +263,12 @@ angular.module('starter.controllers', [])
       });
     };
 
+
     $scope.makeDealer = function (tabId) {
       apiService.makeDealer({
         "tabId": tabId,
-        isStraddle: ($scope.form.isStraddle && $scope.activePlayers().length > 2)
+        straddle: $scope.form.straddle,
+        removeSmallBlind: $scope.form.removeSmallBlind
       }, function (data) {
         $state.go("dealer");
       });
@@ -274,9 +276,14 @@ angular.module('starter.controllers', [])
 
     $scope.activePlayers = function () {
       var players = _.flatten($scope.playersChunk);
-      return _.filter(players, function (player) {
+
+      var activePlayers = _.filter(players, function (player) {
         return player.isActive;
       });
+      $scope.maxStraddle = _.times(activePlayers.length - 3, function (n) {
+        return n + 1;
+      });
+      return activePlayers;
     };
 
     $scope.isDealerPlayerInActive = function (dealerPlayer) {
@@ -291,8 +298,9 @@ angular.module('starter.controllers', [])
       }
     };
     $scope.form = {
-      isStraddle: false,
-      adminurl: apiService.getAdminUrl()
+      straddle: 0,
+      adminurl: apiService.getAdminUrl(),
+      removeSmallBlind: false,
     };
 
     //Settings
@@ -313,6 +321,20 @@ angular.module('starter.controllers', [])
       window.location.href = window.location.href.split("#")[0];
     };
 
+    $scope.showRemoveSmallBlind = function () {
+      console.log($scope.dealer.dealerPlayer);
+      var nextPlayer = (parseInt($scope.dealer.dealerPlayer) + 1) % 8;
+      console.log(nextPlayer);
+      if ($scope.allPlayers[nextPlayer - 1].isActive === false) {
+        return true;
+      } else {
+        return false;
+      }
+
+    };
+
+
+
   })
 
   .controller('WinnerCtrl', function ($scope, $stateParams, apiService) {
@@ -330,4 +352,11 @@ angular.module('starter.controllers', [])
       });
     };
     $scope.showWinner();
+    $scope.showPlayerCard = function (player) {
+      player.showCard = true;
+      apiService.showPlayerCard(player, function (data) {
+
+      });
+    };
+
   });

@@ -19,14 +19,23 @@
                     </select>
                 </label>
             </div>
-            <div class="item item-toggle" ng-if="activePlayers().length>2">
-                <span class="fnt-24">Straddle</span>
-                <span class="fnt-16">{{form.isStraddle}}</span>
+            <div class="item item-toggle" ng-show="showRemoveSmallBlind()">
+                <span class="fnt-24">Remove Small Blind</span>
                 <label class="toggle toggle-positive">
-                    <input type="checkbox" ng-model="form.isStraddle">
+                    <input type="checkbox" ng-model="form.removeSmallBlind">
                     <div class="track">
                         <div class="handle"></div>
                     </div>
+                </label>
+            </div>
+            <div class="list">
+                <label class="item item-input item-select" for="dealer">
+                    <div class="input-label">
+                        <i class="ion-ios-people"></i> Straddle
+                    </div>
+                    <select id="dealer" ng-model="form.straddle">
+                        <option ng-repeat="val in maxStraddle" value="{{val}}">{{val}}</option>
+                    </select>
                 </label>
             </div>
             <div class="text-center">

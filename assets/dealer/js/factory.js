@@ -105,6 +105,11 @@ myApp.factory('apiService', function ($http, $q, $timeout) {
         },
         saveAdminUrl: function (adminurl) {
             $.jStorage.set("adminurl", adminurl);
+        },
+        showPlayerCard: function (player, callback) {
+            $http.post(adminurl + 'Player/showPlayerCard', player).then(function (data) {
+                callback(data.data);
+            });
         }
     };
 });
