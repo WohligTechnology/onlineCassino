@@ -499,6 +499,10 @@ a,
     .wohlig {
         color: #ffd82e;
         font-family: "AvenirLTStd-Black";
+        &:hover{
+          color: #ffd82e;
+          text-decoration: none;   
+        }
     }
 }
 
