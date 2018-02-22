@@ -1,0 +1,21 @@
+<ion-view>
+    <ion-content>
+        <div class="landing-screen">
+            <h1 class="header text-center padding">Configure Tab</h1>
+            <label class="item item-input">
+                <span class="input-label">Admin Url:</span>
+                <input type="url" class="text-right" ng-model="form.adminurl">
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Tablet Number:
+                </div>
+                <select ng-options="player as player for player in players" ng-model="form.player">
+                </select>
+            </label>
+            <div class="text-center padding">
+                <button class="button button-default button-start" on-tap="saveForm();" ng-disabled="!(form.adminurl && form.player)">Submit</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

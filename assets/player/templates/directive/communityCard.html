@@ -1,0 +1,6 @@
+<div ng-if="communityCard.cardValue==''">
+    <card card='NONE' ng-style="style" height="160"> </card>
+</div>
+<div ng-if="communityCard.cardValue!=''">
+    <card card='{{communityCard.cardValue}}' ng-style="style" height="160"> </card>
+</div>

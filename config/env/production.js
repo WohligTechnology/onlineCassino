@@ -26,7 +26,7 @@ module.exports = {
    ***************************************************************************/
 
   port: 1337,
-  realHost: "http://localhost:1337"
+  realHost: "http://10.40.1.61:1337"
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *

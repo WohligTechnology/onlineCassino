@@ -1,0 +1,85 @@
+<ion-view>
+    <ion-content class="bgImg" scroll="false">
+        <div ng-if="player.isTurn">
+            <svg width="100vw" height="100vh" id="made" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                <rect x="10" height="180" y="10" width="180" id="MyRect" />
+            </svg>
+        </div>
+        <div class="player-all">
+            <div class="logo-left pull-left">
+                <img src="img/logo.png" alt="" class="full-image">
+            </div>
+            <div class="marb-30 changeTab text-center">
+                <h2 class="winnersHead">
+                    <img src="img/title.png" alt="">
+                    <span class="player-number">{{player.playerNo}}</span>
+                </h2>
+                <h2 class=" winnersHead dealer"  ng-if="player.isDealer">Dealer</h2>
+                <h2 class="winnersHead player-blind small-blind" ng-if="player.isSmallBlind"> Small Blind </h2>
+                <h2 class="winnersHead player-blind " ng-if="player.isBigBlind"> Big Blind </h2>
+            </div>
+            <div class="row text-center mobile-cards" on-tap='youwin()'>
+                <div class="col-20" ng-repeat='card in communityCards track by $index' ng-if="!card.isBurn">
+                    <community ng-community-card="card"></community>
+                </div>
+            </div>
+            <div class="all-in text-center" ng-if="player.isAllIn" on-tap="showWinner()">
+                All In
+            </div>
+            <div class="all-in text-center" ng-if="player.isFold">
+                Fold
+            </div>
+            <div class="all-in text-center" ng-if="!player.isActive">
+                Not Active
+            </div>
+            <div class="row" ng-if="!(player.isFold || player.isAllIn)">
+                <div class="col-20 text-center">
+                    <div class="padding-right">
+                        <button class="button button-block" ng-disabled="!player.isTurn || remainingPlayer<=1" on-tap="allIn()">
+                            All In
+                        </button>
+                    </div>
+                </div>
+                <div class="col-20 text-center">
+                    <div class="padding-right">
+                        <button class="button button-block" ng-disabled="!player.isTurn || remainingPlayer<=1" on-tap="raise()">
+                            Raise
+                        </button>
+                    </div>
+                </div>
+                <div class="col-20 text-center">
+                    <!-- <div class="padding-right">
+                        <button class="button button-block button-red" on-tap="toggleStack();">
+                            <span ng-if="!isStack.value">Stack</span>
+                            <span ng-if="isStack.value">Unstack</span>
+                        </button>
+                    </div> -->
+                </div>
+                <div class="col-20 text-center">
+                    <div class="padding-right" ng-if="isCheck">
+                        <button class="button button-block" ng-disabled="!player.isTurn || remainingPlayer<=1" on-tap="check()">
+                            Check
+                        </button>
+                    </div>
+                    <div class="padding-right" ng-if="!isCheck">
+                        <button class="button button-block" ng-disabled="!player.isTurn || remainingPlayer<=1" on-tap="call()">
+                            Call
+                        </button>
+                    </div>
+                </div>
+                <div class="col-20 text-center">
+                    <div>
+                        <button class="button button-block" ng-disabled="!player.isTurn || remainingPlayer<=1" on-tap="fold()">
+                            Fold</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center marb20" ng-hide="player.isFold">
+                <player ng-player="player"></player>
+            </div>
+            <div class="player-not-active" ng-if="!player.isActive">
+                <span>Not Active</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
