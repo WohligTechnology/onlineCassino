@@ -56,7 +56,7 @@ myApp.controller('HomeCtrl', function ($scope, TemplateService, NavigationServic
         $scope.mapCard.isSaving = "";
         $scope.mapCard.isVerifing = "";
         $scope.mapCard.isNextCard = "";
-        // $scope.savingCard();
+        $scope.savingCard();
     };
 
     $scope.startReading = function () {
