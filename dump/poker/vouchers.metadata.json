@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"poker.vouchers"},{"v":1,"unique":true,"key":{"voucherCode":1},"name":"voucherCode_1","ns":"poker.vouchers","background":true}]}
