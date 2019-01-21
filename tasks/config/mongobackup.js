@@ -3,16 +3,16 @@ module.exports = function(grunt) {
     dump: {
       options: {
         host: "localhost",
-        db: "finwiz",
+        db: "poker",
         out: "./dump"
       }
     },
     restore: {
       options: {
-        db: "finwiz",
+        db: "poker",
         host: "localhost",
         drop: true,
-        path: "./dump/finwiz"
+        path: "./dump/poker"
       }
     }
   });
